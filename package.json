@@ -1,7 +1,7 @@
 {
   "name": "graceshopper",
   "version": "2.0.0",
-  "description": "Octopus Garden - an aquatic plant e-commerce app. The Buckbeaks Grace Shopper Project.",
+  "description": "Octopus Garden, an aquatic plant e-commerce app. The Buckbeaks Grace Shopper Project.",
   "engines": {
     "node": ">= 7.0.0"
   },
