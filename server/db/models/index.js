@@ -7,8 +7,8 @@ const Order = require('./order')
 Order.belongsTo(User)
 User.hasMany(Order)
 //Orders to plants, many to many
-Plant.belongsToMany(Order)
-Order.belongsToMany(Plant)
+// Plant.belongsTo(Order) //we've commented out this end of the association because we don't want the order Ids to be in the plant table, only the other way around
+Order.hasMany(Plant)
 
 /**
  * We'll export all of our models here, so that any time a module needs a model,
