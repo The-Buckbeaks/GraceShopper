@@ -24,6 +24,10 @@ const Order = db.define('order', {
   totalCost: {
     type: Sequelize.DECIMAL(10, 2),
     defaultValue: 0.0
+  },
+  checkedOut: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false
   }
   //Siwin: We can add a shipped date, payment method, etc later
 })
