@@ -37,7 +37,7 @@ const removeItem = (id, price) => ({
 
 // REDUCER
 
-const cartReducer = (state = defaultCart, action) => {
+const cart = (state = defaultCart, action) => {
   switch (action.type) {
     case GOT_CART_ITEMS: {
       return {
