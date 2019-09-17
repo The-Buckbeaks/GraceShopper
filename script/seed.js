@@ -98,7 +98,7 @@ async function seed() {
     Order.create({
       address: '900 Washington Ave., Brooklyn, NY 11225',
       checkedOut: true,
-      itemList: [2, 9],
+      items: [2, 9],
       shippingMethod: 'Standard Ground',
       totalCost: 35.57,
       userId: 1
@@ -106,7 +106,7 @@ async function seed() {
     Order.create({
       address: '5 Hanover Square, New York, NY 10004',
       checkedOut: true,
-      itemList: [3, 4, 5, 8],
+      items: [3, 4, 5, 8],
       shippingMethod: '1-Day',
       gift: true,
       totalCost: 27.25,
