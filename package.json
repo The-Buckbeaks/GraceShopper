@@ -1,7 +1,7 @@
 {
-  "name": "boilermaker",
+  "name": "graceshopper",
   "version": "2.0.0",
-  "description": "Some boilerplate code to get you started - get shakin'!",
+  "description": "Octopus' Garden - an aquatic plant e-commerce app! The Buckbeaks' Grace Shopper Project.",
   "engines": {
     "node": ">= 7.0.0"
   },
