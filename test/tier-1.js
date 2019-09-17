@@ -5,10 +5,10 @@ const {expect} = require('chai')
 //Require all files that we could like to test
 
 //models
-const db = require('../server/db/models/')
+const db = require('../server/db/models')
 
 //Plant model
-const Plant = db.model('plant')
+const Plant = require('../server/db/models/plant')
 
 // --- TESTS ---
 
@@ -22,10 +22,21 @@ describe('Models', () => {
           await plant.validate()
           throw Error('validation should fail without name')
         } catch (error) {
-          expect(error.message).to.contain('name cannot be nukk')
+          expect(error.message).to.contain('name cannot be null')
         }
       })
-      //
+      it('sets a default image URL if one is not provided', async () => {
+        const plant = Plant.build({
+          name: 'plant plant',
+          description: 'this is a plant'
+        })
+        try {
+          await plant.validate()
+          expect(plant.imgUrl).to.equal('https://imgur.com/a/MUYoBu0')
+        } catch (error) {
+          expect(error.message).to.contain('imgUrl cannot be null')
+        }
+      })
     })
   })
 })
