@@ -2,12 +2,12 @@
 
 import React from 'react'
 import {connect} from 'react-redux'
+import {getAllPlants} from '../store/index'
 //also need to import thunk from reducer
 
 class Plants extends React.Component {
   componentDidMount() {
-    //need the thunk
-    //ie. this.props.getAllPlants()
+    this.props.getAllPlants()
   }
   render() {
     return (
@@ -34,7 +34,7 @@ const mapStateToProps = state => ({
   plants: state.plants
 })
 const mapDispatchToProps = dispatch => ({
-  //getAllplants: ()=>dispatch (getAllplants())
+  getAllplants: () => dispatch(getAllPlants())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Plants)
