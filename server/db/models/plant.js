@@ -13,6 +13,10 @@ const Plant = db.define('plant', {
   price: {
     type: Sequelize.DECIMAL(10, 2)
   },
+  imgUrl: {
+    type: Sequelize.STRING,
+    defaultValue: 'https://imgur.com/a/MUYoBu0'
+  },
   quantity: Sequelize.INTEGER
   //Siwin: We can add columns for "on sale", "light requirements", etc later
 })

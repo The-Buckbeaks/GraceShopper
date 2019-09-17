@@ -21,10 +21,6 @@ const Order = db.define('order', {
     type: Sequelize.BOOLEAN,
     defaultValue: false
   },
-  checkedOut: {
-    type: Sequelize.BOOLEAN,
-    defaultValue: false
-  },
   totalCost: {
     type: Sequelize.DECIMAL(10, 2),
     defaultValue: 0.0
