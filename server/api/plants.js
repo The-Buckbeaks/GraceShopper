@@ -1,7 +1,7 @@
 const router = require('express').Router()
-const Plant = require('../db/models/plant')
+const {Plant} = require('../db/models')
 
-router.get('/plants', async (req, res, next) => {
+router.get('/', async (req, res, next) => {
   try {
     const allPlants = await Plant.findAll()
     res.json(allPlants)
@@ -10,7 +10,7 @@ router.get('/plants', async (req, res, next) => {
   }
 })
 
-router.get('/plants/:id', async (req, res, next) => {
+router.get('/:id', async (req, res, next) => {
   try {
     const plant = await Plant.findOne({
       where: {
