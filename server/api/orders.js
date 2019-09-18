@@ -31,13 +31,7 @@ router.get('/:id', async (req, res, next) => {
 router.post('/', async (req, res, next) => {
   try {
     if (!req.body) res.sendStatus(500)
-    const {
-      address,
-      items,
-      shippingMethod,
-      gift,
-      totalCost,
-    } = req.body
+    const {address, items, shippingMethod, gift, totalCost} = req.body
     const newOrder = await Order.create({
       address,
       items,
@@ -64,8 +58,7 @@ router.post('/:userId', async (req, res, next) => {
       date,
       gift,
       totalCost,
-      checkedOut,
-      userId: req.params.userId
+      checkedOut
     } = req.body
     const newOrder = await Order.create({
       address,
@@ -75,7 +68,7 @@ router.post('/:userId', async (req, res, next) => {
       gift,
       totalCost,
       checkedOut,
-      userId
+      userId: req.params.userId
     })
     res.status(201)
     res.json(newOrder)
