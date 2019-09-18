@@ -1,7 +1,7 @@
 'use strict'
 
 const db = require('../server/db')
-const {User, Plant, Order} = require('../server/db/models')
+const {User, Plant, Order, PlantOrder} = require('../server/db/models')
 
 async function seed() {
   await db.sync({force: true})
@@ -99,7 +99,7 @@ async function seed() {
       address: '900 Washington Ave., Brooklyn, NY 11225',
       checkedOut: true,
       shippingMethod: 'Standard Ground',
-      totalCost: 35.57,
+      totalCost: 3245,
       userId: 1
     }),
     Order.create({
@@ -107,14 +107,48 @@ async function seed() {
       checkedOut: true,
       shippingMethod: '1-Day',
       gift: true,
-      totalCost: 27.25,
+      totalCost: 6680,
       userId: 2
     })
   ])
+
+  const plantOrders = await Promise.all([
+    PlantOrder.create({
+      orderId: 1,
+      plantId: 1,
+      quantity: 2,
+      price: 799
+    }),
+    PlantOrder.create({
+      orderId: 1,
+      plantId: 2,
+      quantity: 3,
+      price: 549
+    }),
+    PlantOrder.create({
+      orderId: 2,
+      plantId: 9,
+      quantity: 1,
+      price: 955
+    }),
+    PlantOrder.create({
+      orderId: 2,
+      plantId: 8,
+      quantity: 5,
+      price: 749
+    }),
+    PlantOrder.create({
+      orderId: 2,
+      plantId: 3,
+      quantity: 2,
+      price: 990
+    })
+  ])
+
   console.log(
-    `seeded ${users.length} users, ${plants.length} plants, and ${
+    `seeded ${users.length} users, ${plants.length} plants, ${
       orders.length
-    } orders`
+    } orders, and our plant order join table!`
   )
   console.log(`seeded successfully`)
 }

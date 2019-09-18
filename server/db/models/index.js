@@ -10,8 +10,18 @@ User.hasMany(Order)
 //Orders to plants, many to many
 
 // Plant.belongsTo(Order) //we've commented out this end of the association because we don't want the order Ids to be in the plant table, only the other way around
-Order.belongsToMany(Plant, {through: PlantOrder})
-Plant.belongsToMany(Order, {through: PlantOrder})
+Order.belongsToMany(Plant, {
+  through: PlantOrder,
+  as: 'plants',
+  foreignKey: 'orderId',
+  otherKey: 'plantId'
+})
+Plant.belongsToMany(Order, {
+  through: PlantOrder,
+  as: 'orders',
+  foreignKey: 'plantId',
+  otherKey: 'orderId'
+})
 
 /**
  * We'll export all of our models here, so that any time a module needs a model,
