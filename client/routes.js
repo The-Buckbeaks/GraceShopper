@@ -8,7 +8,7 @@ import {
   UserHome,
   Cart,
   AllPlants,
-  SinglePlant
+  SinglePlantView
 } from './components'
 import {me} from './store'
 
@@ -26,7 +26,7 @@ class Routes extends Component {
     return (
       <Switch>
         {/* Routes placed here are available to all visitors */}
-        <Route exact path="/plants/:id" component={SinglePlant} />
+        <Route exact path="/plants/:id" component={SinglePlantView} />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
         <Route path="/cart" component={Cart} />
