@@ -3,13 +3,14 @@ import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 
 class Cart extends Component {
+  //create an order
   render() {
-    return this.props.quantity && this.props.quantity > 0 ? (
+    return this.props.cart.quantity && this.props.cart.quantity > 0 ? (
       <div className="cart-container">
         <div className="cart-title">
           <h1>Your Shopping Cart</h1>
         </div>
-        {this.props.items.map(item => {
+        {this.props.cart.items.map(item => {
           return (
             <li className="cart-item" key={item.id}>
               <div className="cart-image">
@@ -40,7 +41,7 @@ class Cart extends Component {
 }
 
 const mapStateToProps = state => ({
-  items: state.items
+  cart: state.cart
 })
 
 export default connect(mapStateToProps)(Cart)

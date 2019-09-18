@@ -1,4 +1,5 @@
 import axios from 'axios'
+import {runInNewContext} from 'vm'
 
 // ACTION TYPES
 const GET_CART_ITEMS = 'GET_CART_ITEMS'
@@ -6,6 +7,7 @@ const ADD_ITEM = 'ADD_ITEM'
 const REMOVE_ITEM = 'REMOVE_ITEM'
 const CLEAR_CART = 'CLEAR_CART'
 const CHECKOUT = 'CHECKOUT'
+const CREATE_CART = 'CREATE_CART'
 
 // INITIAL STATE
 const defaultCart = {
@@ -16,8 +18,6 @@ const defaultCart = {
   gift: false,
   totalCost: 0,
   checkedOut: false
-  // selected: {}
-  // ^^ selected can be a plant object whose quantity we can increase/decrease?
 }
 
 // ACTION CREATORS
@@ -49,7 +49,22 @@ const checkout = cart => ({
   cart
 })
 
+const createCart = () => ({
+  type: CREATE_CART
+})
+
 // THUNK CREATORS
+
+//createCart Thunk
+export const createCartThunk = () => async dispatch => {
+  //guest
+  try {
+    const res = await axios.post('/', defaultCart)
+    dispatch(createCart(res.data))
+  } catch (err) {
+    console.error('there was an error creating a cart!', err)
+  }
+}
 
 // export const checkoutThunk = (cart) = async dispatch => ({
 //   try {
@@ -94,6 +109,10 @@ const cart = (state = defaultCart, action) => {
         ...state,
         checkedOut: true
       }
+    }
+    case CREATE_CART: {
+      return {...state}
+      //we might eventually need to return something related to the session, if a user is logged in
     }
     default: {
       return state
