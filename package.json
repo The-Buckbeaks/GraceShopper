@@ -23,8 +23,7 @@
     "test": "mocha ./test/tier-1 --recursive --watch --require @babel/polyfill --require @babel/register"
   },
   "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
+    "hooks": {      "pre-commit": "lint-staged"
     }
   },
   "lint-staged": {

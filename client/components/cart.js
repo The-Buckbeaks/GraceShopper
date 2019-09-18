@@ -1,23 +1,35 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {Link} from 'react-router-dom'
 import SingleCartItem from './SingleCartItem'
+import {checkoutThunk} from '../store/cart'
 
 class Cart extends Component {
-  //create an order
+  constructor(props) {
+    super(props)
+    this.handleClick = this.handleClick.bind(this)
+  }
+
+  handleClick() {
+    this.props.checkoutThunk()
+  }
+
   render() {
-    return this.props.cart.quantity && this.props.cart.quantity > 0 ? (
-      <div className="cart-container">
-        <div className="cart-title">
-          <h1>Your Shopping Cart</h1>
+    return (
+      <div>
+        this.props.cart.quantity && this.props.cart.quantity > 0 ? (
+        <div className="cart-container">
+          <div className="cart-title">
+            <h1>Your Shopping Cart</h1>
+          </div>
+          {this.props.cart.items.map(item => (
+            <SingleCartItem key={item.id} item={item} />
+          ))}
+          <button type="submit" value="Submit" onClick={this.handleClick} />
         </div>
-        {this.props.cart.items.map(item => (
-          <SingleCartItem key={item.id} item={item} />
-        ))}
-      </div>
-    ) : (
-      <div className="cart-container">
-        <h2>There are currently no items in the cart.</h2>
+        ) : (
+        <div className="cart-container">
+          <h2>There are currently no items in the cart.</h2>
+        </div>
       </div>
     )
   }
@@ -26,5 +38,8 @@ class Cart extends Component {
 const mapStateToProps = state => ({
   cart: state.cart
 })
+const mapDispatchToProps = dispatch => ({
+  checkoutThunk: () => dispatch(checkoutThunk())
+})
 
-export default connect(mapStateToProps)(Cart)
+export default connect(mapStateToProps, mapDispatchToProps)(Cart)
