@@ -2,7 +2,7 @@
 
 import React from 'react'
 import {connect} from 'react-redux'
-import {getAllPlants} from '../store/index'
+import {getAllPlants} from '../store/plants'
 //also need to import thunk from reducer
 
 class AllPlants extends React.Component {
