@@ -37,7 +37,7 @@ export const getSinglePlant = id => async dispatch => {
 }
 
 //reducer
-const plantReducer = function(state = initialState, action) {
+const plants = function(state = initialState, action) {
   switch (action.type) {
     case GET_PLANTS:
       return {
@@ -53,4 +53,4 @@ const plantReducer = function(state = initialState, action) {
       return state
   }
 }
-export default plantReducer
+export default plants
