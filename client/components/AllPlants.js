@@ -15,11 +15,13 @@ class AllPlants extends React.Component {
       <div>
         <h1 id="all-plants">All the Plants</h1>
         <div className="plant-container">
-          {this.props.plants && this.props.plants.length
-            ? this.props.plants.map(plant => (
-                <SinglePlant key={plant.id} plant={plant} />
-              ))
-            : console.log(this.props.plants)}
+          {this.props.plants && this.props.plants.length ? (
+            this.props.plants.map(plant => (
+              <SinglePlant key={plant.id} plant={plant} />
+            ))
+          ) : (
+            <h1>No plants</h1>
+          )}
         </div>
       </div>
     )

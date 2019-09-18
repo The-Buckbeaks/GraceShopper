@@ -15,7 +15,7 @@ class SinglePlantView extends React.Component {
           <div>
             <h3>Plant name: {plant.name}</h3>
             <h3>Description:{plant.description}</h3>
-            <h4>Price:{plant.price}</h4>
+            <h4>Price: ${plant.price / 100}</h4>
             <img src={plant.imgUrl} alt={plant.name} />
           </div>
         ) : (
