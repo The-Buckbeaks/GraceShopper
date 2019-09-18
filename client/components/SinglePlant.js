@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {getSinglePlant} from '../store/plantsReducer'
+import {getSinglePlant} from '../store/plants'
 
 class SinglePlant extends React.Component {
   componentDidMount() {
@@ -9,12 +9,13 @@ class SinglePlant extends React.Component {
   }
 
   render() {
+    const {plant} = this.props.plant
     return (
-      <div className="singlePlant">
-        <h1>Plant Name:{this.props.plant.name}</h1>
-        <h3>Descripiton:{this.props.plant.description}</h3>
-        <h4>price:{this.props.plant.price}</h4>
-        <img src={this.props.plant.imageUrl} alt="image not working" />
+      <div className="single-plant-container">
+        <h1>Plant Name:{plant.name}</h1>
+        <h3>Description:{plant.description}</h3>
+        <h4>Price:{plant.price}</h4>
+        <img src={plant.imgUrl} alt={plant.name} />
       </div>
     )
   }
