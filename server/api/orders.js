@@ -35,20 +35,17 @@ router.post('/', async (req, res, next) => {
       address,
       items,
       shippingMethod,
-      date,
       gift,
       totalCost,
-      checkedOut
     } = req.body
     const newOrder = await Order.create({
       address,
       items,
       shippingMethod,
-      date,
       gift,
-      totalCost,
-      checkedOut
+      totalCost
     })
+    res.status(201)
     res.json(newOrder)
   } catch (err) {
     next(err)
@@ -67,7 +64,8 @@ router.post('/:userId', async (req, res, next) => {
       date,
       gift,
       totalCost,
-      checkedOut
+      checkedOut,
+      userId: req.params.userId
     } = req.body
     const newOrder = await Order.create({
       address,
@@ -76,8 +74,10 @@ router.post('/:userId', async (req, res, next) => {
       date,
       gift,
       totalCost,
-      checkedOut
+      checkedOut,
+      userId
     })
+    res.status(201)
     res.json(newOrder)
   } catch (err) {
     next(err)
@@ -88,7 +88,7 @@ router.post('/:userId', async (req, res, next) => {
 // Updates an order after checkout
 router.put('/checkout', async (req, res, next) => {
   try {
-    let order = await Order.findbyId(req.body.id)
+    const order = await Order.findById(req.body.id)
     if (!order) res.sendStatus(404)
     const {
       address,
@@ -97,7 +97,8 @@ router.put('/checkout', async (req, res, next) => {
       date,
       gift,
       totalCost,
-      checkedOut
+      checkedOut,
+      userId
     } = req.body
     await order.update({
       address,
@@ -106,7 +107,8 @@ router.put('/checkout', async (req, res, next) => {
       date,
       gift,
       totalCost,
-      checkedOut
+      checkedOut,
+      userId
     })
   } catch (err) {
     next(err)
@@ -114,7 +116,7 @@ router.put('/checkout', async (req, res, next) => {
 })
 
 // DELETE ORDER
-// Clearing the cart
+// ADMIN USE ONLY - deleting cart/order from database (not clearing the cart)
 router.delete('/:id', async (req, res, next) => {
   try {
     const order = await Order.findById(req.params.id)
