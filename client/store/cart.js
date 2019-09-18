@@ -55,24 +55,58 @@ const createCart = () => ({
 
 // THUNK CREATORS
 
+//addItem Thunk
+export const addItemThunk = cart => async dispatch => {
+  try {
+    const res = await axios.put(`/api/orders/${cart.id}`, cart)
+    dispatch(addItem(res.data))
+  } catch (err) {
+    console.log('there was an error adding an item', err)
+  }
+}
+
+//removeItem Thunk
+export const removeItemThunk = cart => async dispatch => {
+  try {
+    const res = await axios.put(`/api/orders/${cart.id}`, cart)
+    dispatch(removeItem(res.data))
+  } catch (err) {
+    console.log('there was an error removing an item', err)
+  }
+}
+
+//checkout Thunk
+export const checkoutThunk = cart => async dispatch => {
+  try {
+    const res = await axios.put(`/api/orders/${cart.id}`, {checkedOut: true})
+    dispatch(checkout(res.data))
+  } catch (err) {
+    console.log('There was an error checking out.', err)
+  }
+}
+
 //createCart Thunk
 export const createCartThunk = () => async dispatch => {
   //guest
   try {
-    const res = await axios.post('/', defaultCart)
+    const res = await axios.post('/api/orders/', defaultCart)
     dispatch(createCart(res.data))
   } catch (err) {
-    console.error('there was an error creating a cart!', err)
+    console.log('there was an error creating a cart!', err)
   }
 }
 
-// export const checkoutThunk = (cart) = async dispatch => ({
+//Update Cart
+// -- ADMIN USE ONLY: CODE IS HERE FOR FUTURE REFERENCE, updateCart does not exist yet
+// export const updateCartThunk = (orderId, cart) => async dispatch => {
 //   try {
-// make an axios update request here with the submission data (from cart)
-//   } catch (error) {
-//     console.error('There was an error checking out.')
+//     const {updateResponse} = await axios.put(`/api/orders/${orderId}`, cart)
+//     const {data} = await axios.get(`/api/orders/${orderId}`)
+//     dispatch(updateCart(data))
+//   } catch (err) {
+//     console.log('there was an error updating that order', err)
 //   }
-// })
+// }
 
 // REDUCER
 
