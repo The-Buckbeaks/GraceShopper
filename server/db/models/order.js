@@ -6,10 +6,6 @@ const Order = db.define('order', {
     type: Sequelize.TEXT,
     allowNull: false
   },
-  items: {
-    type: Sequelize.ARRAY(Sequelize.TEXT),
-    allowNull: false
-  },
   shippingMethod: {
     type: Sequelize.ENUM('1-Day', 'Standard Ground')
   },
