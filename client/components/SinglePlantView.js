@@ -3,6 +3,14 @@ import {connect} from 'react-redux'
 import {getSinglePlant} from '../store'
 
 class SinglePlantView extends React.Component {
+  handleSubmit(event) {
+    try {
+      event.preventDefault()
+      // this.props.addItem(this.props.plant)
+    } catch (error) {
+      console.log(error)
+    }
+  }
   componentDidMount() {
     const id = Number(this.props.match.params.id)
     this.props.getSinglePlant(id)
@@ -15,6 +23,9 @@ class SinglePlantView extends React.Component {
           <div>
             <h3>Plant name: {plant.name}</h3>
             <h3>Description:{plant.description}</h3>
+            <button type="submit" onSubmit={this.handleSubmit}>
+              Add to Cart
+            </button>
             <h4>Price: ${plant.price / 100}</h4>
             <img src={plant.imgUrl} alt={plant.name} />
           </div>
