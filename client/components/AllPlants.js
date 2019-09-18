@@ -17,14 +17,6 @@ class AllPlants extends React.Component {
         <div className="plant-container">
           {this.props.plants && this.props.plants.length
             ? this.props.plants.map(plant => (
-                // <div className="single-plant" key={plant.id}>
-                //   <ul>
-                //     <h3>Plant Name: {plant.name}</h3>
-                //     <h4>Description: {plant.description}</h4>
-                //     <h5>Price:{plant.price}</h5>
-                //     <img src={plant.imgUrl} alt={plant.name} />
-                //   </ul>
-                // </div>
                 <SinglePlant key={plant.id} plant={plant} />
               ))
             : console.log(this.props.plants)}

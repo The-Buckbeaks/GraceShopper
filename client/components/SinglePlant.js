@@ -1,6 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {getSinglePlant} from '../store/plants'
+import {Link} from 'react-router-dom'
 
 class SinglePlant extends React.Component {
   // componentDidMount() {
@@ -9,10 +10,12 @@ class SinglePlant extends React.Component {
   // }
 
   render() {
-    const {name, description, price, imgUrl} = this.props.plant
+    const {name, description, price, imgUrl, id} = this.props.plant
     return (
       <div className="single-plant-container">
-        <h1>Plant Name:{name}</h1>
+        <Link to={`/plants/${id}`}>
+          <h1>Plant Name:{name}</h1>
+        </Link>
         <h3>Description:{description}</h3>
         <h4>Price:{price}</h4>
         <img src={imgUrl} alt={name} />
