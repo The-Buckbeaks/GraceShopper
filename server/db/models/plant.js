@@ -11,7 +11,7 @@ const Plant = db.define('plant', {
     allowNull: false
   },
   price: {
-    type: Sequelize.DECIMAL(10, 2)
+    type: Sequelize.INTEGER //because JS can't handle floats well. convert to currency with /100 on front end.
   },
   imgUrl: {
     type: Sequelize.STRING,

@@ -6,10 +6,6 @@ const Order = db.define('order', {
     type: Sequelize.TEXT,
     allowNull: false
   },
-  items: {
-    type: Sequelize.ARRAY(Sequelize.TEXT),
-    allowNull: false
-  },
   shippingMethod: {
     type: Sequelize.ENUM('1-Day', 'Standard Ground')
   },
@@ -22,8 +18,8 @@ const Order = db.define('order', {
     defaultValue: false
   },
   totalCost: {
-    type: Sequelize.DECIMAL(10, 2),
-    defaultValue: 0.0
+    type: Sequelize.INTEGER,
+    defaultValue: 0
   },
   checkedOut: {
     type: Sequelize.BOOLEAN,
