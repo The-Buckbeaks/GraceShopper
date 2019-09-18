@@ -3,29 +3,30 @@ import {connect} from 'react-redux'
 import {getSinglePlant} from '../store/plants'
 
 class SinglePlant extends React.Component {
-  componentDidMount() {
-    const id = Number(this.props.match.params.id)
-    this.props.getSinglePlant(id)
-  }
+  // componentDidMount() {
+  //   const id = Number(this.props.match.params.id)
+  //   this.props.getSinglePlant(id)
+  // }
 
   render() {
-    const {plant} = this.props.plant
+    const {name, description, price, imgUrl} = this.props.plant
     return (
       <div className="single-plant-container">
-        <h1>Plant Name:{plant.name}</h1>
-        <h3>Description:{plant.description}</h3>
-        <h4>Price:{plant.price}</h4>
-        <img src={plant.imgUrl} alt={plant.name} />
+        <h1>Plant Name:{name}</h1>
+        <h3>Description:{description}</h3>
+        <h4>Price:{price}</h4>
+        <img src={imgUrl} alt={name} />
       </div>
     )
   }
 }
 
-const mapStateToProps = state => ({
-  plant: state.plant
-})
-const mapDispatchToProps = dispatch => ({
-  getSinglePlant: id => dispatch(getSinglePlant(id))
-})
+// const mapStateToProps = state => ({
+//   plant: state.plant
+// })
+// const mapDispatchToProps = dispatch => ({
+//   getSinglePlant: id => dispatch(getSinglePlant(id))
+// })
 
-export default connect(mapStateToProps, mapDispatchToProps)(SinglePlant)
+// export default connect(mapStateToProps, mapDispatchToProps)(SinglePlant)
+export default SinglePlant
