@@ -27,7 +27,7 @@ class AllPlants extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  plants: state.plantReducer.plants
+  plants: state.plants.plants
 })
 const mapDispatchToProps = dispatch => ({
   getAllPlants: () => dispatch(getAllPlants())
