@@ -1,22 +1,30 @@
 import axios from 'axios'
 
 // ACTION TYPES
-const GOT_CART_ITEMS = 'GOT_CART_ITEMS'
+const GET_CART_ITEMS = 'GET_CART_ITEMS'
 const ADD_ITEM = 'ADD_ITEM'
 const REMOVE_ITEM = 'REMOVE_ITEM'
+const CLEAR_CART = 'CLEAR_CART'
 const CHECKOUT = 'CHECKOUT'
 
 // INITIAL STATE
 const defaultCart = {
+  address: '',
   items: [],
+  shippingMethod: null,
   quantity: 0,
-  cost: 0,
+  gift: false,
+  totalCost: 0,
   checkedOut: false
+  // selected: {}
+  // ^^ selected can be a plant object whose quantity we can increase/decrease?
 }
 
 // ACTION CREATORS
-const gotCartItems = cart => ({
-  type: GOT_CART_ITEMS,
+// We need action creators to set each of the cart properties (based off of the order properties)
+
+const getCartItems = cart => ({
+  type: GET_CART_ITEMS,
   cart
 })
 
@@ -25,21 +33,37 @@ const addItem = item => ({
   item
 })
 
-const removeItem = (id, price) => ({
+const removeItem = (plantId, price) => ({
   type: REMOVE_ITEM,
-  id,
+  plantId,
   price
+})
+
+const clearCart = orderId => ({
+  type: CLEAR_CART,
+  orderId
+})
+
+const checkout = cart => ({
+  type: CHECKOUT,
+  cart
 })
 
 // THUNK CREATORS
 
-// still need to build thunk creators
+// export const checkoutThunk = (cart) = async dispatch => ({
+//   try {
+// make an axios update request here with the submission data (from cart)
+//   } catch (error) {
+//     console.error('There was an error checking out.')
+//   }
+// })
 
 // REDUCER
 
 const cart = (state = defaultCart, action) => {
   switch (action.type) {
-    case GOT_CART_ITEMS: {
+    case GET_CART_ITEMS: {
       return {
         ...state,
         items: action.items,
@@ -50,14 +74,19 @@ const cart = (state = defaultCart, action) => {
       return {
         ...state,
         items: [...state.items, action.item],
-        cost: state.cost + action.item.price
+        totalCost: state.totalCost + action.item.price
       }
     }
     case REMOVE_ITEM: {
       return {
         ...state,
-        items: state.items.filter(item => item.id !== Number(action.id)),
-        cost: state.cost - action.price
+        items: state.items.filter(item => item.id !== Number(action.plantId)),
+        totalCost: state.totalCost - action.price
+      }
+    }
+    case CLEAR_CART: {
+      return {
+        defaultCart
       }
     }
     case CHECKOUT: {

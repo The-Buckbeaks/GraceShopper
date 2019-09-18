@@ -1,0 +1,34 @@
+diff a/server/api/orders.js b/server/api/orders.js	(rejected hunks)
+@@ -34 +34,9 @@ router.post('/', async (req, res, next) => {
+-    const { address, items, shippingMethod, date, gift, totalCost, checkedOut } = req.body
++    const {
++      address,
++      items,
++      shippingMethod,
++      date,
++      gift,
++      totalCost,
++      checkedOut
++    } = req.body
+@@ -55 +63,9 @@ router.post('/:userId', async (req, res, next) => {
+-    const { address, items, shippingMethod, date, gift, totalCost, checkedOut } = req.body
++    const {
++      address,
++      items,
++      shippingMethod,
++      date,
++      gift,
++      totalCost,
++      checkedOut
++    } = req.body
+@@ -77 +93,9 @@ router.put('/checkout', async (req, res, next) => {
+-    const { address, items, shippingMethod, date, gift, totalCost, checkedOut } = req.body
++    const {
++      address,
++      items,
++      shippingMethod,
++      date,
++      gift,
++      totalCost,
++      checkedOut
++    } = req.body
