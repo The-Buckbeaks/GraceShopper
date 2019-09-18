@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 // ACTION TYPES
-const GET_CART_ITEMS = 'GOT_CART_ITEMS'
+const GET_CART_ITEMS = 'GET_CART_ITEMS'
 const ADD_ITEM = 'ADD_ITEM'
 const REMOVE_ITEM = 'REMOVE_ITEM'
 const CLEAR_CART = 'CLEAR_CART'
@@ -33,15 +33,15 @@ const addItem = item => ({
   item
 })
 
-const removeItem = (id, price) => ({
+const removeItem = (plantId, price) => ({
   type: REMOVE_ITEM,
-  id,
+  plantId,
   price
 })
 
-const clearCart = id => ({
+const clearCart = orderId => ({
   type: CLEAR_CART,
-  id
+  orderId
 })
 
 const checkout = cart => ({
@@ -74,24 +74,19 @@ const cart = (state = defaultCart, action) => {
       return {
         ...state,
         items: [...state.items, action.item],
-        totalCost: state.cost + action.item.price
+        totalCost: state.totalCost + action.item.price
       }
     }
     case REMOVE_ITEM: {
       return {
         ...state,
-        items: state.items.filter(item => item.id !== Number(action.id)),
-        totalCost: state.cost - action.price
+        items: state.items.filter(item => item.id !== Number(action.plantId)),
+        totalCost: state.totalCost - action.price
       }
     }
     case CLEAR_CART: {
       return {
-        ...state,
-        items: [],
-        quantity: 0,
-        gift: false,
-        totalCost: 0,
-        checkedOut: false
+        defaultCart
       }
     }
     case CHECKOUT: {
