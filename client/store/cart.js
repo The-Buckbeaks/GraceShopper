@@ -65,6 +65,7 @@ export const getCart = id => async dispatch => {
 //addItem Thunk
 export const addItemThunk = (plant, orderId) => async dispatch => {
   try {
+    console.log('ADD ITEM THUNK CALLED WITH', plant, orderId)
     const res = await axios.put(`/api/orders/${orderId}`, plant)
     dispatch(addItem(res.data))
   } catch (err) {

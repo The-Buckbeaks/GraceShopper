@@ -10,9 +10,8 @@ class Cart extends Component {
   }
 
   async componentDidMount() {
-    const cartItems = await this.props.getCart(2)
-    console.log(cartItems)
-    //await console.log('From componentDidMount', this.props.cart)
+    //we are currently hard coding in the cartID for testing purposes
+    await this.props.getCart(28)
   }
 
   handleClick() {
@@ -20,6 +19,7 @@ class Cart extends Component {
   }
 
   render() {
+    //the button at the bottom of the page needs to redirect to the checkout form, rather than handleSubmit
     const cart = this.props.cart
     return (
       <div>
@@ -29,8 +29,8 @@ class Cart extends Component {
               <h1>Your Shopping Cart</h1>
             </div>
 
-            {cart.plants.map(item => (
-              <SingleCartItem key={item.id} item={item} />
+            {cart.plants.map(plant => (
+              <SingleCartItem key={plant.id} item={plant} />
             ))}
             <button type="submit" value="Submit" onClick={this.handleClick}>
               Checkout

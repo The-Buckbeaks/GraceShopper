@@ -2,6 +2,7 @@ import React from 'react'
 import {Link} from 'react-router-dom'
 
 const SingleCartItem = props => {
+  console.log('FROM SINGLE CART ITEM', props)
   const {item} = props
   return (
     <li className="cart-item" key={item.id}>
