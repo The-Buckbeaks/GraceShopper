@@ -5,6 +5,7 @@ module.exports = router
 // GET ALL ORDERS
 router.get('/', async (req, res, next) => {
   try {
+    if (req.session.user) res.json(req.session.user)
     const orders = await Order.findAll()
     res.json(orders)
   } catch (err) {
@@ -13,38 +14,61 @@ router.get('/', async (req, res, next) => {
 })
 
 // GET SINGLE ORDER
-router.get('/:id', async (req, res, next) => {
+// router.get('/:id', async (req, res, next) => {
+//   try {
+//     const order = await Order.findOne({
+//       where: {
+//         id: req.params.id
+//       }
+//     })
+//     res.json(order)
+//   } catch (err) {
+//     next(err)
+//   }
+// })
+
+// GET CART
+// if there is a req.session.user logged in, get order where
+router.get('/cart', async (req, res, next) => {
   try {
-    const order = await Order.findOne({
-      where: {
-        id: req.params.id
-      }
-    })
-    res.json(order)
+    if (req.session.user) {
+      const userCart = await Order.findOrCreate({
+        where: {
+          userId: req.session.user,
+          checkedOut: false
+        }
+      })
+      if (userCart) res.json(userCart)
+      else res.end()
+    } else {
+      const guestCart = await Order.create()
+      res.status(201)
+      res.json(guestCart)
+    }
   } catch (err) {
     next(err)
   }
 })
 
-// CREATE NEW GUEST ORDER
-// Creating a new cart for an order that is not associated with a user (guest)
-router.post('/', async (req, res, next) => {
-  try {
-    if (!req.body) res.sendStatus(500)
-    const {address, items, shippingMethod, gift, totalCost} = req.body
-    const newOrder = await Order.create({
-      address,
-      items,
-      shippingMethod,
-      gift,
-      totalCost
-    })
-    res.status(201)
-    res.json(newOrder)
-  } catch (err) {
-    next(err)
-  }
-})
+// // CREATE NEW GUEST ORDER
+// // Creating a new cart for an order that is not associated with a user (guest)
+// router.post('/', async (req, res, next) => {
+//   try {
+//     if (!req.body) res.sendStatus(500)
+//     const {address, items, shippingMethod, gift, totalCost} = req.body
+//     const newOrder = await Order.create({
+//       address,
+//       items,
+//       shippingMethod,
+//       gift,
+//       totalCost
+//     })
+//     res.status(201)
+//     res.json(newOrder)
+//   } catch (err) {
+//     next(err)
+//   }
+// })
 
 // CREATE NEW ORDER FOR USER
 // Creating a new cart for an order that has a userId associated with it
