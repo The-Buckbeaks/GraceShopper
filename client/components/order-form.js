@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {order} from '../store'
+import {checkoutThunk} from '../store'
 
 class OrderForm extends React.Component {
   constructor() {
@@ -25,7 +25,7 @@ class OrderForm extends React.Component {
     try {
       event.preventDefault()
       this.props.checkedOut(this.state)
-      alert(`Your order has been successfully submitted to the registrar.`)
+      alert(`Your order has been successfully submitted.`)
       this.setState({
         address: '',
         shippingMethod: '',
@@ -38,59 +38,34 @@ class OrderForm extends React.Component {
       console.log(error)
     }
   }
-  componentDidMount() {
-    this.props.getAllCampuses()
-  }
   render() {
     return (
-      <div className="students">
-        <h2>Add a New Student</h2>
-        <form className="form" onSubmit={this.handleSubmit}>
-          <label htmlFor="firstName">First Name:</label>
+      <div className="order">
+        <h2>Order Checkout</h2>
+        <form className="order-form" onSubmit={this.handleSubmit}>
+          <label htmlFor="address">Address:</label>
           <input
             type="text"
-            name="firstName"
+            name="address"
             onChange={this.handleChange}
-            value={this.state.firstName}
+            value={this.state.address}
           />
 
-          <label htmlFor="lastName">Last Name:</label>
+          <label htmlFor="shippingMethod">Select Shipping Method:</label>
           <input
             type="text"
-            name="lastName"
+            name="shippingMethod"
             onChange={this.handleChange}
-            value={this.state.lastName}
+            value={this.state.shippingMethod}
           />
 
-          <label htmlFor="email">E-mail:</label>
+          <label htmlFor="gift">Is This a Gift?</label>
           <input
             type="text"
-            name="email"
+            name="gift"
             onChange={this.handleChange}
-            value={this.state.email}
+            value={this.state.gift}
           />
-          <label htmlFor="campusId">Campus:</label>
-
-          <select
-            name="campusId"
-            onChange={this.handleChange}
-            value={this.state.campusId}
-          >
-            <option name="campusId" value={null}>
-              Enroll at one of our campuses:
-            </option>
-            {this.props.campuses && this.props.campuses.length
-              ? this.props.campuses.map(campus => (
-                  <option
-                    key={campus.id}
-                    name="campusId"
-                    value={Number(campus.id)}
-                  >
-                    {campus.name}
-                  </option>
-                ))
-              : 'No Campuses to Display'}
-          </select>
           <button type="submit">Submit</button>
         </form>
       </div>
@@ -98,10 +73,9 @@ class OrderForm extends React.Component {
   }
 }
 const mapDispatchToProps = dispatch => ({
-  addStudent: studentInfo => dispatch(addStudent(studentInfo)),
-  getAllCampuses: () => dispatch(getCampuses())
+  checkedOut: cart => dispatch(checkoutThunk(cart))
 })
 const mapStateToProps = state => ({
-  campuses: state.campuses
+  order: state.order
 })
 export default connect(mapStateToProps, mapDispatchToProps)(OrderForm)
