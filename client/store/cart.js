@@ -44,17 +44,19 @@ const checkout = cart => ({
   cart
 })
 
-const createCart = () => ({
-  type: CREATE_CART
+const createCart = cart => ({
+  type: CREATE_CART,
+  cart
 })
 
 // THUNK CREATORS
 
 // getCart Thunk
-export const getCart = () => async dispatch => {
+export const getCart = id => async dispatch => {
   try {
-    const res = await axios.get('/api/cart')
+    const res = await axios.get(`/api/orders/${id}`)
     dispatch(getCartItems(res.data))
+    console.log('FROM THE GETCAR THUNK', res.data)
   } catch (err) {
     console.log('there was an error getting the cart', err)
   }
@@ -63,6 +65,7 @@ export const getCart = () => async dispatch => {
 //addItem Thunk
 export const addItemThunk = (plant, orderId) => async dispatch => {
   try {
+    console.log('ADD ITEM THUNK CALLED WITH', plant, orderId)
     const res = await axios.put(`/api/orders/${orderId}`, plant)
     dispatch(addItem(res.data))
   } catch (err) {
@@ -120,7 +123,8 @@ const cart = (state = defaultCart, action) => {
     case GET_CART_ITEMS: {
       return {
         ...state,
-        plants: action.plants
+        orderId: action.cart.id,
+        plants: [...action.cart.plants]
       }
     }
     case ADD_ITEM: {
@@ -148,7 +152,8 @@ const cart = (state = defaultCart, action) => {
     }
     case CREATE_CART: {
       return {
-        ...state
+        ...state,
+        orderId: action.cart.id
       }
     }
     default: {

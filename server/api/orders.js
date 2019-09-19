@@ -42,23 +42,30 @@ router.get('/:id', async (req, res, next) => {
   }
 })
 
-// UPDATE PLANT ORDER / CART
+// ADD TO CART
 router.put('/:id', async (req, res, next) => {
   try {
-    const order = await Order.findById(req.params.id)
+    const order = await Order.findOne({
+      where: {
+        id: 1
+      },
+      include: [{model: Plant}]
+    })
     const plants = await order.getPlants()
+    const updatedPlants = [...plants, req.body]
+    console.log('order FROM ROUTER PUT', order)
     order.removePlants(plants)
-    req.body.plants.forEach(plant => {
-      const update = {
+    updatedPlants.forEach(plant => {
+      PlantOrder.create({
         orderId: order.id,
         plantId: plant.id,
-        quantity: plant.quantity,
+        quantity: 1,
         price: plant.price
-      }
-      const updatedPlantOrder = PlantOrder.create(update)
-      res.status(200)
-      res.json(updatedPlantOrder)
+      })
     })
+    const updatedOrder = await order.update({plants: updatedPlants})
+    res.json(updatedOrder)
+    console.log('UPDATED RAN', order.plants)
   } catch (err) {
     next(err)
   }
@@ -104,8 +111,9 @@ router.post('/', async (req, res, next) => {
 
 // CREATE NEW ORDER FOR USER
 // Creating a new cart for an order that has a userId associated with it
-router.post('/:userId', async (req, res, next) => {
+router.post('/:orderId', async (req, res, next) => {
   try {
+    console.log('ROUTER POST CALLED', req.params)
     if (!req.body) res.sendStatus(500)
     const {plants, checkedOut} = req.body
     const newOrder = await Order.create({

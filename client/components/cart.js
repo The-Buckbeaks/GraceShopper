@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import SingleCartItem from './SingleCartItem'
-import {checkoutThunk} from '../store/cart'
+import {getCart, checkoutThunk} from '../store/cart'
 import OrderForm from './order-form'
 
 class Cart extends Component {
@@ -14,6 +14,11 @@ class Cart extends Component {
     this.checkOut = this.checkOut.bind(this)
   }
 
+  async componentDidMount() {
+    //we are currently hard coding in the cartID for testing purposes
+    await this.props.getCart(28)
+  }
+
   checkOut() {
     this.setState({
       checkOut: !this.state.checkOut
@@ -21,6 +26,7 @@ class Cart extends Component {
   }
 
   render() {
+    //the button at the bottom of the page needs to redirect to the checkout form, rather than handleSubmit
     const cart = this.props.cart
     return (
       <div>
@@ -30,8 +36,8 @@ class Cart extends Component {
               <h1>Your Shopping Cart</h1>
             </div>
 
-            {cart.plants.map(item => (
-              <SingleCartItem key={item.id} item={item} />
+            {cart.plants.map(plant => (
+              <SingleCartItem key={plant.id} item={plant} />
             ))}
             <button
               type="submit"
@@ -59,6 +65,7 @@ const mapStateToProps = state => ({
   cart: state.cart
 })
 const mapDispatchToProps = dispatch => ({
+  getCart: id => dispatch(getCart(id)),
   checkoutThunk: () => dispatch(checkoutThunk())
 })
 
