@@ -16,20 +16,21 @@ class Cart extends Component {
   render() {
     return (
       <div>
-        this.props.cart.quantity && this.props.cart.quantity > 0 ? (
-        <div className="cart-container">
-          <div className="cart-title">
-            <h1>Your Shopping Cart</h1>
+        {this.props.cart.quantity && this.props.cart.quantity > 0 ? (
+          <div className="cart-container">
+            <div className="cart-title">
+              <h1>Your Shopping Cart</h1>
+            </div>
+            {this.props.cart.items.map(item => (
+              <SingleCartItem key={item.id} item={item} />
+            ))}
+            <button type="submit" value="Submit" onClick={this.handleClick} />
           </div>
-          {this.props.cart.items.map(item => (
-            <SingleCartItem key={item.id} item={item} />
-          ))}
-          <button type="submit" value="Submit" onClick={this.handleClick} />
-        </div>
         ) : (
-        <div className="cart-container">
-          <h2>There are currently no items in the cart.</h2>
-        </div>
+          <div className="cart-container">
+            <h2>There are currently no items in the cart.</h2>
+          </div>
+        )}
       </div>
     )
   }
