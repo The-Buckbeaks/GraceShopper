@@ -4,6 +4,36 @@ body {
   background-size: cover;
 }
 
+main {
+  display: grid;
+  align-content: center;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+.nav {
+  background-color: black;
+  color: white;
+  display: grid;
+  grid-template-columns: 250px auto auto auto auto;
+  justify-content: flex-end;
+  align-items: center;
+  height: 60px;
+  width: auto;
+}
+.nav .link {
+  color: white;
+  text-decoration: underline;
+}
+
+.nav #title {
+  font-size: 24px;
+  text-shadow: 1px 1px green;
+}
+
 a {
   text-decoration: none;
 }
@@ -20,4 +50,33 @@ nav a {
 form div {
   margin: 1em;
   display: inline-block;
+}
+
+.plant-container {
+  display: grid;
+  grid-template-columns: 15vw 15vw 15vw 15vw;
+  grid-column-gap: 2vw;
+  grid-row-gap: 2vw;
+  justify-items: space-around;
+  justify-content: center;
+  align-content: flex-start;
+}
+
+h1 {
+  text-align: center;
+}
+h2 {
+  color: black;
+}
+h2:hover {
+  transition: color 1s ease;
+  color: fuchsia;
+  text-decoration: underline;
+  text-decoration-color: green;
+}
+h3 {
+  color: black;
+}
+h4 {
+  color: fuchsia;
 }
