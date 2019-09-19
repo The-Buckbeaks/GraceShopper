@@ -1,11 +1,18 @@
 const router = require('express').Router()
 const {Order} = require('../db/models')
+const {Plant} = require('../db/models')
 module.exports = router
 
 // GET ALL ORDERS
 router.get('/', async (req, res, next) => {
   try {
-    const orders = await Order.findAll()
+    const orders = await Order.findAll({
+      include: [
+        {
+          model: Plant
+        }
+      ]
+    })
     res.json(orders)
   } catch (err) {
     next(err)
@@ -18,7 +25,12 @@ router.get('/:id', async (req, res, next) => {
     const order = await Order.findOne({
       where: {
         id: req.params.id
-      }
+      },
+      include: [
+        {
+          model: Plant
+        }
+      ]
     })
     res.json(order)
   } catch (err) {

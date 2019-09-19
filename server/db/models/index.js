@@ -12,13 +12,11 @@ User.hasMany(Order)
 // Plant.belongsTo(Order) //we've commented out this end of the association because we don't want the order Ids to be in the plant table, only the other way around
 Order.belongsToMany(Plant, {
   through: PlantOrder,
-  as: 'plants',
   foreignKey: 'orderId',
   otherKey: 'plantId'
 })
 Plant.belongsToMany(Order, {
   through: PlantOrder,
-  as: 'orders',
   foreignKey: 'plantId',
   otherKey: 'orderId'
 })
