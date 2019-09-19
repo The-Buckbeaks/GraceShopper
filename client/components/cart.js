@@ -2,15 +2,22 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import SingleCartItem from './SingleCartItem'
 import {checkoutThunk} from '../store/cart'
+import OrderForm from './order-form'
 
 class Cart extends Component {
   constructor(props) {
     super(props)
-    this.handleClick = this.handleClick.bind(this)
+    this.state = {
+      checkOut: false
+    }
+
+    this.checkOut = this.checkOut.bind(this)
   }
 
-  handleClick() {
-    this.props.checkoutThunk()
+  checkOut() {
+    this.setState({
+      checkOut: !this.state.checkOut
+    })
   }
 
   render() {
@@ -26,15 +33,23 @@ class Cart extends Component {
             {cart.plants.map(item => (
               <SingleCartItem key={item.id} item={item} />
             ))}
-            <button type="submit" value="Submit" onClick={this.handleClick}>
+            <button
+              type="submit"
+              value="Submit"
+              onClick={() => this.checkOut()}
+            >
               Checkout
             </button>
+            {this.state.checkOut ? (
+              <OrderForm totalCost={totalCost} userId={userId} />
+            ) : null}
           </div>
         ) : (
           <div className="cart-container">
             <h2>There are currently no items in the cart.</h2>
           </div>
         )}
+        <div />
       </div>
     )
   }
