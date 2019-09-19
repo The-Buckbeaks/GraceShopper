@@ -32,30 +32,29 @@ class Cart extends Component {
       <div>
         {cart.plants.length && cart.plants.length > 0 ? (
           <div className="cart-container">
-            <div className="cart-title">
-              <h1>Your Shopping Cart</h1>
-            </div>
-
+            <h1>Your Shopping Cart</h1>
             {cart.plants.map(plant => (
               <SingleCartItem key={plant.id} item={plant} />
             ))}
-            <button
-              type="submit"
-              value="Submit"
-              onClick={() => this.checkOut()}
-            >
+
+            <button type="submit" onClick={this.checkOut}>
               Checkout
             </button>
-            {this.state.checkOut ? (
-              <OrderForm totalCost={totalCost} userId={userId} />
-            ) : null}
           </div>
         ) : (
           <div className="cart-container">
             <h2>There are currently no items in the cart.</h2>
+            <button type="submit" onClick={this.checkOut}>
+              Checkout
+            </button>
           </div>
         )}
-        <div />
+        {this.state.checkOut ? (
+          <div className="order-form">
+            {' '}
+            <OrderForm orderId={cart.orderId} />{' '}
+          </div>
+        ) : null}
       </div>
     )
   }
@@ -65,8 +64,8 @@ const mapStateToProps = state => ({
   cart: state.cart
 })
 const mapDispatchToProps = dispatch => ({
-  getCart: id => dispatch(getCart(id)),
-  checkoutThunk: () => dispatch(checkoutThunk())
+  getCart: id => dispatch(getCart(id))
+  // checkoutThunk: () => dispatch(checkoutThunk())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Cart)
