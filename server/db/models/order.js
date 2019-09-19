@@ -13,8 +13,8 @@ const Order = db.define('order', {
     defaultValue: Date.now()
   },
   gift: {
-    type: Sequelize.BOOLEAN,
-    defaultValue: false
+    type: Sequelize.ENUM('yes', 'no'),
+    defaultValue: 'no'
   },
   totalCost: {
     type: Sequelize.INTEGER,
