@@ -14,22 +14,26 @@ class Cart extends Component {
   }
 
   render() {
+    const cart = this.props.cart
     return (
       <div>
-        this.props.cart.quantity && this.props.cart.quantity > 0 ? (
-        <div className="cart-container">
-          <div className="cart-title">
-            <h1>Your Shopping Cart</h1>
+        {cart.items.length && cart.items.length > 0 ? (
+          <div className="cart-container">
+            <div className="cart-title">
+              <h1>Your Shopping Cart</h1>
+            </div>
+            {cart.items.map(item => (
+              <SingleCartItem key={item.id} item={item} />
+            ))}
+            <button type="submit" value="Submit" onClick={this.handleClick}>
+              Checkout
+            </button>
           </div>
-          {this.props.cart.items.map(item => (
-            <SingleCartItem key={item.id} item={item} />
-          ))}
-          <button type="submit" value="Submit" onClick={this.handleClick} />
-        </div>
         ) : (
-        <div className="cart-container">
-          <h2>There are currently no items in the cart.</h2>
-        </div>
+          <div className="cart-container">
+            <h2>There are currently no items in the cart.</h2>
+          </div>
+        )}
       </div>
     )
   }
