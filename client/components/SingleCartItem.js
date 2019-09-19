@@ -1,7 +1,7 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
 
-export const SingleCartItem = props => {
+const SingleCartItem = props => {
   const {item} = props
   return (
     <li className="cart-item" key={item.id}>
@@ -23,3 +23,4 @@ export const SingleCartItem = props => {
     </li>
   )
 }
+export default SingleCartItem

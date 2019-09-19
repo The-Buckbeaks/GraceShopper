@@ -22,6 +22,7 @@ class Cart extends Component {
             <div className="cart-title">
               <h1>Your Shopping Cart</h1>
             </div>
+
             {cart.plants.map(item => (
               <SingleCartItem key={item.id} item={item} />
             ))}
