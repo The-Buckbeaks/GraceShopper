@@ -31,8 +31,12 @@ class OrderForm extends React.Component {
   handleSubmit(event) {
     try {
       event.preventDefault()
-      this.props.checkedOut(this.state)
-      alert(`Your order has been successfully submitted.`)
+      this.props.checkedOut(this.props.orderId, this.state)
+      alert(
+        `Your order (id: ${
+          this.props.orderId
+        }) has been successfully submitted.`
+      )
       this.setState({
         address: '',
         shippingMethod: '',
@@ -106,7 +110,7 @@ class OrderForm extends React.Component {
   }
 }
 const mapDispatchToProps = dispatch => ({
-  checkedOut: cart => dispatch(checkoutThunk(cart))
+  checkedOut: (orderId, cart) => dispatch(checkoutThunk(orderId, cart))
 })
 const mapStateToProps = state => ({
   order: state.order

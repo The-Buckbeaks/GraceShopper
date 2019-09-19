@@ -9,14 +9,14 @@ const checkout = cart => ({
 
 //checkout Thunk
 export const checkoutThunk = (
-  userId,
-  order,
+  orderId,
   address,
   shippingMethod,
-  gift
+  gift,
+  userId
 ) => async dispatch => {
   try {
-    const res = await axios.put(`/api/orders/${order.id}`, {
+    const res = await axios.put(`/api/orders/${orderId}`, {
       address,
       shippingMethod,
       gift,
