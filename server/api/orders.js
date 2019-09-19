@@ -30,9 +30,12 @@ router.get('/:id', async (req, res, next) => {
       where: {
         id: req.params.id
       },
-      include: [{
-        model: Plant
-      }]
+      include: [
+        {
+          model: Plant
+        }
+      ]
+    })
     res.json(order)
   } catch (err) {
     next(err)

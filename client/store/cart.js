@@ -10,6 +10,7 @@ const CREATE_CART = 'CREATE_CART'
 
 // INITIAL STATE
 const defaultCart = {
+  orderId: null,
   plants: [],
   checkedOut: false
 }
@@ -119,22 +120,19 @@ const cart = (state = defaultCart, action) => {
     case GET_CART_ITEMS: {
       return {
         ...state,
-        items: action.items,
-        quantity: action.items.length
+        plants: action.plants
       }
     }
     case ADD_ITEM: {
       return {
         ...state,
-        items: [...state.items, action.item],
-        totalCost: state.totalCost + action.item.price
+        plants: [...state.plants, action.plant]
       }
     }
     case REMOVE_ITEM: {
       return {
         ...state,
-        items: state.items.filter(item => item.id !== Number(action.plantId)),
-        totalCost: state.totalCost - action.price
+        items: state.plants.filter(plant => plant.id !== Number(action.plantId))
       }
     }
     case CLEAR_CART: {
@@ -149,8 +147,9 @@ const cart = (state = defaultCart, action) => {
       }
     }
     case CREATE_CART: {
-      return {...state}
-      //we might eventually need to return something related to the session, if a user is logged in
+      return {
+        ...state
+      }
     }
     default: {
       return state
