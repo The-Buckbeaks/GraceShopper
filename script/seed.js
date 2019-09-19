@@ -106,7 +106,7 @@ async function seed() {
       address: '5 Hanover Square, New York, NY 10004',
       checkedOut: true,
       shippingMethod: '1-Day',
-      gift: true,
+      gift: 'yes',
       totalCost: 6680,
       userId: 2
     })

@@ -8,19 +8,26 @@ class OrderForm extends React.Component {
     this.state = {
       address: '',
       shippingMethod: '',
-      gift: false,
+      gift: 'no',
       totalCost: 0,
       checkedOut: false,
       userId: null
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleSelect = this.handleSelect.bind(this)
   }
   handleChange(event) {
     this.setState({
       [event.target.name]: event.target.value
     })
   }
+  handleSelect(event) {
+    this.setState({
+      [event.target.name]: event.target.value
+    })
+  }
+
   handleSubmit(event) {
     try {
       event.preventDefault()
@@ -29,7 +36,7 @@ class OrderForm extends React.Component {
       this.setState({
         address: '',
         shippingMethod: '',
-        gift: false,
+        gift: 'no',
         totalCost: 0,
         checkedOut: false,
         userId: null
@@ -50,22 +57,48 @@ class OrderForm extends React.Component {
             onChange={this.handleChange}
             value={this.state.address}
           />
-
           <label htmlFor="shippingMethod">Select Shipping Method:</label>
-          <input
-            type="text"
-            name="shippingMethod"
-            onChange={this.handleChange}
-            value={this.state.shippingMethod}
-          />
-
+          <label htmlFor="shipping">
+            Standard Ground
+            <input
+              type="radio"
+              name="shippingMethod"
+              value="Standard Ground"
+              checked={this.state.shippingMethod === 'Standard Ground'}
+              onChange={this.handleSelect}
+            />
+          </label>
+          <label htmlFor="shipping">
+            1-Day
+            <input
+              type="radio"
+              name="shippingMethod"
+              value="1-Day"
+              checked={this.state.shippingMethod === '1-Day'}
+              onChange={this.handleSelect}
+            />
+          </label>
           <label htmlFor="gift">Is This a Gift?</label>
-          <input
-            type="text"
-            name="gift"
-            onChange={this.handleChange}
-            value={this.state.gift}
-          />
+          <label htmlFor="gift">
+            Yes
+            <input
+              type="radio"
+              name="gift"
+              value="yes"
+              checked={this.state.gift === 'yes'}
+              onChange={this.handleSelect}
+            />
+          </label>
+          <label htmlFor="gift">
+            No
+            <input
+              type="radio"
+              name="gift"
+              value="no"
+              checked={this.state.gift === 'no'}
+              onChange={this.handleSelect}
+            />
+          </label>
           <button type="submit">Submit</button>
         </form>
       </div>

@@ -2,11 +2,16 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import SingleCartItem from './SingleCartItem'
 import {getCart, checkoutThunk} from '../store/cart'
+import OrderForm from './order-form'
 
 class Cart extends Component {
   constructor(props) {
     super(props)
-    this.handleClick = this.handleClick.bind(this)
+    this.state = {
+      checkOut: false
+    }
+
+    this.checkOut = this.checkOut.bind(this)
   }
 
   async componentDidMount() {
@@ -14,8 +19,10 @@ class Cart extends Component {
     await this.props.getCart(28)
   }
 
-  handleClick() {
-    this.props.checkoutThunk()
+  checkOut() {
+    this.setState({
+      checkOut: !this.state.checkOut
+    })
   }
 
   render() {
@@ -32,15 +39,23 @@ class Cart extends Component {
             {cart.plants.map(plant => (
               <SingleCartItem key={plant.id} item={plant} />
             ))}
-            <button type="submit" value="Submit" onClick={this.handleClick}>
+            <button
+              type="submit"
+              value="Submit"
+              onClick={() => this.checkOut()}
+            >
               Checkout
             </button>
+            {this.state.checkOut ? (
+              <OrderForm totalCost={totalCost} userId={userId} />
+            ) : null}
           </div>
         ) : (
           <div className="cart-container">
             <h2>There are currently no items in the cart.</h2>
           </div>
         )}
+        <div />
       </div>
     )
   }
