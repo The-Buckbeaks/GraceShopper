@@ -44,8 +44,9 @@ const checkout = cart => ({
   cart
 })
 
-const createCart = () => ({
-  type: CREATE_CART
+const createCart = cart => ({
+  type: CREATE_CART,
+  cart
 })
 
 // THUNK CREATORS
@@ -96,6 +97,7 @@ export const createCartThunk = () => async dispatch => {
   try {
     const res = await axios.post('/api/orders/', defaultCart)
     dispatch(createCart(res.data))
+    console.log('res.data from createCartThunk', res.data)
   } catch (err) {
     console.log('there was an error creating a cart!', err)
   }
@@ -148,7 +150,8 @@ const cart = (state = defaultCart, action) => {
     }
     case CREATE_CART: {
       return {
-        ...state
+        ...state,
+        orderId: action.cart.id
       }
     }
     default: {
