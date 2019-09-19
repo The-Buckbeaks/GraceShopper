@@ -5,7 +5,7 @@ const {expect} = require('chai')
 //Require all files that we could like to test
 
 //models
-const db = require('../server/db/models')
+//const db = require('../server/db/models')
 
 //Plant model
 const Plant = require('../server/db/models/plant')

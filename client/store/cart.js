@@ -1,4 +1,5 @@
 import axios from 'axios'
+import {runInNewContext} from 'vm'
 
 // ACTION TYPES
 const GET_CART_ITEMS = 'GET_CART_ITEMS'
@@ -6,6 +7,7 @@ const ADD_ITEM = 'ADD_ITEM'
 const REMOVE_ITEM = 'REMOVE_ITEM'
 const CLEAR_CART = 'CLEAR_CART'
 const CHECKOUT = 'CHECKOUT'
+const CREATE_CART = 'CREATE_CART'
 
 // INITIAL STATE
 const defaultCart = {
@@ -16,8 +18,6 @@ const defaultCart = {
   gift: false,
   totalCost: 0,
   checkedOut: false
-  // selected: {}
-  // ^^ selected can be a plant object whose quantity we can increase/decrease?
 }
 
 // ACTION CREATORS
@@ -49,15 +49,64 @@ const checkout = cart => ({
   cart
 })
 
+const createCart = () => ({
+  type: CREATE_CART
+})
+
 // THUNK CREATORS
 
-// export const checkoutThunk = (cart) = async dispatch => ({
+//addItem Thunk
+export const addItemThunk = cart => async dispatch => {
+  try {
+    const res = await axios.put(`/api/orders/${cart.id}`, cart)
+    dispatch(addItem(res.data))
+  } catch (err) {
+    console.log('there was an error adding an item', err)
+  }
+}
+
+//removeItem Thunk
+export const removeItemThunk = cart => async dispatch => {
+  try {
+    const res = await axios.put(`/api/orders/${cart.id}`, cart)
+    dispatch(removeItem(res.data))
+  } catch (err) {
+    console.log('there was an error removing an item', err)
+  }
+}
+
+//checkout Thunk
+export const checkoutThunk = cart => async dispatch => {
+  try {
+    const res = await axios.put(`/api/orders/${cart.id}`, {checkedOut: true})
+    dispatch(checkout(res.data))
+  } catch (err) {
+    console.log('There was an error checking out.', err)
+  }
+}
+
+//createCart Thunk
+export const createCartThunk = () => async dispatch => {
+  //guest
+  try {
+    const res = await axios.post('/api/orders/', defaultCart)
+    dispatch(createCart(res.data))
+  } catch (err) {
+    console.log('there was an error creating a cart!', err)
+  }
+}
+
+//Update Cart
+// -- ADMIN USE ONLY: CODE IS HERE FOR FUTURE REFERENCE, updateCart does not exist yet
+// export const updateCartThunk = (orderId, cart) => async dispatch => {
 //   try {
-// make an axios update request here with the submission data (from cart)
-//   } catch (error) {
-//     console.error('There was an error checking out.')
+//     const {updateResponse} = await axios.put(`/api/orders/${orderId}`, cart)
+//     const {data} = await axios.get(`/api/orders/${orderId}`)
+//     dispatch(updateCart(data))
+//   } catch (err) {
+//     console.log('there was an error updating that order', err)
 //   }
-// })
+// }
 
 // REDUCER
 
@@ -94,6 +143,10 @@ const cart = (state = defaultCart, action) => {
         ...state,
         checkedOut: true
       }
+    }
+    case CREATE_CART: {
+      return {...state}
+      //we might eventually need to return something related to the session, if a user is logged in
     }
     default: {
       return state
