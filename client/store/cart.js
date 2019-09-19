@@ -52,10 +52,11 @@ const createCart = cart => ({
 // THUNK CREATORS
 
 // getCart Thunk
-export const getCart = () => async dispatch => {
+export const getCart = id => async dispatch => {
   try {
-    const res = await axios.get('/api/cart')
+    const res = await axios.get(`/api/orders/${id}`)
     dispatch(getCartItems(res.data))
+    console.log('FROM THE GETCAR THUNK', res.data)
   } catch (err) {
     console.log('there was an error getting the cart', err)
   }
@@ -97,7 +98,6 @@ export const createCartThunk = () => async dispatch => {
   try {
     const res = await axios.post('/api/orders/', defaultCart)
     dispatch(createCart(res.data))
-    console.log('res.data from createCartThunk', res.data)
   } catch (err) {
     console.log('there was an error creating a cart!', err)
   }
@@ -122,7 +122,8 @@ const cart = (state = defaultCart, action) => {
     case GET_CART_ITEMS: {
       return {
         ...state,
-        plants: action.plants
+        orderId: action.cart.id,
+        plants: [...action.cart.plants]
       }
     }
     case ADD_ITEM: {

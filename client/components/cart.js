@@ -1,12 +1,18 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import SingleCartItem from './SingleCartItem'
-import {checkoutThunk} from '../store/cart'
+import {getCart, checkoutThunk} from '../store/cart'
 
 class Cart extends Component {
   constructor(props) {
     super(props)
     this.handleClick = this.handleClick.bind(this)
+  }
+
+  async componentDidMount() {
+    const cartItems = await this.props.getCart(2)
+    console.log(cartItems)
+    //await console.log('From componentDidMount', this.props.cart)
   }
 
   handleClick() {
@@ -44,6 +50,7 @@ const mapStateToProps = state => ({
   cart: state.cart
 })
 const mapDispatchToProps = dispatch => ({
+  getCart: id => dispatch(getCart(id)),
   checkoutThunk: () => dispatch(checkoutThunk())
 })
 
