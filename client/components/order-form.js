@@ -23,12 +23,11 @@ class OrderForm extends React.Component {
     })
   }
   handleSelect(event) {
-    console.log(event.target.value)
     this.setState({
-      gift: event.target.value
+      [event.target.name]: event.target.value
     })
-    console.log(this.state.gift)
   }
+
   handleSubmit(event) {
     try {
       event.preventDefault()
@@ -59,13 +58,27 @@ class OrderForm extends React.Component {
             value={this.state.address}
           />
           <label htmlFor="shippingMethod">Select Shipping Method:</label>
-          <input
-            type="text"
-            name="shippingMethod"
-            onChange={this.handleChange}
-            value={this.state.shippingMethod}
-          />
-          Is This a Gift?
+          <label htmlFor="shipping">
+            Standard Ground
+            <input
+              type="radio"
+              name="shippingMethod"
+              value="Standard Ground"
+              checked={this.state.shippingMethod === 'Standard Ground'}
+              onChange={this.handleSelect}
+            />
+          </label>
+          <label htmlFor="shipping">
+            1-Day
+            <input
+              type="radio"
+              name="shippingMethod"
+              value="1-Day"
+              checked={this.state.shippingMethod === '1-Day'}
+              onChange={this.handleSelect}
+            />
+          </label>
+          <label htmlFor="gift">Is This a Gift?</label>
           <label htmlFor="gift">
             Yes
             <input
