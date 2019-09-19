@@ -17,12 +17,12 @@ class Cart extends Component {
     const cart = this.props.cart
     return (
       <div>
-        {cart.items.length && cart.items.length > 0 ? (
+        {cart.plants.length && cart.plants.length > 0 ? (
           <div className="cart-container">
             <div className="cart-title">
               <h1>Your Shopping Cart</h1>
             </div>
-            {cart.items.map(item => (
+            {cart.plants.map(item => (
               <SingleCartItem key={item.id} item={item} />
             ))}
             <button type="submit" value="Submit" onClick={this.handleClick}>

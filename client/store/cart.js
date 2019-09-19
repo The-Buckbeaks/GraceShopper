@@ -10,12 +10,7 @@ const CREATE_CART = 'CREATE_CART'
 
 // INITIAL STATE
 const defaultCart = {
-  address: '',
-  items: [],
-  shippingMethod: null,
-  quantity: 0,
-  gift: false,
-  totalCost: 0,
+  plants: [],
   checkedOut: false
 }
 
@@ -27,9 +22,9 @@ const getCartItems = cart => ({
   cart
 })
 
-const addItem = item => ({
+const addItem = plant => ({
   type: ADD_ITEM,
-  item
+  plant
 })
 
 const removeItem = (plantId, price) => ({
@@ -65,9 +60,9 @@ export const getCart = () => async dispatch => {
 }
 
 //addItem Thunk
-export const addItemThunk = cart => async dispatch => {
+export const addItemThunk = (plant, orderId) => async dispatch => {
   try {
-    const res = await axios.put(`/api/orders/${cart.id}`, cart)
+    const res = await axios.put(`/api/orders/${orderId}`, plant)
     dispatch(addItem(res.data))
   } catch (err) {
     console.log('there was an error adding an item', err)
