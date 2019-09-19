@@ -3,8 +3,7 @@ const db = require('../db')
 
 const Order = db.define('order', {
   address: {
-    type: Sequelize.TEXT,
-    allowNull: false
+    type: Sequelize.TEXT
   },
   shippingMethod: {
     type: Sequelize.ENUM('1-Day', 'Standard Ground')

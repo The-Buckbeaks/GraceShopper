@@ -1,5 +1,4 @@
 import axios from 'axios'
-import {runInNewContext} from 'vm'
 
 // ACTION TYPES
 const GET_CART_ITEMS = 'GET_CART_ITEMS'
@@ -11,12 +10,8 @@ const CREATE_CART = 'CREATE_CART'
 
 // INITIAL STATE
 const defaultCart = {
-  address: '',
-  items: [],
-  shippingMethod: null,
-  quantity: 0,
-  gift: false,
-  totalCost: 0,
+  orderId: null,
+  plants: [],
   checkedOut: false
 }
 
@@ -28,9 +23,9 @@ const getCartItems = cart => ({
   cart
 })
 
-const addItem = item => ({
+const addItem = plant => ({
   type: ADD_ITEM,
-  item
+  plant
 })
 
 const removeItem = (plantId, price) => ({
@@ -55,10 +50,20 @@ const createCart = () => ({
 
 // THUNK CREATORS
 
-//addItem Thunk
-export const addItemThunk = cart => async dispatch => {
+// getCart Thunk
+export const getCart = () => async dispatch => {
   try {
-    const res = await axios.put(`/api/orders/${cart.id}`, cart)
+    const res = await axios.get('/api/cart')
+    dispatch(getCartItems(res.data))
+  } catch (err) {
+    console.log('there was an error getting the cart', err)
+  }
+}
+
+//addItem Thunk
+export const addItemThunk = (plant, orderId) => async dispatch => {
+  try {
+    const res = await axios.put(`/api/orders/${orderId}`, plant)
     dispatch(addItem(res.data))
   } catch (err) {
     console.log('there was an error adding an item', err)
@@ -115,22 +120,19 @@ const cart = (state = defaultCart, action) => {
     case GET_CART_ITEMS: {
       return {
         ...state,
-        items: action.items,
-        quantity: action.items.length
+        plants: action.plants
       }
     }
     case ADD_ITEM: {
       return {
         ...state,
-        items: [...state.items, action.item],
-        totalCost: state.totalCost + action.item.price
+        plants: [...state.plants, action.plant]
       }
     }
     case REMOVE_ITEM: {
       return {
         ...state,
-        items: state.items.filter(item => item.id !== Number(action.plantId)),
-        totalCost: state.totalCost - action.price
+        items: state.plants.filter(plant => plant.id !== Number(action.plantId))
       }
     }
     case CLEAR_CART: {
@@ -145,8 +147,9 @@ const cart = (state = defaultCart, action) => {
       }
     }
     case CREATE_CART: {
-      return {...state}
-      //we might eventually need to return something related to the session, if a user is logged in
+      return {
+        ...state
+      }
     }
     default: {
       return state
