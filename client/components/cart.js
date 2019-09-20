@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import SingleCartItem from './SingleCartItem'
-import {getCart, checkoutThunk} from '../store/cart'
+import {getCart} from '../store/'
 import OrderForm from './order-form'
 
 class Cart extends Component {
@@ -32,10 +32,8 @@ class Cart extends Component {
       <div className="cart-container">
         <h1>Your Shopping Cart</h1>
         {cart.plants.length && cart.plants.length > 0 ? (
-          <div className="cart-container">
-            <div className="cart-title">
-              <h1>Your Shopping Cart</h1>
-            </div>
+          <div className="cart-inner-container">
+            <div className="cart-title" />
 
             {cart.plants.map(plant => (
               <SingleCartItem
