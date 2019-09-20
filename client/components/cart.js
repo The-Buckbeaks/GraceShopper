@@ -16,7 +16,7 @@ class Cart extends Component {
 
   async componentDidMount() {
     //we are currently hard coding in the cartID for testing purposes
-    await this.props.getCart(28)
+    await this.props.getCart(this.props.cart.orderId)
   }
 
   checkOut() {
@@ -32,40 +32,44 @@ class Cart extends Component {
       <div>
         {cart.plants.length && cart.plants.length > 0 ? (
           <div className="cart-container">
-            <h1>Your Shopping Cart</h1>
+            <div className="cart-title">
+              <h1>Your Shopping Cart</h1>
+            </div>
+
             {cart.plants.map(plant => (
               <SingleCartItem key={plant.id} item={plant} />
             ))}
-
-            <button type="submit" onClick={this.checkOut}>
+            <button
+              type="submit"
+              value="Submit"
+              onClick={() => this.checkOut()}
+            >
               Checkout
             </button>
+            {this.state.checkOut ? (
+              <OrderForm
+                orderId={cart.orderId}
+                userId={this.props.order.userId}
+              />
+            ) : null}
           </div>
         ) : (
           <div className="cart-container">
             <h2>There are currently no items in the cart.</h2>
-            <button type="submit" onClick={this.checkOut}>
-              Checkout
-            </button>
           </div>
         )}
-        {this.state.checkOut ? (
-          <div className="order-form">
-            {' '}
-            <OrderForm orderId={cart.orderId} />{' '}
-          </div>
-        ) : null}
+        <div />
       </div>
     )
   }
 }
 
 const mapStateToProps = state => ({
-  cart: state.cart
+  cart: state.cart,
+  order: state.order
 })
 const mapDispatchToProps = dispatch => ({
   getCart: id => dispatch(getCart(id))
-  // checkoutThunk: () => dispatch(checkoutThunk())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Cart)

@@ -84,14 +84,14 @@ export const removeItemThunk = cart => async dispatch => {
 }
 
 //checkout Thunk
-export const checkoutThunk = cart => async dispatch => {
-  try {
-    const res = await axios.put(`/api/orders/${cart.id}`, {checkedOut: true})
-    dispatch(checkout(res.data))
-  } catch (err) {
-    console.log('There was an error checking out.', err)
-  }
-}
+// export const checkoutThunk = cart => async dispatch => {
+//   try {
+//     const res = await axios.put(`/api/orders/${cart.id}`, {checkedOut: true})
+//     dispatch(checkout(res.data))
+//   } catch (err) {
+//     console.log('There was an error checking out.', err)
+//   }
+// }
 
 //createCart Thunk
 export const createCartThunk = () => async dispatch => {
@@ -144,12 +144,12 @@ const cart = (state = defaultCart, action) => {
         defaultCart
       }
     }
-    case CHECKOUT: {
-      return {
-        ...state,
-        checkedOut: true
-      }
-    }
+    // case CHECKOUT: {
+    //   return {
+    //     ...state,
+    //     checkedOut: true
+    //   }
+    // }
     case CREATE_CART: {
       return {
         ...state,

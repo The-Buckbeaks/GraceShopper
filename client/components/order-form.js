@@ -3,8 +3,8 @@ import {connect} from 'react-redux'
 import {checkoutThunk} from '../store'
 
 class OrderForm extends React.Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.state = {
       address: '',
       shippingMethod: '',
@@ -30,6 +30,7 @@ class OrderForm extends React.Component {
 
   handleSubmit(event) {
     try {
+      this.setState({checkedOut: true})
       event.preventDefault()
       this.props.checkedOut(this.props.orderId, this.state)
       alert(
@@ -110,7 +111,8 @@ class OrderForm extends React.Component {
   }
 }
 const mapDispatchToProps = dispatch => ({
-  checkedOut: (orderId, cart) => dispatch(checkoutThunk(orderId, cart))
+  checkedOut: (orderId, orderInfo) =>
+    dispatch(checkoutThunk(orderId, orderInfo))
 })
 const mapStateToProps = state => ({
   order: state.order
