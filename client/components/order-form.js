@@ -11,7 +11,7 @@ class OrderForm extends React.Component {
       gift: 'no',
       totalCost: 0,
       checkedOut: false,
-      userId: null
+      userId: this.props.user.id || null
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -44,7 +44,7 @@ class OrderForm extends React.Component {
         gift: 'no',
         totalCost: 0,
         checkedOut: false,
-        userId: null
+        userId: this.props.user.id || null
       })
     } catch (error) {
       console.log(error)
@@ -115,6 +115,7 @@ const mapDispatchToProps = dispatch => ({
     dispatch(checkoutThunk(orderId, orderInfo))
 })
 const mapStateToProps = state => ({
-  order: state.order
+  order: state.order,
+  user: state.user
 })
 export default connect(mapStateToProps, mapDispatchToProps)(OrderForm)
