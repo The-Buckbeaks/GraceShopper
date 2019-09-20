@@ -47,10 +47,18 @@ router.put('/:id', async (req, res, next) => {
   try {
     const order = await Order.findOne({
       where: {
-        id: 1
+        id: req.params.id
       },
       include: [{model: Plant}]
     })
+    const {
+      address,
+      shippingMethod,
+      gift,
+      totalCost,
+      checkedOut,
+      userId
+    } = req.body
     const plants = await order.getPlants()
     const updatedPlants = [...plants, req.body]
     console.log('order FROM ROUTER PUT', order)
@@ -63,7 +71,15 @@ router.put('/:id', async (req, res, next) => {
         price: plant.price
       })
     })
-    const updatedOrder = await order.update({plants: updatedPlants})
+    const updatedOrder = await order.update({
+      plants: updatedPlants,
+      address,
+      shippingMethod,
+      gift,
+      totalCost,
+      checkedOut,
+      userId
+    })
     res.json(updatedOrder)
     console.log('UPDATED RAN', order.plants)
   } catch (err) {
@@ -130,20 +146,18 @@ router.post('/:orderId', async (req, res, next) => {
 
 // SUBMIT ORDER
 // Updates an order after checkout
-router.put('/checkout', async (req, res, next) => {
-  try {
-    const order = await Order.findById(req.body.id)
-    if (!order) res.sendStatus(404)
-    const {items, checkedOut, userId} = req.body
-    await order.update({
-      items,
-      checkedOut,
-      userId
-    })
-  } catch (err) {
-    next(err)
-  }
-})
+// router.put('/:id', async (req, res, next) => {
+//   try {
+//     const order = await Order.findById(req.params.id)
+//     if (!order) res.sendStatus(404)
+//     const {address, shippingMethod, gift, totalCost, checkedOut, userId} = req.body
+//     await order.update({
+//       address, shippingMethod, gift, totalCost, checkedOut, userId
+//     })
+//   } catch (err) {
+//     next(err)
+//   }
+// })
 
 // DELETE ORDER
 // ADMIN USE ONLY - deleting cart/order from database (not clearing the cart)

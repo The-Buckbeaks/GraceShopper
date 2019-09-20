@@ -3,15 +3,15 @@ import {connect} from 'react-redux'
 import {checkoutThunk} from '../store'
 
 class OrderForm extends React.Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.state = {
       address: '',
       shippingMethod: '',
       gift: 'no',
       totalCost: 0,
       checkedOut: false,
-      userId: null
+      userId: this.props.user.id || null
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -30,6 +30,7 @@ class OrderForm extends React.Component {
 
   handleSubmit(event) {
     try {
+      this.setState({checkedOut: true})
       event.preventDefault()
       this.props.checkedOut(this.props.orderId, this.state)
       alert(
@@ -43,7 +44,7 @@ class OrderForm extends React.Component {
         gift: 'no',
         totalCost: 0,
         checkedOut: false,
-        userId: null
+        userId: this.props.user.id || null
       })
     } catch (error) {
       console.log(error)
@@ -110,9 +111,11 @@ class OrderForm extends React.Component {
   }
 }
 const mapDispatchToProps = dispatch => ({
-  checkedOut: (orderId, cart) => dispatch(checkoutThunk(orderId, cart))
+  checkedOut: (orderId, orderInfo) =>
+    dispatch(checkoutThunk(orderId, orderInfo))
 })
 const mapStateToProps = state => ({
-  order: state.order
+  order: state.order,
+  user: state.user
 })
 export default connect(mapStateToProps, mapDispatchToProps)(OrderForm)

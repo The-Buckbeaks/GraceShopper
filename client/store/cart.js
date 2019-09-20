@@ -5,7 +5,6 @@ const GET_CART_ITEMS = 'GET_CART_ITEMS'
 const ADD_ITEM = 'ADD_ITEM'
 const REMOVE_ITEM = 'REMOVE_ITEM'
 const CLEAR_CART = 'CLEAR_CART'
-const CHECKOUT = 'CHECKOUT'
 const CREATE_CART = 'CREATE_CART'
 
 // INITIAL STATE
@@ -37,11 +36,6 @@ const removeItem = (plantId, price) => ({
 const clearCart = orderId => ({
   type: CLEAR_CART,
   orderId
-})
-
-const checkout = cart => ({
-  type: CHECKOUT,
-  cart
 })
 
 const createCart = cart => ({
@@ -80,16 +74,6 @@ export const removeItemThunk = cart => async dispatch => {
     dispatch(removeItem(res.data))
   } catch (err) {
     console.log('there was an error removing an item', err)
-  }
-}
-
-//checkout Thunk
-export const checkoutThunk = cart => async dispatch => {
-  try {
-    const res = await axios.put(`/api/orders/${cart.id}`, {checkedOut: true})
-    dispatch(checkout(res.data))
-  } catch (err) {
-    console.log('There was an error checking out.', err)
   }
 }
 
@@ -142,12 +126,6 @@ const cart = (state = defaultCart, action) => {
     case CLEAR_CART: {
       return {
         defaultCart
-      }
-    }
-    case CHECKOUT: {
-      return {
-        ...state,
-        checkedOut: true
       }
     }
     case CREATE_CART: {
