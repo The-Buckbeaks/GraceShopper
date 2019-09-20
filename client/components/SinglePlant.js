@@ -22,7 +22,7 @@ class SinglePlant extends React.Component {
     }
   }
   render() {
-    const {name, description, price, imgUrl, id} = this.props.plant
+    const {name, price, imgUrl, id} = this.props.plant
     return (
       <div className="single-plant-container">
         <Link to={`/plants/${id}`}>

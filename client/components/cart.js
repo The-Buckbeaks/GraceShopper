@@ -14,9 +14,9 @@ class Cart extends Component {
     this.checkOut = this.checkOut.bind(this)
   }
 
-  async componentDidMount() {
+  componentDidMount() {
     //we are currently hard coding in the cartID for testing purposes
-    await this.props.getCart(this.props.cart.orderId)
+    this.props.getCart(this.props.cart.orderId)
   }
 
   checkOut() {
@@ -37,7 +37,11 @@ class Cart extends Component {
             </div>
 
             {cart.plants.map(plant => (
-              <SingleCartItem key={plant.id} item={plant} />
+              <SingleCartItem
+                key={plant.id}
+                plant={plant}
+                plantOrder={plant.plantOrder}
+              />
             ))}
             <button
               type="submit"
