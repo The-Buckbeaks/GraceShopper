@@ -29,14 +29,15 @@ class Cart extends Component {
     //the button at the bottom of the page needs to redirect to the checkout form, rather than handleSubmit
     const cart = this.props.cart
     return (
-      <div>
+      <div className="cart-container">
+        <h1>Your Shopping Cart</h1>
         {cart.plants.length && cart.plants.length > 0 ? (
           <div className="cart-container">
-            <h1>Your Shopping Cart</h1>
-            {cart.plants.map(plant => (
-              <SingleCartItem key={plant.id} item={plant} />
-            ))}
-
+            {cart.plants.map(orders =>
+              orders.plants.map(plant => (
+                <SingleCartItem key={plant.id} item={plant} />
+              ))
+            )}
             <button type="submit" onClick={this.checkOut}>
               Checkout
             </button>

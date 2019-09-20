@@ -15,6 +15,43 @@ img {
   height: auto;
 }
 
+a {
+  text-decoration: none;
+}
+
+h1 {
+  text-align: center;
+}
+h2 {
+  color: black;
+}
+h2:hover {
+  transition: color 1s ease;
+  color: fuchsia;
+  text-decoration: underline;
+  text-decoration-color: green;
+}
+h3 {
+  color: black;
+}
+h4 {
+  color: fuchsia;
+}
+
+label {
+  display: block;
+}
+
+nav a {
+  display: inline-block;
+  margin: 1em;
+}
+
+form div {
+  margin: 1em;
+  display: inline-block;
+}
+
 .nav {
   background-color: black;
   color: white;
@@ -35,24 +72,6 @@ img {
   text-shadow: 1px 1px green;
 }
 
-a {
-  text-decoration: none;
-}
-
-label {
-  display: block;
-}
-
-nav a {
-  display: inline-block;
-  margin: 1em;
-}
-
-form div {
-  margin: 1em;
-  display: inline-block;
-}
-
 .plant-container {
   display: grid;
   grid-template-columns: 15vw 15vw 15vw 15vw;
@@ -63,21 +82,21 @@ form div {
   align-content: flex-start;
 }
 
-h1 {
-  text-align: center;
+.plant-container img {
+  width: 250px;
+  height: 250px;
 }
-h2 {
-  color: black;
+
+.cart-item {
+  display: flex;
 }
-h2:hover {
-  transition: color 1s ease;
-  color: fuchsia;
-  text-decoration: underline;
-  text-decoration-color: green;
+
+.cart-item img {
+  width: 250px;
+  height: 250px;
+  border-radius: 10px;
 }
-h3 {
-  color: black;
-}
-h4 {
-  color: fuchsia;
+
+#cart-item-info {
+  padding-left: 10px;
 }
