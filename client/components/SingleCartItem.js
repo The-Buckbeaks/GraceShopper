@@ -4,28 +4,33 @@ import {Link} from 'react-router-dom'
 const SingleCartItem = props => {
   // console.log('FROM SINGLE CART ITEM', props)
   console.log(props.plantOrder)
-  const {plant, plantOrder} = props
+  const {item, plantOrder} = props
 
   return (
-    <li className="cart-item" key={plant.id}>
-      <div className="cart-image">
-        <img src={plant.imgUrl} alt={plant.name} />
-        <br />
-        <h2>
-          <Link to={`/plants/${plant.id}`}>{plant.name}</Link>
-        </h2>
-        <p>
-          <b>Quantity:</b>
+    console.log('This is plantOrder', plantOrder)
+    console.log('This is item', item)
+    <div>
+      <div className="cart-item" key={item.id}>
+        <div id="cart-item-img">
+          <img src={item.imgUrl} alt={item.name} />
+        </div>
+        <div id="cart-item-info">
+          <h2>
+            <Link to={`/plants/${item.id}`}> {item.name}</Link>
+          </h2>
+          <div id="cart-item-quantity">
+            <h3>Quantity:</h3>
           {plantOrder
             ? plantOrder.quantity
             : 'Ooops, how many plants did you want?'}
-        </p>
-        <p>
-          <b>Price:</b>
-          {plant.price}
-        </p>
+          </div>
+          <div id="cart-item-price">
+            <h3>Price:</h3>
+            ${(plantOrder.price / 100 * plantOrder.quantity).toFixed(2)}
+          </div>
+        </div>
       </div>
-    </li>
+    </div>
   )
 }
 export default SingleCartItem
