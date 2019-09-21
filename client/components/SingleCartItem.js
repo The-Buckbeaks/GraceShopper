@@ -2,12 +2,7 @@ import React from 'react'
 import {Link} from 'react-router-dom'
 
 const SingleCartItem = props => {
-  // console.log('FROM SINGLE CART ITEM', props)
-  console.log(props.plantOrder)
   const {item, plantOrder} = props
-
-  console.log('This is plantOrder', plantOrder)
-  console.log('This is item', item)
   return (
     <div>
       <div className="cart-item" key={item.id}>
