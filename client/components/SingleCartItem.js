@@ -2,13 +2,8 @@ import React from 'react'
 import {Link} from 'react-router-dom'
 
 const SingleCartItem = props => {
-  // console.log('FROM SINGLE CART ITEM', props)
-  console.log(props.plantOrder)
   const {item, plantOrder} = props
-
   return (
-    console.log('This is plantOrder', plantOrder)
-    console.log('This is item', item)
     <div>
       <div className="cart-item" key={item.id}>
         <div id="cart-item-img">
@@ -18,16 +13,20 @@ const SingleCartItem = props => {
           <h2>
             <Link to={`/plants/${item.id}`}> {item.name}</Link>
           </h2>
-          <div id="cart-item-quantity">
-            <h3>Quantity:</h3>
-          {plantOrder
-            ? plantOrder.quantity
-            : 'Ooops, how many plants did you want?'}
-          </div>
-          <div id="cart-item-price">
-            <h3>Price:</h3>
-            ${(plantOrder.price / 100 * plantOrder.quantity).toFixed(2)}
-          </div>
+          {plantOrder ? (
+            <div id="cart-info-wrapp">
+              <div id="cart-item-quantity">
+                <h3>Quantity:</h3>
+                {plantOrder.quantity}
+              </div>
+              <div id="cart-item-price">
+                <h3>Price:</h3>
+                ${(plantOrder.price / 100 * plantOrder.quantity).toFixed(2)}
+              </div>
+            </div>
+          ) : (
+            'Ooops, how many plants did you want?'
+          )}
         </div>
       </div>
     </div>
