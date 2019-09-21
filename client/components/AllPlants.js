@@ -11,6 +11,7 @@ class AllPlants extends React.Component {
     this.props.getAllPlants()
   }
   render() {
+    console.log('THIS IS THIS.PROPS IN ALL PLANTS', this.props)
     return (
       <div>
         <h1 id="all-plants">All the Plants</h1>

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-expressions */
 /* eslint-disable no-unused-vars */
 
 // --- ASSERTIONS ---
@@ -24,12 +25,10 @@ import React from 'react'
 import Enzyme, {shallow} from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
 Enzyme.configure({adapter: new Adapter()})
-import {AllPlants, SingleCartItem, SinglePlant} from '../client/components/'
 
 // Store
 import axios from 'axios'
 import MockAdapter from 'axios-mock-adapter'
-import Provider from 'react-redux'
 import configureMockStore from 'redux-mock-store'
 import thunkMiddleware from 'redux-thunk'
 const middlewares = [thunkMiddleware]
@@ -39,12 +38,13 @@ const initialState = {
   order: {},
   cart: []
 }
-// const store = mockStore(initialState)
 import reducer from '../client/store/'
-const mockServiceCreator = (body, succeeds = true) => () =>
-  new Promise((resolve, reject) => {
-    setTimeout(() => (succeeds ? resolve(body) : reject(body)), 10)
-  })
+const store = mockStore(reducer)
+
+import Cart from '../client/components/cart'
+import AllPlants from '../client/components/AllPlants'
+import {SingleCartItem} from '../client/components/'
+import SinglePlant from '../client/components/SinglePlant'
 
 // --- TESTS ---
 
@@ -120,22 +120,34 @@ describe('------- API ROUTES', () => {
 })
 
 describe('------- COMPONENTS', () => {
-  // describe('AllPlants component', () => {
-  //   it('renders', () => {
-  //     const plants = [
-  //       { name: 'John Lemmon', description: 'aaaaa' },
-  //       { name: 'Paul McBotany',description: 'aaaaa' },
-  //       { name: 'Ringo Seastar', description: 'aaaaa' }
-  //     ];
-  //     let wrapper = shallow(<AllPlants store={mockStore({reducer})}/>).dive()
-  //     console.log('This is mockstore(reducer)', mockStore({reducer}))
-  //   })
-  // })
-  // describe('AllPlants component testing', function() {
-  //   it('renders welcome message', function() {
-  //     const wrapper = shallow(<AllPlants store={mockStore()}/>);
-  //     const title = <h1 id="all-plants">All the Plants</h1>;
-  //     expect(wrapper.contains(title)).to.equal(true);
-  //   });
-  // });
+  const plantProp = [
+    {
+      id: 1,
+      name: 'Ringo Seastar',
+      description: "I'd like to be under the sea",
+      plantOrder: {quantity: 1}
+    }
+  ]
+
+  describe('<SingleCartItem /> component', () => {
+    let mockCartItem
+    beforeEach('Create shallow component', () => {
+      mockCartItem = shallow(
+        <SingleCartItem
+          key={plantProp.id}
+          item={plantProp}
+          plantOrder={plantProp.plantOrder}
+        />
+      )
+    })
+
+    it('renders as a stateless component', () => {
+      expect(mockCartItem.instance()).to.equal(null)
+    })
+    it('displays an image for each item in the cart', () => {
+      expect(mockCartItem.contains(<img src={plantProp.imgUrl} />)).to.equal(
+        true
+      )
+    })
+  })
 })

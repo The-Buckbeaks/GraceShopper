@@ -12,11 +12,6 @@ class SinglePlant extends React.Component {
     try {
       event.preventDefault()
       this.props.addItem(this.props.plant, this.props.cart.orderId)
-      console.log(
-        'HANDLE CLICK IS CALLED with',
-        this.props.plant,
-        this.props.cart.orderId
-      )
     } catch (error) {
       console.log(error)
     }
@@ -28,7 +23,11 @@ class SinglePlant extends React.Component {
         <Link to={`/plants/${id}`}>
           <h2 className="link">{name}</h2>
         </Link>
-        <button type="submit" onClick={this.handleClick}>
+        <button
+          type="submit"
+          onClick={this.handleClick}
+          className="add-to-cart-button"
+        >
           Add to Cart
         </button>
         <h4>Price: $ {price / 100}</h4>
