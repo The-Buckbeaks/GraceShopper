@@ -1,7 +1,5 @@
 const router = require('express').Router()
-const {Order} = require('../db/models')
-const {Plant} = require('../db/models')
-const {PlantOrder} = require('../db/models')
+const {Order, Plant, PlantOrder} = require('../db/models')
 
 module.exports = router
 
@@ -30,11 +28,7 @@ router.get('/:id', async (req, res, next) => {
       where: {
         id: req.params.id
       },
-      include: [
-        {
-          model: Plant
-        }
-      ]
+      include: [{model: Plant}]
     })
     res.json(order)
   } catch (err) {
@@ -61,13 +55,13 @@ router.put('/:id', async (req, res, next) => {
     } = req.body
     const plants = await order.getPlants()
     const updatedPlants = [...plants, req.body]
-    console.log('order FROM ROUTER PUT', order)
+    // console.log('order FROM ROUTER PUT', order)
     order.removePlants(plants)
     updatedPlants.forEach(plant => {
       PlantOrder.create({
         orderId: order.id,
         plantId: plant.id,
-        quantity: 1,
+        quantity: req.body.quantity,
         price: plant.price
       })
     })
@@ -81,7 +75,7 @@ router.put('/:id', async (req, res, next) => {
       userId
     })
     res.json(updatedOrder)
-    console.log('UPDATED RAN', order.plants)
+    // console.log('UPDATED RAN', order.plants)
   } catch (err) {
     next(err)
   }
