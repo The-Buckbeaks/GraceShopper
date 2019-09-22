@@ -61,7 +61,7 @@ router.put('/:id', async (req, res, next) => {
       PlantOrder.create({
         orderId: order.id,
         plantId: plant.id,
-        quantity: req.body.quantity,
+        quantity: plant.quantity,
         price: plant.price
       })
     })

@@ -7,23 +7,23 @@ class SinglePlant extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      quantity: 1
+      qty: 1
     }
     this.handleClick = this.handleClick.bind(this)
     this.onChange = this.onChange.bind(this)
   }
   handleClick(event) {
     event.preventDefault()
-    console.log('THIS IS STATE.QUANTITY', this.state.quantity)
+    console.log('THIS IS STATE.QTY', this.state.qty)
     this.props.addItem(
       this.props.plant,
       this.props.cart.orderId,
-      this.state.quantity
+      this.state.qty
     )
   }
   onChange(event) {
     this.setState({
-      quantity: event.target.value
+      qty: event.target.value
     })
   }
   render() {
@@ -43,7 +43,7 @@ class SinglePlant extends React.Component {
             <select
               id="select-quantity"
               onChange={this.onChange}
-              value={this.state.quantity}
+              value={this.state.qty}
             >
               <option value="1">1</option>
               <option value="2">2</option>
@@ -69,7 +69,7 @@ const mapStateToProps = state => ({
   cart: state.cart
 })
 const mapDispatchToProps = dispatch => ({
-  addItem: (plant, orderId) => dispatch(addItemThunk(plant, orderId))
+  addItem: (plant, orderId, qty) => dispatch(addItemThunk(plant, orderId, qty))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(SinglePlant)
