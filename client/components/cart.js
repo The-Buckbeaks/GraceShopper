@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import SingleCartItem from './SingleCartItem'
-import {getCart} from '../store/'
+import {getCart, clearCart} from '../store/'
 import OrderForm from './order-form'
 
 class Cart extends Component {
@@ -10,12 +10,10 @@ class Cart extends Component {
     this.state = {
       checkOut: false
     }
-
     this.checkOut = this.checkOut.bind(this)
   }
 
   componentDidMount() {
-    //we are currently hard coding in the cartID for testing purposes
     this.props.getCart(this.props.cart.orderId)
   }
 
@@ -26,8 +24,8 @@ class Cart extends Component {
   }
 
   render() {
-    //the button at the bottom of the page needs to redirect to the checkout form, rather than handleSubmit
     const cart = this.props.cart
+    console.log(cart)
     return (
       <div className="cart-container">
         <h1>Your Shopping Cart</h1>
@@ -48,6 +46,13 @@ class Cart extends Component {
               onClick={() => this.checkOut()}
             >
               Checkout
+            </button>
+            <button
+              type="reset"
+              value="reset"
+              onClick={() => this.props.clearCart(cart.orderId)}
+            >
+              Clear Cart
             </button>
             {this.state.checkOut ? (
               <OrderForm
@@ -72,7 +77,8 @@ const mapStateToProps = state => ({
   order: state.order
 })
 const mapDispatchToProps = dispatch => ({
-  getCart: id => dispatch(getCart(id))
+  getCart: id => dispatch(getCart(id)),
+  clearCart: id => dispatch(clearCart(id))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Cart)

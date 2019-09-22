@@ -28,5 +28,3 @@ const Order = db.define('order', {
 })
 
 module.exports = Order
-
-//Siwin: We need to add methods for checking out (i.e., calculating tax, shipping and handling, decrement inventory etc)
