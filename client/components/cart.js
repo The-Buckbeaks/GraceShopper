@@ -26,7 +26,6 @@ class Cart extends Component {
   }
 
   render() {
-    console.log('This is this.props in the cart component', this.props)
     //the button at the bottom of the page needs to redirect to the checkout form, rather than handleSubmit
     const cart = this.props.cart
     return (

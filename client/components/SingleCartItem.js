@@ -14,7 +14,7 @@ const SingleCartItem = props => {
             <Link to={`/plants/${item.id}`}> {item.name}</Link>
           </h2>
           {plantOrder ? (
-            <div id="cart-info-wrapp">
+            <div id="cart-info-wrap">
               <div id="cart-item-quantity">
                 <h3>Quantity:</h3>
                 {plantOrder.quantity}

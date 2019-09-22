@@ -20,18 +20,22 @@ class SinglePlant extends React.Component {
     const {name, price, imgUrl, id} = this.props.plant
     return (
       <div className="single-plant-container">
-        <Link to={`/plants/${id}`}>
-          <h2 className="link">{name}</h2>
-        </Link>
-        <button
-          type="submit"
-          onClick={this.handleClick}
-          className="add-to-cart-button"
-        >
-          Add to Cart
-        </button>
-        <h4>Price: $ {price / 100}</h4>
-        <img src={imgUrl} alt={name} />
+        <div id="single-plant-title">
+          <Link to={`/plants/${id}`}>
+            <h2 className="link">{name}</h2>
+          </Link>
+        </div>
+        <div id="single-plant-info">
+          <img src={imgUrl} alt={name} />
+          <h4>Price: $ {(price / 100).toFixed(2)}</h4>
+          <button
+            type="submit"
+            onClick={this.handleClick}
+            className="add-to-cart-button"
+          >
+            Add to Cart
+          </button>
+        </div>
       </div>
     )
   }

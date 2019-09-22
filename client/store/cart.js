@@ -50,7 +50,7 @@ export const getCart = id => async dispatch => {
   try {
     const res = await axios.get(`/api/orders/${id}`)
     dispatch(getCartItems(res.data))
-    console.log('FROM THE GETCAR THUNK', res.data)
+    console.log('FROM THE GETCART THUNK', res.data)
   } catch (err) {
     console.log('there was an error getting the cart', err)
   }

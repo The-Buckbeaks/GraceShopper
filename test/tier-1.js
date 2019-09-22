@@ -41,10 +41,7 @@ const initialState = {
 import reducer from '../client/store/'
 const store = mockStore(reducer)
 
-import Cart from '../client/components/cart'
-import AllPlants from '../client/components/AllPlants'
-import {SingleCartItem} from '../client/components/'
-import SinglePlant from '../client/components/SinglePlant'
+import {SingleCartItem, OrderForm} from '../client/components/'
 
 // --- TESTS ---
 
@@ -124,7 +121,7 @@ describe('------- COMPONENTS', () => {
     {
       id: 1,
       name: 'Ringo Seastar',
-      description: "I'd like to be under the sea",
+      description: 'This plant would like to be under the sea',
       plantOrder: {quantity: 1}
     }
   ]
