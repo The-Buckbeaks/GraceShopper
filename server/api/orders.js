@@ -37,13 +37,18 @@ router.get('/:id', async (req, res, next) => {
 })
 
 // ADD TO CART
+// Let's refactor this route. We are using it for BOTH submitting orders and for adding items to the cart. We can perhaps make an orders/:id/submit put route and an orders/id/add put route
 router.put('/:id', async (req, res, next) => {
   try {
     const order = await Order.findOne({
       where: {
         id: req.params.id
       },
-      include: [{model: Plant}]
+      include: [
+        {
+          model: Plant
+        }
+      ]
     })
     const {
       address,
@@ -55,14 +60,12 @@ router.put('/:id', async (req, res, next) => {
     } = req.body
     const plants = await order.getPlants()
     const updatedPlants = [...plants, req.body]
-    // console.log('order FROM ROUTER PUT', order)
-    order.removePlants(plants)
+    // order.removePlants(plants)
     updatedPlants.forEach(plant => {
       PlantOrder.create({
         orderId: order.id,
         plantId: plant.id,
-        quantity: req.body.quantity,
-        price: plant.price
+        quantity: req.body.quantity
       })
     })
     const updatedOrder = await order.update({
@@ -75,34 +78,10 @@ router.put('/:id', async (req, res, next) => {
       userId
     })
     res.json(updatedOrder)
-    // console.log('UPDATED RAN', order.plants)
   } catch (err) {
     next(err)
   }
 })
-
-// GET CART
-// if there is a req.session.user logged in, find or create order matching user with a status of not checked out?
-// router.get('/cart', async (req, res, next) => {
-//   try {
-//     if (req.session.user) {
-//       const userCart = await Order.findOrCreate({
-//         where: {
-//           userId: req.session.user,
-//           checkedOut: false
-//         }
-//       })
-//       if (userCart) res.json(userCart)
-//       else res.end()
-//     } else {
-//       const guestCart = await Order.create()
-//       res.status(201)
-//       res.json(guestCart)
-//     }
-//   } catch (err) {
-//     next(err)
-//   }
-// })
 
 // CREATE NEW GUEST ORDER
 // Creating a new cart for an order that is not associated with a user (guest)
@@ -137,21 +116,6 @@ router.post('/:orderId', async (req, res, next) => {
     next(err)
   }
 })
-
-// SUBMIT ORDER
-// Updates an order after checkout
-// router.put('/:id', async (req, res, next) => {
-//   try {
-//     const order = await Order.findById(req.params.id)
-//     if (!order) res.sendStatus(404)
-//     const {address, shippingMethod, gift, totalCost, checkedOut, userId} = req.body
-//     await order.update({
-//       address, shippingMethod, gift, totalCost, checkedOut, userId
-//     })
-//   } catch (err) {
-//     next(err)
-//   }
-// })
 
 // DELETE ORDER
 // ADMIN USE ONLY - deleting cart/order from database (not clearing the cart)
