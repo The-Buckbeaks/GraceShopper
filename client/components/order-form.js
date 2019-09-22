@@ -1,6 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {checkoutThunk} from '../store'
+import confirmation from './confirmationForm'
 
 class OrderForm extends React.Component {
   constructor() {
@@ -32,18 +33,30 @@ class OrderForm extends React.Component {
     try {
       event.preventDefault()
       this.props.checkedOut(this.state)
-      alert(`Your order has been successfully submitted.`)
+      //alert(`Your order has been successfully submitted.`)
       this.setState({
         address: '',
         shippingMethod: '',
         gift: 'no',
         totalCost: 0,
         checkedOut: false,
-        userId: null
+        userId: null,
+        submitted: true
       })
     } catch (error) {
       console.log(error)
     }
+  }
+  //c.Peng try to get the confirmation form work
+  confirmationForm() {
+    return (
+      <confirmation
+        address={this.sate.address}
+        shippingMethod={this.state.shippingMethod}
+        gift={this.state.gift}
+        userId={this.state.userId}
+      />
+    )
   }
   render() {
     return (
@@ -101,6 +114,7 @@ class OrderForm extends React.Component {
           </label>
           <button type="submit">Submit</button>
         </form>
+        {this.state.submitted && this.confirmationForm()}
       </div>
     )
   }
