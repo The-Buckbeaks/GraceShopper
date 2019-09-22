@@ -21,8 +21,13 @@ const SingleCartItem = props => {
                 {plantOrder.quantity}
               </div>
               <div id="cart-item-price">
-                <h3>Price:</h3>
-                ${(item.price / 100 * plantOrder.quantity).toFixed(2)}
+                <h3>Cost:</h3>
+                ${(item.price / 100 * plantOrder.quantity).toFixed(2)} <p />
+                <sub>
+                  <i>
+                    ({plantOrder.quantity} priced at ${item.price / 100} each)
+                  </i>
+                </sub>
               </div>
             </div>
           ) : (
