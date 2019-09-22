@@ -9,6 +9,10 @@ const {expect} = require('chai')
 
 //Plant model
 const Plant = require('../server/db/models/plant')
+//plantOrder model c.p
+const plantOrder = '../server/db/models/plantOder'
+//order model c.p
+const order = '../server/db/models/order'
 
 // --- TESTS ---
 
