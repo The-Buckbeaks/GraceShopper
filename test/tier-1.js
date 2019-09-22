@@ -15,6 +15,8 @@ process.env.NODE_ENV = 'test'
 
 // Models
 const Plant = require('../server/db/models/plant')
+const PlantOrder = require('../server/db/models/plantOrder')
+const Order = require('../server/db/models/order')
 
 // Routes
 const app = require('../server/')
@@ -38,7 +40,13 @@ const initialState = {
   order: {},
   cart: []
 }
-import reducer from '../client/store/'
+import reducer, {
+  addItemThunk,
+  addItem,
+  clearCart,
+  clearMyCart,
+  createCart
+} from '../client/store/'
 const store = mockStore(reducer)
 
 import {SingleCartItem, OrderForm} from '../client/components/'
@@ -46,7 +54,7 @@ import {SingleCartItem, OrderForm} from '../client/components/'
 // --- TESTS ---
 
 describe('------- MODELS', () => {
-  //defined in ../server/db/models/plant.js
+  //defined in '../server/db/models/plant.js'
   describe('Plant model', () => {
     describe('Validations', () => {
       it('requires `name`', async () => {
@@ -69,6 +77,52 @@ describe('------- MODELS', () => {
         } catch (error) {
           expect(error.message).to.contain('imgUrl cannot be null')
         }
+      })
+    })
+  })
+  //defined in 'server/db/models/index.js'
+  describe('Plant/Order association', () => {
+    let plant1, plant2, order, plantOrder1, plantOrder2, result
+
+    beforeEach(async () => {
+      order = await Order.create({
+        address: '5 Hanover Square, New York, NY 10004',
+        checkedOut: true,
+        shippingMethod: '1-Day',
+        gift: 'yes',
+        totalCost: 6680
+      })
+
+      plant1 = await Plant.create({
+        name: 'Pete Churplant',
+        description: 'I love to catch flies'
+      })
+
+      plant2 = await Plant.create({
+        name: 'Lily Padd',
+        description: 'Life is a pond'
+      })
+
+      plantOrder1 = await PlantOrder.create({
+        orderId: 1,
+        plantId: 1
+      })
+
+      plantOrder2 = await PlantOrder.create({
+        orderId: 1,
+        plantId: 2
+      })
+      result = await Order.findOne({
+        where: {
+          id: 1
+        },
+        include: [{model: Plant}]
+      })
+    })
+
+    describe('Order', () => {
+      it('has associated plants', () => {
+        expect(result.plants.length).to.equal(2)
       })
     })
   })
@@ -145,6 +199,54 @@ describe('------- COMPONENTS', () => {
       expect(mockCartItem.contains(<img src={plantProp.imgUrl} />)).to.equal(
         true
       )
+    })
+  })
+})
+
+describe('------- REDUX', () => {
+  describe('action and thunk creators', () => {
+    // defined in ../client/store
+
+    const plant = {
+      name: 'Planty McPlantface',
+      description: 'I am green',
+      quantity: 2
+    }
+    const orderId = 1
+    const qty = 2
+
+    let mock
+    before(() => {
+      mock = new MockAdapter(axios)
+    })
+
+    afterEach(() => {
+      mock.reset()
+    })
+
+    after(() => {
+      mock.restore()
+    })
+
+    describe('`Add item to cart`', () => {
+      it('creates an ADD_ITEM action', () => {
+        const addItemAction = addItem(plant)
+        expect(addItemAction.type).to.equal('ADD_ITEM')
+      })
+    })
+
+    describe('`Clear cart`', () => {
+      it('creates an CLEAR_CART action', () => {
+        const clearCartAction = clearMyCart()
+        expect(clearCartAction.type).to.equal('CLEAR_CART')
+      })
+    })
+
+    describe('`Create cart`', () => {
+      it('creates an CREATE_CART action', () => {
+        const createCartAction = createCart()
+        expect(createCartAction.type).to.equal('CREATE_CART')
+      })
     })
   })
 })
