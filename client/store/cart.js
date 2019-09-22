@@ -15,7 +15,6 @@ const defaultCart = {
 }
 
 // ACTION CREATORS
-// We need action creators to set each of the cart properties (based off of the order properties)
 
 const getCartItems = cart => ({
   type: GET_CART_ITEMS,
@@ -33,9 +32,9 @@ const removeItem = (plantId, price) => ({
   price
 })
 
-const clearCart = orderId => ({
+const clearMyCart = cart => ({
   type: CLEAR_CART,
-  orderId
+  cart
 })
 
 const createCart = cart => ({
@@ -50,7 +49,6 @@ export const getCart = id => async dispatch => {
   try {
     const res = await axios.get(`/api/orders/${id}`)
     dispatch(getCartItems(res.data))
-    console.log('FROM THE GETCART THUNK', res.data)
   } catch (err) {
     console.log('there was an error getting the cart', err)
   }
@@ -60,7 +58,6 @@ export const getCart = id => async dispatch => {
 export const addItemThunk = (plant, orderId, qty) => async dispatch => {
   try {
     plant.quantity = Number(qty)
-    console.log('ADD ITEM THUNK CALLED WITH', plant, orderId, qty)
     const res = await axios.put(`/api/orders/${orderId}`, plant)
     dispatch(addItem(res.data))
   } catch (err) {
@@ -85,7 +82,18 @@ export const createCartThunk = () => async dispatch => {
     const res = await axios.post('/api/orders/', defaultCart)
     dispatch(createCart(res.data))
   } catch (err) {
-    console.log('there was an error creating a cart!', err)
+    console.log('there was an error creating a cart', err)
+  }
+}
+
+//clearCart Thunk
+export const clearCart = orderId => async dispatch => {
+  try {
+    const res = await axios.put(`/api/orders/clear/${orderId}`, defaultCart)
+    console.log('NOW CLEARING CART', res.data)
+    dispatch(clearMyCart(res.data))
+  } catch (err) {
+    console.log('there was an error clearing the cart', err)
   }
 }
 
@@ -126,7 +134,8 @@ const cart = (state = defaultCart, action) => {
     }
     case CLEAR_CART: {
       return {
-        defaultCart
+        ...defaultCart,
+        orderId: action.cart.id
       }
     }
     case CREATE_CART: {

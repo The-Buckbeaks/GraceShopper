@@ -83,6 +83,46 @@ router.put('/:id', async (req, res, next) => {
   }
 })
 
+//CLEAR CART
+router.put('/clear/:id', async (req, res, next) => {
+  console.log('ROUTER CLEAR CALLED', req.params, req.body)
+  try {
+    const order = await Order.findOne({
+      where: {
+        id: req.params.id
+      },
+      include: [
+        {
+          model: Plant
+        }
+      ]
+    })
+    const {
+      address,
+      shippingMethod,
+      gift,
+      totalCost,
+      checkedOut,
+      userId
+    } = req.body
+    const plants = order.getPlants()
+    order.removePlants(plants)
+    const cleared = await order.update({
+      plants: [],
+      address,
+      shippingMethod,
+      gift,
+      totalCost,
+      checkedOut,
+      userId
+    })
+
+    res.json(cleared)
+  } catch (err) {
+    next(err)
+  }
+})
+
 // CREATE NEW GUEST ORDER
 // Creating a new cart for an order that is not associated with a user (guest)
 router.post('/', async (req, res, next) => {
@@ -102,7 +142,6 @@ router.post('/', async (req, res, next) => {
 // Creating a new cart for an order that has a userId associated with it
 router.post('/:orderId', async (req, res, next) => {
   try {
-    console.log('ROUTER POST CALLED', req.params)
     if (!req.body) res.sendStatus(500)
     const {plants, checkedOut} = req.body
     const newOrder = await Order.create({
