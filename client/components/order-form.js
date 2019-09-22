@@ -1,7 +1,8 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {checkoutThunk} from '../store'
-import {confirmationForm} from './confirmationForm'
+import {Redirect} from 'react-router-dom'
+import ConfirmationForm from './confirmationForm'
 
 class OrderForm extends React.Component {
   constructor(props) {
@@ -11,8 +12,9 @@ class OrderForm extends React.Component {
       shippingMethod: '',
       gift: 'no',
       totalCost: 0,
-      checkedOut: false,
+      checkedOut: true,
       userId: this.props.user.id || null,
+
       submitted: false
     }
     this.handleChange = this.handleChange.bind(this)
@@ -45,7 +47,7 @@ class OrderForm extends React.Component {
         shippingMethod: '',
         gift: 'no',
         totalCost: 0,
-        checkedOut: false,
+        checkedOut: true,
         userId: this.props.user.id || null,
         submitted: true
       })
@@ -53,16 +55,23 @@ class OrderForm extends React.Component {
       console.log(error)
     }
   }
-  confirmation() {
-    return (
-      <confirmationForm
-        address={this.state.address}
-        shippingMethod={this.state.shippingMethod}
-        userId={this.state.userId}
-      />
-    )
-  }
+
   render() {
+    if (this.state.submitted) {
+      return (
+        <Redirect
+          to={{
+            pathname: '/confirmation',
+            state: {
+              shippingMethod: this.state.shippingMethod,
+              userId: this.state.userId,
+              address: this.state.address
+            }
+          }}
+        />
+      )
+    }
+
     return (
       <div className="order">
         <h2>Order Checkout</h2>
@@ -71,8 +80,8 @@ class OrderForm extends React.Component {
           <input
             type="text"
             name="address"
-            onChange={this.handleChange}
             value={this.state.address}
+            onChange={this.handleChange}
           />
           <label htmlFor="shippingMethod">Select Shipping Method:</label>
           <label htmlFor="shipping">
@@ -118,7 +127,6 @@ class OrderForm extends React.Component {
           </label>
           <button type="submit">Submit</button>
         </form>
-        {this.state.submitted && this.state.confirmation()}
       </div>
     )
   }
