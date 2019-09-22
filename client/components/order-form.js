@@ -1,18 +1,19 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {checkoutThunk} from '../store'
-import confirmation from './confirmationForm'
+import {confirmationForm} from './confirmationForm'
 
 class OrderForm extends React.Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.state = {
       address: '',
       shippingMethod: '',
       gift: 'no',
       totalCost: 0,
       checkedOut: false,
-      userId: null
+      userId: this.props.user.id || null,
+      submitted: false
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -31,29 +32,32 @@ class OrderForm extends React.Component {
 
   handleSubmit(event) {
     try {
+      this.setState({checkedOut: true})
       event.preventDefault()
-      this.props.checkedOut(this.state)
-      //alert(`Your order has been successfully submitted.`)
+      this.props.checkedOut(this.props.orderId, this.state)
+      // alert(
+      //   `Your order (id: ${
+      //     this.props.orderId
+      //   }) has been successfully submitted.`
+      // )
       this.setState({
         address: '',
         shippingMethod: '',
         gift: 'no',
         totalCost: 0,
         checkedOut: false,
-        userId: null,
+        userId: this.props.user.id || null,
         submitted: true
       })
     } catch (error) {
       console.log(error)
     }
   }
-  //c.Peng try to get the confirmation form work
-  confirmationForm() {
+  confirmation() {
     return (
-      <confirmation
-        address={this.sate.address}
+      <confirmationForm
+        address={this.state.address}
         shippingMethod={this.state.shippingMethod}
-        gift={this.state.gift}
         userId={this.state.userId}
       />
     )
@@ -114,15 +118,17 @@ class OrderForm extends React.Component {
           </label>
           <button type="submit">Submit</button>
         </form>
-        {this.state.submitted && this.confirmationForm()}
+        {this.state.submitted && this.state.confirmation()}
       </div>
     )
   }
 }
 const mapDispatchToProps = dispatch => ({
-  checkedOut: cart => dispatch(checkoutThunk(cart))
+  checkedOut: (orderId, orderInfo) =>
+    dispatch(checkoutThunk(orderId, orderInfo))
 })
 const mapStateToProps = state => ({
-  order: state.order
+  order: state.order,
+  user: state.user
 })
 export default connect(mapStateToProps, mapDispatchToProps)(OrderForm)
