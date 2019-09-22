@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom'
 
 const SingleCartItem = props => {
   const {item, plantOrder} = props
+  console.log('THIS IS PROPS IN SINGLE CART ITEM', props)
   return (
     <div>
       <div className="cart-item" key={item.id}>
@@ -14,14 +15,17 @@ const SingleCartItem = props => {
             <Link to={`/plants/${item.id}`}> {item.name}</Link>
           </h2>
           {plantOrder ? (
-            <div id="cart-info-wrapp">
+            <div id="cart-info-wrap">
               <div id="cart-item-quantity">
                 <h3>Quantity:</h3>
                 {plantOrder.quantity}
               </div>
               <div id="cart-item-price">
-                <h3>Price:</h3>
-                ${(plantOrder.price / 100 * plantOrder.quantity).toFixed(2)}
+                <h3>Cost:</h3>
+                ${(item.price / 100 * plantOrder.quantity).toFixed(2)} <p />
+                <sub>
+                  <i>(${(item.price / 100).toFixed(2)} each)</i>
+                </sub>
               </div>
             </div>
           ) : (

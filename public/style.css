@@ -27,15 +27,16 @@ h2 {
 }
 h2:hover {
   transition: color 1s ease;
-  color: fuchsia;
+  color: #fd3e81;
   text-decoration: underline;
-  text-decoration-color: green;
+  text-decoration-color: #5eba11;
 }
 h3 {
   color: black;
 }
 h4 {
-  color: fuchsia;
+  color: #fd3e81;
+  font-size: 20px;
 }
 
 label {
@@ -69,7 +70,7 @@ form div {
 
 .nav #title {
   font-size: 24px;
-  text-shadow: 1px 1px green;
+  text-shadow: 1px 1px #5eba11;
 }
 
 .plant-container {
@@ -87,6 +88,20 @@ form div {
   height: 250px;
 }
 
+.add-to-cart-button {
+  background-color: #5eba11;
+  border-radius: 5px;
+  color: #fff;
+  font-size: 20px;
+  height: 40px;
+  width: 150px;
+}
+
+.add-to-cart-button:hover {
+  background-color: #fd3e81;
+  transition: color 1s ease;
+}
+
 .cart-item {
   display: flex;
 }
@@ -99,4 +114,20 @@ form div {
 
 #cart-item-info {
   padding-left: 10px;
+}
+
+#single-plant-title {
+  min-height: 50px;
+}
+
+#dropdown-menu {
+  color: #5eba11;
+  padding-bottom: 15px;
+}
+
+#dropdown-menu select {
+  font-size: 15px;
+  height: 25px;
+  text-align: center;
+  width: 50px;
 }

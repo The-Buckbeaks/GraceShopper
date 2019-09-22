@@ -116,39 +116,34 @@ async function seed() {
     PlantOrder.create({
       orderId: 1,
       plantId: 1,
-      quantity: 2,
-      price: 799
+      quantity: 2
     }),
     PlantOrder.create({
       orderId: 1,
       plantId: 2,
-      quantity: 3,
-      price: 549
+      quantity: 3
     }),
     PlantOrder.create({
       orderId: 2,
       plantId: 9,
-      quantity: 1,
-      price: 955
+      quantity: 1
     }),
     PlantOrder.create({
       orderId: 2,
       plantId: 8,
-      quantity: 5,
-      price: 749
+      quantity: 5
     }),
     PlantOrder.create({
       orderId: 2,
       plantId: 3,
-      quantity: 2,
-      price: 990
+      quantity: 2
     })
   ])
 
   console.log(
     `seeded ${users.length} users, ${plants.length} plants, ${
       orders.length
-    } orders, and our plant order join table!`
+    } orders, and ${plantOrders.length} plant orders!`
   )
   console.log(`seeded successfully`)
 }
