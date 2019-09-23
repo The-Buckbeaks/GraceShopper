@@ -13,7 +13,6 @@ class SinglePlantView extends React.Component {
   }
   handleClick(event) {
     event.preventDefault()
-    const id = Number(this.props.match.params.id)
     const qty = Number(this.state.orderQty)
     this.props.addItem(this.props.plants.plant, qty)
   }
