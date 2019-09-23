@@ -10,7 +10,7 @@ const {expect} = require('chai')
 //Plant model
 const Plant = require('../server/db/models/plant')
 //plantOrder order model c.p
-const PlantOrder = require('../server/db/models/plantOrder')
+
 const Order = require('../server/db/models/order')
 
 // --- TESTS ---
@@ -82,6 +82,20 @@ describe('Models', () => {
         throw Error(
           'order.shippingMethod should only be "1-Day/standard Ground'
         )
+      })
+      it(' can handle long `address`', async () => {
+        let sillyAddress =
+          'this is a hill with a longest name in the world(it is located in New Zealand):Taumata­whakatangihanga­koauau­o­tamatea­turipukaka ­pikimaunga ­horo­nuku­pokaiwhenua­kitana­tahu (85 letters). The city that has the longest name is located in Thailand :Krung-thep-maha-nakorn-boworn-ratana-kosin-mahintar-ayudhya-amaha-dilok-pop-nopa-ratana-rajthani-burirom-udom-rajniwes-mahasat-arn-amorn-pimarn-avatar-satit-sakattiya-visanukam.'
+        const result = await Order.create({
+          shippingMethod: '1-Day',
+          address: sillyAddress
+        })
+        expect(result.address).to.equal(sillyAddress)
+      })
+
+      it('`totalCost` is originally 0', async () => {
+        const orderTwo = await Order.build()
+        expect(orderTwo.totalCost).to.equal(0)
       })
     })
   })
