@@ -9,7 +9,12 @@ import {
   Cart,
   AllPlants,
   SinglePlantView,
-  Splash
+
+  Splash,
+  OrderForm,
+  confirmationForm
+
+
 } from './components'
 import {me} from './store'
 
@@ -33,6 +38,10 @@ class Routes extends Component {
         <Route path="/cart" component={Cart} />
         <Route path="/shop" component={AllPlants} />
         <Route path="/plants" component={AllPlants} />
+
+        <Route path="/order-form" component={OrderForm} />
+        <Route path="/confirmation" component={confirmationForm} />
+
 
         {isLoggedIn && (
           <Switch>

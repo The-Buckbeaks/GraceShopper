@@ -15,6 +15,7 @@ process.env.NODE_ENV = 'test'
 
 // Models
 const Plant = require('../server/db/models/plant')
+
 const PlantOrder = require('../server/db/models/plantOrder')
 const Order = require('../server/db/models/order')
 
@@ -51,6 +52,7 @@ const store = mockStore(reducer)
 
 import {SingleCartItem, OrderForm} from '../client/components/'
 
+
 // --- TESTS ---
 
 describe('------- MODELS', () => {
@@ -80,6 +82,48 @@ describe('------- MODELS', () => {
       })
     })
   })
+
+  //order model c.p
+  describe('order model', () => {
+    describe('Validations', () => {
+      it('requires `gift` property to be either "yes" or "no" (nothing else)', async () => {
+        //confirming these work fine
+        const order = Order.build()
+        await order.save()
+        order.gift = 'yes'
+        await order.save()
+        order.gift = 'no'
+        await order.save()
+        try {
+          order.gift = 'noooo'
+          await order.save()
+        } catch (err) {
+          //expect(err).to.exist
+          expect(err.message).to.contain('gift')
+          return
+        }
+        throw Error('order.gift should only be yes/no')
+      })
+      it('requires `shippingMethod` property to be either "1-Day" or "Standard Ground" (nothing else)', async () => {
+        //confirming these work fine
+        const newOrder = Order.build()
+        await newOrder.save()
+        newOrder.shippingMethod = '1-Day'
+        await newOrder.save()
+        newOrder.shippingMethod = 'Standard Ground'
+        await newOrder.save()
+        try {
+          newOrder.shippingMethod = 'noooo'
+          await newOrder.save()
+        } catch (err) {
+          //expect(err).to.exist
+          expect(err.message).to.contain('shippingMethod')
+          return
+        }
+        throw Error(
+          'order.shippingMethod should only be "1-Day/standard Ground'
+        )
+
   //defined in 'server/db/models/index.js'
   describe('Plant/Order association', () => {
     let plant1, plant2, order, plantOrder1, plantOrder2, result
@@ -246,6 +290,7 @@ describe('------- REDUX', () => {
       it('creates an CREATE_CART action', () => {
         const createCartAction = createCart()
         expect(createCartAction.type).to.equal('CREATE_CART')
+
       })
     })
   })

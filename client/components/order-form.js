@@ -1,6 +1,8 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {checkoutThunk} from '../store'
+import {Redirect} from 'react-router-dom'
+import ConfirmationForm from './confirmationForm'
 
 class OrderForm extends React.Component {
   constructor(props) {
@@ -11,7 +13,11 @@ class OrderForm extends React.Component {
       gift: 'no',
       totalCost: 0,
       checkedOut: false,
-      userId: this.props.user.id || null
+
+      userId: this.props.user.id || null,
+      submitted: false
+
+
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -33,24 +39,40 @@ class OrderForm extends React.Component {
       this.setState({checkedOut: true})
       event.preventDefault()
       this.props.checkedOut(this.props.orderId, this.state)
-      alert(
-        `Your order (id: ${
-          this.props.orderId
-        }) has been successfully submitted.`
-      )
+
       this.setState({
         address: '',
         shippingMethod: '',
         gift: 'no',
         totalCost: 0,
-        checkedOut: false,
-        userId: this.props.user.id || null
+
+        checkedOut: true,
+        userId: this.props.user.id || null,
+        submitted: true
+
+
       })
     } catch (error) {
       console.log(error)
     }
   }
+
   render() {
+    if (this.state.submitted) {
+      return (
+        <Redirect
+          to={{
+            pathname: '/confirmation',
+            state: {
+              shippingMethod: this.state.shippingMethod,
+              userId: this.state.userId,
+              address: this.state.address
+            }
+          }}
+        />
+      )
+    }
+
     return (
       <div className="order">
         <h2>Order Checkout</h2>
@@ -59,8 +81,8 @@ class OrderForm extends React.Component {
           <input
             type="text"
             name="address"
-            onChange={this.handleChange}
             value={this.state.address}
+            onChange={this.handleChange}
           />
           <label htmlFor="shippingMethod">Select Shipping Method:</label>
           <label htmlFor="shipping">
