@@ -2,7 +2,6 @@ import React from 'react'
 
 class confirmationForm extends React.Component {
   render() {
-    console.log(this.props)
     return (
       <div>
         <h1> Thank you for choosing The Octopus's Gardern!</h1>
