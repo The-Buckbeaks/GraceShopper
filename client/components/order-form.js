@@ -12,9 +12,8 @@ class OrderForm extends React.Component {
       shippingMethod: '',
       gift: 'no',
       totalCost: 0,
-      checkedOut: true,
+      checkedOut: false,
       userId: this.props.user.id || null,
-
       submitted: false
     }
     this.handleChange = this.handleChange.bind(this)
