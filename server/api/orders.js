@@ -34,45 +34,32 @@ router.get('/cart', async (req, res, next) => {
 })
 
 // SUBMITTING AN ORDER
-router.put('/:id', async (req, res, next) => {
+router.post('/submit', async (req, res, next) => {
   try {
-    const order = await Order.findOne({
-      where: {
-        id: req.params.id
-      },
-      include: [
-        {
-          model: Plant
-        }
-      ]
-    })
-    const {
+    const {address, shippingMethod, gift, userId} = req.body
+    const {cart} = req.session
+
+    const order = await Order.create({
       address,
       shippingMethod,
       gift,
+      checkedOut: true,
       totalCost,
-      checkedOut,
       userId
-    } = req.body
-    const plants = await order.getPlants()
-    const updatedPlants = [...plants, req.body]
-    // order.removePlants(plants)
-    updatedPlants.forEach(plant => {
+    })
+
+    cart.forEach(plant => {
       PlantOrder.create({
         orderId: order.id,
         plantId: plant.id,
-        quantity: req.body.quantity
+        quantity: plant.quantity
       })
     })
     const updatedOrder = await order.update({
-      plants: updatedPlants,
-      address,
-      shippingMethod,
-      gift,
-      totalCost,
-      checkedOut,
-      userId
+      plants: cart
     })
+    //this clears cart
+    req.session.cart = []
     res.json(updatedOrder)
   } catch (err) {
     next(err)
@@ -115,13 +102,6 @@ router.post('/', async (req, res, next) => {
 // ADD ITEM TO CART
 router.post('/add', async (req, res, next) => {
   try {
-    console.log(
-      'ADD ROUTE----',
-      '\n REQ.SESSION.CART------',
-      req.session.cart,
-      '\n REQ BODY-----',
-      req.body
-    )
     if (!req.session.cart) req.session.cart = []
     req.session.cart = [...req.session.cart, req.body]
     res.status(201)

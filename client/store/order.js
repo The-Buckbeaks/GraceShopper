@@ -8,12 +8,9 @@ const checkout = order => ({
 })
 
 //checkout Thunk
-export const checkoutThunk = (orderId, orderInfo) => async dispatch => {
+export const checkoutThunk = orderInfo => async dispatch => {
   try {
-    const res = await axios.put(`/api/orders/${orderId}`, {
-      ...orderInfo,
-      checkedOut: true
-    })
+    const res = await axios.post(`/api/orders/submit`, orderInfo)
     dispatch(checkout(res.data))
   } catch (err) {
     console.log('There was an error checking out.', err)
