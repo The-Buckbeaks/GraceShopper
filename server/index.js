@@ -10,7 +10,6 @@ const sessionStore = new SequelizeStore({db})
 const PORT = process.env.PORT || 8080
 const app = express()
 const socketio = require('socket.io')
-const permit = require('./permission') // middleware for checking if user's role is permitted to make request
 
 module.exports = app
 
