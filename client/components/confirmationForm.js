@@ -6,7 +6,7 @@ class confirmationForm extends React.Component {
       <div>
         <h1> Thank you for choosing The Octopus's Gardern!</h1>
         {this.props.user.email ? (
-          <h3>WE'VE GOT YOUR ORDER,{this.props.user.id} .</h3>
+          <h3>WE'VE GOT YOUR ORDER,{this.props.user.email}.</h3>
         ) : (
           <h3>WE'VE GOT YOUR ORDER, DEAR!</h3>
         )}
