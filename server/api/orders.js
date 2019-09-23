@@ -116,7 +116,8 @@ router.post('/add', async (req, res, next) => {
   try {
     if (!req.session.cart) req.session.cart = []
     req.session.cart = [...req.session.cart, req.body]
-    res.status(201).json(req.session.cart[req.session.cart.length - 1])
+    res.status(201)
+    res.json(req.session.cart[req.session.cart.length - 1])
   } catch (err) {
     next(err)
   }
