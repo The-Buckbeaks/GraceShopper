@@ -29,6 +29,7 @@ router.get('/:id', async (req, res, next) => {
       where: {
         id: req.params.id
       },
+      attributes: ['id', 'userId'],
       include: [{model: Plant}]
     })
     res.json(order)
