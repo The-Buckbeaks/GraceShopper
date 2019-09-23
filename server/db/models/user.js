@@ -28,7 +28,8 @@ const User = db.define('user', {
   },
   googleId: {
     type: Sequelize.STRING
-  }
+  },
+  role: Sequelize.STRING
 })
 
 module.exports = User
