@@ -8,6 +8,21 @@ An e-commerce platform to connect you and your fellow octopodes with fun, pun-ta
 
 Octopus's Garden was built by <a href="https://github.com/The-Buckbeaks">the Buckbeaks</a>, a team of 4 senior phase software engineering immersive students as part of the Grace Hopper Program at Fullstack Academy of Code, New York.
 
+## 💻 Technologies Used
+
+Front-end: React, Redux, OAuth, React, CSS Grids
+Back-end: Node, Express, PostgreSQL, Sequelize
+Deployment: Heroku, Travis CI/CD
+
+## 🌱 Getting Started
+
+* Fork and clone this repo
+
+  > npm install
+
+* Start the build process and your application with: npm run start-dev. If you using Windows, you may need to execute npm run start-server and npm run build-watch separately (in their own terminal tabs).
+  Seed database by executing npm run seed
+
 <details>
 <summary>Boilerplate README.md for reference</summary>
 
