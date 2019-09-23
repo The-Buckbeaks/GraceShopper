@@ -100,34 +100,49 @@ router.put('/clear/:id', async (req, res, next) => {
   }
 })
 
-// CREATE NEW GUEST ORDER
-// Creating a new cart for an order that is not associated with a user (guest)
+// CREATE NEW CART
+// Creating a new cart for an order
 router.post('/', async (req, res, next) => {
   try {
-    const {plants} = req.body
-    const newOrder = await Order.create({
-      plants
-    })
+    const order = await Order.create()
+    if (req.session.userId) {
+      order.setUser(req.session.userId)
+    }
+    if (!req.session.cartId) {
+      req.session.cartId = order.id
+    }
     res.status(201)
-    res.json(newOrder)
+    res.json(order)
   } catch (err) {
     next(err)
   }
 })
 
-// CREATE NEW ORDER FOR USER
-// Creating a new cart for an order that has a userId associated with it
-router.post('/:orderId', async (req, res, next) => {
+// ADD ITEM TO CART
+router.post('/add', async (req, res, next) => {
   try {
-    if (!req.body) res.sendStatus(500)
-    const {plants, checkedOut} = req.body
-    const newOrder = await Order.create({
-      plants,
-      checkedOut,
-      userId: req.params.userId
+    console.log('THIS IS REQ.BODY IN POST-----', req.body)
+    const plant = await Plant.findByPk(req.body.id)
+    const order = await Order.findOrCreate({
+      where: {
+        id: req.session.cartId
+      },
+      include: [{model: Plant}]
     })
-    res.status(201)
-    res.json(newOrder)
+    const plantOrderInfo = {
+      orderId: req.session.cartId,
+      plantId: req.body.id,
+      quantity: req.body.orderQty
+    }
+    console.log('THIS IS ORDER---', order)
+    const plantOrder = await PlantOrder.create(plantOrderInfo)
+    console.log('THIS IS PLANTORDER', plantOrder)
+    // order.addPlant(plant, {
+    //   through: { plants: plant }
+    // })
+    // const plantOrder = await order.addPlant(plant)
+    // console.log('THIS IS plantOrder', plantOrder)
+    res.json(plantOrder)
   } catch (err) {
     next(err)
   }

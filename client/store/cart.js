@@ -10,8 +10,7 @@ const CREATE_CART = 'CREATE_CART'
 // INITIAL STATE
 const defaultCart = {
   orderId: null,
-  plants: [],
-  checkedOut: false
+  plants: []
 }
 
 // ACTION CREATORS
@@ -21,9 +20,9 @@ const getCartItems = cart => ({
   cart
 })
 
-export const addItem = plant => ({
+export const addItem = plantOrder => ({
   type: ADD_ITEM,
-  plant
+  plantOrder
 })
 
 const removeItem = (plantId, price) => ({
@@ -55,10 +54,10 @@ export const getCart = id => async dispatch => {
 }
 
 //addItem Thunk
-export const addItemThunk = (plant, orderId, qty) => async dispatch => {
+export const addItemThunk = (plant, qty) => async dispatch => {
   try {
-    plant.quantity = Number(qty)
-    const res = await axios.put(`/api/orders/${orderId}`, plant)
+    plant.orderQty = Number(qty)
+    const res = await axios.post(`/api/orders/add`, plant)
     dispatch(addItem(res.data))
   } catch (err) {
     console.log('there was an error adding an item', err)
@@ -98,18 +97,6 @@ export const clearCart = orderId => async dispatch => {
   }
 }
 
-//Update Cart
-// -- ADMIN USE ONLY: CODE IS HERE FOR FUTURE REFERENCE, updateCart does not exist yet
-// export const updateCartThunk = (orderId, cart) => async dispatch => {
-//   try {
-//     const {updateResponse} = await axios.put(`/api/orders/${orderId}`, cart)
-//     const {data} = await axios.get(`/api/orders/${orderId}`)
-//     dispatch(updateCart(data))
-//   } catch (err) {
-//     console.log('there was an error updating that order', err)
-//   }
-// }
-
 // REDUCER
 
 const cart = (state = defaultCart, action) => {
@@ -124,7 +111,7 @@ const cart = (state = defaultCart, action) => {
     case ADD_ITEM: {
       return {
         ...state,
-        plants: [...state.plants, action.plant]
+        plants: [...state.plants, action.plantOrder]
       }
     }
     case REMOVE_ITEM: {
