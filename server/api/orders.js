@@ -4,6 +4,7 @@ const {Order, Plant, PlantOrder} = require('../db/models')
 module.exports = router
 
 // GET ALL ORDERS
+
 router.get('/', async (req, res, next) => {
   try {
     const orders = await Order.findAll({
@@ -135,7 +136,7 @@ router.post('/:orderId', async (req, res, next) => {
 // ADMIN USE ONLY - deleting cart/order from database (not clearing the cart)
 router.delete('/:id', async (req, res, next) => {
   try {
-    const order = await Order.findById(req.params.id)
+    const order = await Order.findByPk(req.params.id)
     if (!order) res.sendStatus(404)
     const plants = await order.getPlants()
     order.removePlants(plants)
