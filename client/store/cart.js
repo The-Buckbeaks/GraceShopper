@@ -58,7 +58,6 @@ export const addItemThunk = (plant, qty) => async dispatch => {
   try {
     plant.orderQty = Number(qty)
     const res = await axios.post(`/api/orders/add/`, plant)
-    console.log('res from addItemThunk------', res.data)
     dispatch(addItem(res.data))
   } catch (err) {
     console.log('there was an error adding an item', err)
