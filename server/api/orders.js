@@ -85,39 +85,14 @@ router.put('/:id', async (req, res, next) => {
 
 //CLEAR CART
 router.put('/clear/:id', async (req, res, next) => {
-  console.log('ROUTER CLEAR CALLED', req.params, req.body)
   try {
-    const order = await Order.findOne({
+    const destroyed = PlantOrder.destroy({
       where: {
-        id: req.params.id
-      },
-      include: [
-        {
-          model: Plant
-        }
-      ]
-    })
-    const {
-      address,
-      shippingMethod,
-      gift,
-      totalCost,
-      checkedOut,
-      userId
-    } = req.body
-    const plants = order.getPlants()
-    order.removePlants(plants)
-    const cleared = await order.update({
-      plants: [],
-      address,
-      shippingMethod,
-      gift,
-      totalCost,
-      checkedOut,
-      userId
+        orderId: req.params.id
+      }
     })
 
-    res.json(cleared)
+    res.json(destroyed)
   } catch (err) {
     next(err)
   }
