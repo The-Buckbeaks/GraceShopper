@@ -1,14 +1,18 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
+import {connect} from 'react-redux'
+import {removeItemThunk} from '../store'
 
 class SingleCartItem extends React.Component {
   constructor(props) {
     super(props)
-    // this.handleClick = this.handleClick.bind(this)
+    this.handleClick = this.handleClick.bind(this)
   }
-  // handleClick(id){
-  //   this.props.removeItem
-  // }
+  handleClick(event) {
+    event.preventDefault()
+    console.log('HANDLE CLICK WAS CALLED', this.props.plant)
+    this.props.removeItem(this.props.plant)
+  }
   render() {
     const {plant} = this.props
     console.log('THIS IS PROPS IN SINGLE CART ITEM', this.props)
@@ -34,7 +38,9 @@ class SingleCartItem extends React.Component {
                   <sub>
                     <i>(${(plant.price / 100).toFixed(2)} each)</i>
                   </sub>
-                  <button type="button">Remove Item</button>
+                  <button type="button" onClick={this.handleClick}>
+                    Remove Item
+                  </button>
                 </div>
               </div>
             ) : (
@@ -46,4 +52,13 @@ class SingleCartItem extends React.Component {
     )
   }
 }
-export default SingleCartItem
+
+const mapStateToProps = state => ({
+  cart: state.cart,
+  plants: state.plants
+})
+const mapDispatchToProps = dispatch => ({
+  removeItem: plant => dispatch(removeItemThunk(plant))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(SingleCartItem)

@@ -127,6 +127,18 @@ router.post('/add', async (req, res, next) => {
   }
 })
 
+// REMOVE ITEM FROM CART
+router.put('/remove', async (req, res, next) => {
+  try {
+    console.log('--------FROM REMOVE ITEM', req.body)
+
+    //req.session.cart = req.session.cart.filter(plant => plant.id !== req.body)
+    res.status(201)
+    res.json(req.session.cart)
+  } catch (err) {
+    next(err)
+  }
+})
 // DELETE ORDER
 // ADMIN USE ONLY - deleting cart/order from database (not clearing the cart)
 router.delete('/:id', async (req, res, next) => {

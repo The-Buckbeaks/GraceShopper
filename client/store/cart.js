@@ -64,15 +64,15 @@ export const addItemThunk = (plant, qty) => async dispatch => {
   }
 }
 
-//removeItem Thunk IN PROGRESS
-// export const removeItemThunk = plantId => async dispatch => {
-//   try {
-//     const res = await axios.put(`/api/orders/${}`, cart)
-//     dispatch(removeItem(res.data))
-//   } catch (err) {
-//     console.log('there was an error removing an item', err)
-//   }
-// }
+// removeItem Thunk
+export const removeItemThunk = plant => async dispatch => {
+  try {
+    const res = await axios.put(`/api/orders/remove/`, plant.id)
+    dispatch(removeItem(res.data))
+  } catch (err) {
+    console.log('there was an error removing an item', err)
+  }
+}
 
 //createCart Thunk
 export const createCartThunk = () => async dispatch => {
