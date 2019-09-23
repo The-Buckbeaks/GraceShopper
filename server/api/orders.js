@@ -34,44 +34,28 @@ router.get('/cart', async (req, res, next) => {
 })
 
 // SUBMITTING AN ORDER
-router.put('/:id', async (req, res, next) => {
+router.post('/submit', async (req, res, next) => {
   try {
-    const order = await Order.findOne({
-      where: {
-        id: req.params.id
-      },
-      include: [
-        {
-          model: Plant
-        }
-      ]
-    })
-    const {
+    const {address, shippingMethod, gift, userId} = req.body
+    const {cart} = req.session
+
+    const order = await Order.create({
       address,
       shippingMethod,
       gift,
-      totalCost,
-      checkedOut,
+      checkedOut: true,
       userId
-    } = req.body
-    const plants = await order.getPlants()
-    const updatedPlants = [...plants, req.body]
-    // order.removePlants(plants)
-    updatedPlants.forEach(plant => {
+    })
+
+    cart.forEach(plant => {
       PlantOrder.create({
         orderId: order.id,
         plantId: plant.id,
-        quantity: req.body.quantity
+        quantity: plant.quantity
       })
     })
     const updatedOrder = await order.update({
-      plants: updatedPlants,
-      address,
-      shippingMethod,
-      gift,
-      totalCost,
-      checkedOut,
-      userId
+      plants: cart
     })
     res.json(updatedOrder)
   } catch (err) {
