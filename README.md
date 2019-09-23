@@ -1,4 +1,4 @@
-#🐙 Octopus's Garden
+# 🐙 Octopus's Garden
 
 An e-commerce platform to connect you and your fellow octopodes with fun, pun-tastic aquatic plants.
 

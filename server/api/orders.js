@@ -114,6 +114,13 @@ router.post('/', async (req, res, next) => {
 // ADD ITEM TO CART
 router.post('/add', async (req, res, next) => {
   try {
+    console.log(
+      'ADD ROUTE----',
+      '\n REQ.SESSION.CART------',
+      req.session.cart,
+      '\n REQ BODY-----',
+      req.body
+    )
     if (!req.session.cart) req.session.cart = []
     req.session.cart = [...req.session.cart, req.body]
     res.status(201)
