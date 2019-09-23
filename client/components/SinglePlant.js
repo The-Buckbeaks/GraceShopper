@@ -15,11 +15,7 @@ class SinglePlant extends React.Component {
   handleClick(event) {
     event.preventDefault()
     console.log('THIS IS STATE.QTY', this.state.qty)
-    this.props.addItem(
-      this.props.plant,
-      this.props.cart.orderId,
-      this.state.qty
-    )
+    this.props.addItem(this.props.plant, this.state.qty)
   }
   onChange(event) {
     this.setState({
