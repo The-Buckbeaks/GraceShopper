@@ -15,6 +15,44 @@ img {
   height: auto;
 }
 
+a {
+  text-decoration: none;
+}
+
+h1 {
+  text-align: center;
+}
+h2 {
+  color: black;
+}
+h2:hover {
+  transition: color 1s ease;
+  color: #fd3e81;
+  text-decoration: underline;
+  text-decoration-color: #5eba11;
+}
+h3 {
+  color: black;
+}
+h4 {
+  color: #fd3e81;
+  font-size: 20px;
+}
+
+label {
+  display: block;
+}
+
+nav a {
+  display: inline-block;
+  margin: 1em;
+}
+
+form div {
+  margin: 1em;
+  display: inline-block;
+}
+
 .nav {
   background-color: black;
   color: white;
@@ -32,25 +70,7 @@ img {
 
 .nav #title {
   font-size: 24px;
-  text-shadow: 1px 1px green;
-}
-
-a {
-  text-decoration: none;
-}
-
-label {
-  display: block;
-}
-
-nav a {
-  display: inline-block;
-  margin: 1em;
-}
-
-form div {
-  margin: 1em;
-  display: inline-block;
+  text-shadow: 1px 1px #5eba11;
 }
 
 .plant-container {
@@ -63,21 +83,51 @@ form div {
   align-content: flex-start;
 }
 
-h1 {
-  text-align: center;
+.plant-container img {
+  width: 250px;
+  height: 250px;
 }
-h2 {
-  color: black;
+
+.add-to-cart-button {
+  background-color: #5eba11;
+  border-radius: 5px;
+  color: #fff;
+  font-size: 20px;
+  height: 40px;
+  width: 150px;
 }
-h2:hover {
+
+.add-to-cart-button:hover {
+  background-color: #fd3e81;
   transition: color 1s ease;
-  color: fuchsia;
-  text-decoration: underline;
-  text-decoration-color: green;
 }
-h3 {
-  color: black;
+
+.cart-item {
+  display: flex;
 }
-h4 {
-  color: fuchsia;
+
+.cart-item img {
+  width: 250px;
+  height: 250px;
+  border-radius: 10px;
+}
+
+#cart-item-info {
+  padding-left: 10px;
+}
+
+#single-plant-title {
+  min-height: 50px;
+}
+
+#dropdown-menu {
+  color: #5eba11;
+  padding-bottom: 15px;
+}
+
+#dropdown-menu select {
+  font-size: 15px;
+  height: 25px;
+  text-align: center;
+  width: 50px;
 }

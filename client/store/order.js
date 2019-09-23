@@ -2,26 +2,17 @@ import axios from 'axios'
 
 const CHECKOUT = 'CHECKOUT'
 
-const checkout = cart => ({
+const checkout = order => ({
   type: CHECKOUT,
-  cart
+  order
 })
 
 //checkout Thunk
-export const checkoutThunk = (
-  userId,
-  order,
-  address,
-  shippingMethod,
-  gift
-) => async dispatch => {
+export const checkoutThunk = (orderId, orderInfo) => async dispatch => {
   try {
-    const res = await axios.put(`/api/orders/${order.id}`, {
-      address,
-      shippingMethod,
-      gift,
-      checkedOut: true,
-      userId
+    const res = await axios.put(`/api/orders/${orderId}`, {
+      ...orderInfo,
+      checkedOut: true
     })
     dispatch(checkout(res.data))
   } catch (err) {
@@ -35,6 +26,7 @@ export const checkoutThunk = (
 // Need a name to ship to even if the user is a guest
 
 const initialState = {
+  id: '',
   address: '',
   shippingMethod: '',
   gift: false,
@@ -46,7 +38,7 @@ const initialState = {
 const order = (state = initialState, action) => {
   switch (action.type) {
     case CHECKOUT: {
-      return action.cart
+      return action.order
     }
     default: {
       return state

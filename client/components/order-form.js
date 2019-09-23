@@ -13,8 +13,11 @@ class OrderForm extends React.Component {
       gift: 'no',
       totalCost: 0,
       checkedOut: false,
+
       userId: this.props.user.id || null,
       submitted: false
+
+
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -36,14 +39,18 @@ class OrderForm extends React.Component {
       this.setState({checkedOut: true})
       event.preventDefault()
       this.props.checkedOut(this.props.orderId, this.state)
+
       this.setState({
         address: '',
         shippingMethod: '',
         gift: 'no',
         totalCost: 0,
+
         checkedOut: true,
         userId: this.props.user.id || null,
         submitted: true
+
+
       })
     } catch (error) {
       console.log(error)

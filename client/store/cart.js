@@ -5,7 +5,6 @@ const GET_CART_ITEMS = 'GET_CART_ITEMS'
 const ADD_ITEM = 'ADD_ITEM'
 const REMOVE_ITEM = 'REMOVE_ITEM'
 const CLEAR_CART = 'CLEAR_CART'
-const CHECKOUT = 'CHECKOUT'
 const CREATE_CART = 'CREATE_CART'
 
 // INITIAL STATE
@@ -16,14 +15,13 @@ const defaultCart = {
 }
 
 // ACTION CREATORS
-// We need action creators to set each of the cart properties (based off of the order properties)
 
 const getCartItems = cart => ({
   type: GET_CART_ITEMS,
   cart
 })
 
-const addItem = plant => ({
+export const addItem = plant => ({
   type: ADD_ITEM,
   plant
 })
@@ -34,26 +32,22 @@ const removeItem = (plantId, price) => ({
   price
 })
 
-const clearCart = orderId => ({
+export const clearMyCart = cart => ({
   type: CLEAR_CART,
-  orderId
-})
-
-const checkout = cart => ({
-  type: CHECKOUT,
   cart
 })
 
-const createCart = () => ({
-  type: CREATE_CART
+export const createCart = cart => ({
+  type: CREATE_CART,
+  cart
 })
 
 // THUNK CREATORS
 
 // getCart Thunk
-export const getCart = () => async dispatch => {
+export const getCart = id => async dispatch => {
   try {
-    const res = await axios.get('/api/cart')
+    const res = await axios.get(`/api/orders/${id}`)
     dispatch(getCartItems(res.data))
   } catch (err) {
     console.log('there was an error getting the cart', err)
@@ -61,8 +55,9 @@ export const getCart = () => async dispatch => {
 }
 
 //addItem Thunk
-export const addItemThunk = (plant, orderId) => async dispatch => {
+export const addItemThunk = (plant, orderId, qty) => async dispatch => {
   try {
+    plant.quantity = Number(qty)
     const res = await axios.put(`/api/orders/${orderId}`, plant)
     dispatch(addItem(res.data))
   } catch (err) {
@@ -80,16 +75,6 @@ export const removeItemThunk = cart => async dispatch => {
   }
 }
 
-//checkout Thunk
-export const checkoutThunk = cart => async dispatch => {
-  try {
-    const res = await axios.put(`/api/orders/${cart.id}`, {checkedOut: true})
-    dispatch(checkout(res.data))
-  } catch (err) {
-    console.log('There was an error checking out.', err)
-  }
-}
-
 //createCart Thunk
 export const createCartThunk = () => async dispatch => {
   //guest
@@ -97,7 +82,19 @@ export const createCartThunk = () => async dispatch => {
     const res = await axios.post('/api/orders/', defaultCart)
     dispatch(createCart(res.data))
   } catch (err) {
-    console.log('there was an error creating a cart!', err)
+    console.log('there was an error creating a cart', err)
+  }
+}
+
+//clearCart Thunk
+export const clearCart = orderId => async dispatch => {
+  try {
+    const res = await axios.put(`/api/orders/clear/${orderId}`, defaultCart)
+    dispatch(clearMyCart(res.data))
+    const newCart = await axios.post('/api/orders/', defaultCart)
+    dispatch(createCart(newCart.data))
+  } catch (err) {
+    console.log('there was an error clearing the cart', err)
   }
 }
 
@@ -120,7 +117,8 @@ const cart = (state = defaultCart, action) => {
     case GET_CART_ITEMS: {
       return {
         ...state,
-        plants: action.plants
+        orderId: action.cart.id,
+        plants: [...action.cart.plants]
       }
     }
     case ADD_ITEM: {
@@ -137,18 +135,14 @@ const cart = (state = defaultCart, action) => {
     }
     case CLEAR_CART: {
       return {
-        defaultCart
-      }
-    }
-    case CHECKOUT: {
-      return {
-        ...state,
-        checkedOut: true
+        ...defaultCart,
+        orderId: action.cart.id
       }
     }
     case CREATE_CART: {
       return {
-        ...state
+        ...state,
+        orderId: action.cart.id
       }
     }
     default: {
