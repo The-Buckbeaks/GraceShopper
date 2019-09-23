@@ -57,6 +57,8 @@ router.post('/submit', async (req, res, next) => {
     const updatedOrder = await order.update({
       plants: cart
     })
+    //this clears cart
+    req.session.cart = []
     res.json(updatedOrder)
   } catch (err) {
     next(err)
