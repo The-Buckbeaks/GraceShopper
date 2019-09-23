@@ -25,6 +25,7 @@ router.get('/', async (req, res, next) => {
 //GET CART
 router.get('/cart', async (req, res, next) => {
   try {
+    //need to figure out how to retrieve a req.session.cart that is associated with a logged in user
     if (!req.session.cart) req.session.cart = []
     res.json(req.session.cart)
   } catch (err) {
