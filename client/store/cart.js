@@ -21,7 +21,7 @@ const getCartItems = cart => ({
   cart
 })
 
-const addItem = plant => ({
+export const addItem = plant => ({
   type: ADD_ITEM,
   plant
 })
@@ -32,12 +32,12 @@ const removeItem = (plantId, price) => ({
   price
 })
 
-const clearMyCart = cart => ({
+export const clearMyCart = cart => ({
   type: CLEAR_CART,
   cart
 })
 
-const createCart = cart => ({
+export const createCart = cart => ({
   type: CREATE_CART,
   cart
 })
