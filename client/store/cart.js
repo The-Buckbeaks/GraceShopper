@@ -67,7 +67,9 @@ export const addItemThunk = (plant, qty) => async dispatch => {
 // removeItem Thunk
 export const removeItemThunk = plant => async dispatch => {
   try {
-    const res = await axios.put(`/api/orders/remove/`, plant.id)
+    plant.orderQty = 0
+    const res = await axios.put(`/api/orders/remove/`, {plant: plant})
+    console.log('REMOVE ITEM THUNK CALLED', plant)
     dispatch(removeItem(res.data))
   } catch (err) {
     console.log('there was an error removing an item', err)

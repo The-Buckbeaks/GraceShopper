@@ -11,11 +11,10 @@ class SingleCartItem extends React.Component {
   handleClick(event) {
     event.preventDefault()
     console.log('HANDLE CLICK WAS CALLED', this.props.plant)
-    this.props.removeItem(this.props.plant)
+    this.props.removeItemThunk(this.props.plant)
   }
   render() {
     const {plant} = this.props
-    console.log('THIS IS PROPS IN SINGLE CART ITEM', this.props)
     return (
       <div>
         <div className="cart-item" key={plant.id}>
@@ -58,7 +57,7 @@ const mapStateToProps = state => ({
   plants: state.plants
 })
 const mapDispatchToProps = dispatch => ({
-  removeItem: plant => dispatch(removeItemThunk(plant))
+  removeItemThunk: plant => dispatch(removeItemThunk(plant))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(SingleCartItem)
