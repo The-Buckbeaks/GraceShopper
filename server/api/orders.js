@@ -22,24 +22,17 @@ router.get('/', async (req, res, next) => {
   }
 })
 
-// GET SINGLE ORDER
-router.get('/:id', async (req, res, next) => {
+//GET CART
+router.get('/cart', async (req, res, next) => {
   try {
-    const order = await Order.findOne({
-      where: {
-        id: req.params.id
-      },
-      attributes: ['id', 'userId'],
-      include: [{model: Plant}]
-    })
-    res.json(order)
+    if (!req.session.cart) req.session.cart = []
+    res.json(req.session.cart)
   } catch (err) {
     next(err)
   }
 })
 
-// ADD TO CART
-// Let's refactor this route. We are using it for BOTH submitting orders and for adding items to the cart. We can perhaps make an orders/:id/submit put route and an orders/id/add put route
+// SUBMITTING AN ORDER
 router.put('/:id', async (req, res, next) => {
   try {
     const order = await Order.findOne({
@@ -121,28 +114,10 @@ router.post('/', async (req, res, next) => {
 // ADD ITEM TO CART
 router.post('/add', async (req, res, next) => {
   try {
-    console.log('THIS IS REQ.BODY IN POST-----', req.body)
-    const plant = await Plant.findByPk(req.body.id)
-    const order = await Order.findOrCreate({
-      where: {
-        id: req.session.cartId
-      },
-      include: [{model: Plant}]
-    })
-    const plantOrderInfo = {
-      orderId: req.session.cartId,
-      plantId: req.body.id,
-      quantity: req.body.orderQty
-    }
-    console.log('THIS IS ORDER---', order)
-    const plantOrder = await PlantOrder.create(plantOrderInfo)
-    console.log('THIS IS PLANTORDER', plantOrder)
-    // order.addPlant(plant, {
-    //   through: { plants: plant }
-    // })
-    // const plantOrder = await order.addPlant(plant)
-    // console.log('THIS IS plantOrder', plantOrder)
-    res.json(plantOrder)
+    if (!req.session.cart) req.session.cart = []
+    req.session.cart = [...req.session.cart, req.body]
+    res.status(201)
+    res.json(req.session.cart[req.session.cart.length - 1])
   } catch (err) {
     next(err)
   }

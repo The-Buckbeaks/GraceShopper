@@ -15,7 +15,11 @@ class SinglePlant extends React.Component {
   handleClick(event) {
     event.preventDefault()
     console.log('THIS IS STATE.QTY', this.state.qty)
-    this.props.addItem(this.props.plant, this.state.qty)
+    this.props.addItem(
+      this.props.plant,
+      this.props.cart.orderId,
+      this.state.qty
+    )
   }
   onChange(event) {
     this.setState({
@@ -65,7 +69,7 @@ const mapStateToProps = state => ({
   cart: state.cart
 })
 const mapDispatchToProps = dispatch => ({
-  addItem: (plant, qty) => dispatch(addItemThunk(plant, qty))
+  addItem: (plant, orderId, qty) => dispatch(addItemThunk(plant, orderId, qty))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(SinglePlant)

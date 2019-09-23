@@ -14,7 +14,7 @@ class Cart extends Component {
   }
 
   componentDidMount() {
-    this.props.getCart(this.props.cart.orderId)
+    this.props.getCart()
   }
 
   checkOut() {
@@ -34,11 +34,7 @@ class Cart extends Component {
             <div className="cart-title" />
 
             {cart.plants.map(plant => (
-              <SingleCartItem
-                key={plant.id}
-                item={plant}
-                plantOrder={plant.plantOrder}
-              />
+              <SingleCartItem key={plant.id} plant={plant} />
             ))}
             <button
               type="submit"
@@ -77,7 +73,7 @@ const mapStateToProps = state => ({
   order: state.order
 })
 const mapDispatchToProps = dispatch => ({
-  getCart: id => dispatch(getCart(id)),
+  getCart: () => dispatch(getCart()),
   clearCart: id => dispatch(clearCart(id))
 })
 

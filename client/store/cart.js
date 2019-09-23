@@ -20,9 +20,9 @@ const getCartItems = cart => ({
   cart
 })
 
-export const addItem = plantOrder => ({
+export const addItem = cartItem => ({
   type: ADD_ITEM,
-  plantOrder
+  cartItem
 })
 
 const removeItem = (plantId, price) => ({
@@ -44,9 +44,9 @@ export const createCart = cart => ({
 // THUNK CREATORS
 
 // getCart Thunk
-export const getCart = id => async dispatch => {
+export const getCart = () => async dispatch => {
   try {
-    const res = await axios.get(`/api/orders/${id}`)
+    const res = await axios.get(`/api/orders/cart`)
     dispatch(getCartItems(res.data))
   } catch (err) {
     console.log('there was an error getting the cart', err)
@@ -57,7 +57,8 @@ export const getCart = id => async dispatch => {
 export const addItemThunk = (plant, qty) => async dispatch => {
   try {
     plant.orderQty = Number(qty)
-    const res = await axios.post(`/api/orders/add`, plant)
+    const res = await axios.post(`/api/orders/add/`, plant)
+    console.log('res from addItemThunk------', res.data)
     dispatch(addItem(res.data))
   } catch (err) {
     console.log('there was an error adding an item', err)
@@ -104,14 +105,13 @@ const cart = (state = defaultCart, action) => {
     case GET_CART_ITEMS: {
       return {
         ...state,
-        orderId: action.cart.id,
         plants: [...action.cart.plants]
       }
     }
     case ADD_ITEM: {
       return {
         ...state,
-        plants: [...state.plants, action.plantOrder]
+        plants: [...state.plants, action.cartItem]
       }
     }
     case REMOVE_ITEM: {
