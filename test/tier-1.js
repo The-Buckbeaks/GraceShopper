@@ -52,7 +52,6 @@ const store = mockStore(reducer)
 
 import {SingleCartItem, OrderForm} from '../client/components/'
 
-
 // --- TESTS ---
 
 describe('------- MODELS', () => {
@@ -123,8 +122,10 @@ describe('------- MODELS', () => {
         throw Error(
           'order.shippingMethod should only be "1-Day/standard Ground'
         )
+      })
+    })
+  })
 
-  //defined in 'server/db/models/index.js'
   describe('Plant/Order association', () => {
     let plant1, plant2, order, plantOrder1, plantOrder2, result
 
@@ -290,7 +291,6 @@ describe('------- REDUX', () => {
       it('creates an CREATE_CART action', () => {
         const createCartAction = createCart()
         expect(createCartAction.type).to.equal('CREATE_CART')
-
       })
     })
   })
