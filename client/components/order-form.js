@@ -36,11 +36,6 @@ class OrderForm extends React.Component {
       this.setState({checkedOut: true})
       event.preventDefault()
       this.props.checkedOut(this.props.orderId, this.state)
-      // alert(
-      //   `Your order (id: ${
-      //     this.props.orderId
-      //   }) has been successfully submitted.`
-      // )
       this.setState({
         address: '',
         shippingMethod: '',
