@@ -10,13 +10,14 @@ class UserHome extends React.Component {
   constructor(props) {
     super(props)
   }
+
   componentDidMount() {
     this.props.orderHistory()
   }
 
   render() {
     const {email} = this.props.user
-    console.log('order', this.props.orders)
+    // const {orderHistory} = this.props.orders
     return (
       <div className="profile-container">
         <div className="user-greeting">
@@ -24,8 +25,9 @@ class UserHome extends React.Component {
         </div>
         <div className="order-container">
           <h2>Here is your order history:</h2>
-          {this.props.orders.length > 0
-            ? this.props.orders.map(order => {
+          {this.props.orders.orderHistory ? (
+            this.props.orders.orderHistory.length ? (
+              this.props.orders.orderHistory.map(order => {
                 return (
                   <div className="order-item" key={order.id}>
                     <h2>{order.address}</h2>
@@ -36,7 +38,12 @@ class UserHome extends React.Component {
                   </div>
                 )
               })
-            : 'no orders here!'}
+            ) : (
+              <div>No items here!</div>
+            )
+          ) : (
+            <div>Your orders are loading!</div>
+          )}
         </div>
       </div>
     )

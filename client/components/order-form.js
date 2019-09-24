@@ -11,7 +11,7 @@ class OrderForm extends React.Component {
       address: '',
       shippingMethod: '',
       gift: 'no',
-      totalCost: this.props.totalCost,
+      totalCost: Math.floor(this.props.totalCost),
       userId: this.props.user.id || null,
       submitted: false
     }
