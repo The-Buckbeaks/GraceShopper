@@ -1,8 +1,8 @@
+/* #a0ecd0 bright mint -- #94ddbc mint -- #331832 purple -- #d81e5b magenta --- #f0544f coral */
+
 body {
-  font-family: sans-serif;
-  /* background: url('https://www.clipartwiki.com/clipimg/detail/215-2153665_tentacle-clipart-octopus-octopus-tentacles-drawing.png'); */
-  /* background: url('https://i.pinimg.com/originals/94/58/16/945816c201719cf466c1c68ce0c8de5e.jpg'); */
-  background-size: cover;
+  font-family: 'Bitter', serif;
+  margin: 0px;
 }
 
 main {
@@ -16,24 +16,39 @@ img {
 }
 
 a {
+  color: #d81e5b;
   text-decoration: none;
 }
 
+a:visited {
+  color: #f0544f;
+}
+
+a:hover {
+  color: #94ddbc;
+}
+
 h1 {
+  font-family: 'Barriecito', cursive;
+  font-size: 48px;
   text-align: center;
 }
+
 h2 {
   color: black;
+  font-size: 33px;
 }
+
 h2:hover {
   transition: color 1s ease;
   color: #fd3e81;
-  text-decoration: underline;
   text-decoration-color: #5eba11;
 }
+
 h3 {
   color: black;
 }
+
 h4 {
   color: #fd3e81;
   font-size: 20px;
@@ -54,23 +69,64 @@ form div {
 }
 
 .nav {
-  background-color: black;
+  background-color: #331832;
   color: white;
-  display: grid;
-  grid-template-columns: 250px auto auto auto auto;
-  justify-content: flex-end;
+  display: flex;
+  justify-content: space-between;
   align-items: center;
-  height: 60px;
-  width: auto;
-}
-.nav .link {
-  color: white;
-  text-decoration: underline;
 }
 
-.nav #title {
-  font-size: 24px;
-  text-shadow: 1px 1px #5eba11;
+.nav #nav-title {
+  justify-content: flex-start;
+  margin-left: 5%;
+}
+.nav #nav-links {
+  color: #fff;
+  justify-content: flex-end;
+  font-family: 'Barriecito', cursive;
+  font-size: 32px;
+  margin-right: 5%;
+}
+
+.splash {
+  display: grid;
+  grid-template-columns: 50% 50%;
+}
+.splash a {
+  color: #fff;
+}
+.splash-right {
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  width: 50vw;
+}
+.splash-left img {
+  margin-bottom: 0px;
+  max-height: 100vh;
+  max-width: auto;
+  position: fixed;
+  bottom: 0;
+  z-index: -1;
+}
+.splash-right > div {
+  background: #d81e5b;
+  box-shadow: 8px 10px #331832;
+  width: 300px;
+  line-height: 50px;
+  padding: 5px;
+  margin: 10%;
+}
+
+.splash-right > div:hover {
+  background: #f0544f;
+}
+
+.grow {
+  transition: all 0.4s ease-in-out;
+}
+.grow:hover {
+  transform: scale(1.2);
 }
 
 .plant-container {
@@ -109,7 +165,6 @@ form div {
 .cart-item img {
   width: 250px;
   height: 250px;
-  border-radius: 10px;
 }
 
 #cart-item-info {
@@ -130,4 +185,28 @@ form div {
   height: 25px;
   text-align: center;
   width: 50px;
+}
+
+.heart {
+  position: relative;
+  width: 100px;
+  height: 90px;
+}
+.heart:before,
+.heart:after {
+  position: absolute;
+  content: '';
+  left: 50px;
+  top: 0;
+  width: 50px;
+  height: 80px;
+  background: #d81e5b;
+  border-radius: 50px 50px 0 0;
+  transform: rotate(-45deg);
+  transform-origin: 0 100%;
+}
+.heart:after {
+  left: 0;
+  transform: rotate(45deg);
+  transform-origin: 100% 100%;
 }
