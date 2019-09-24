@@ -10,7 +10,6 @@ class SingleCartItem extends React.Component {
   }
   handleClick(event) {
     event.preventDefault()
-    console.log('HANDLE CLICK WAS CALLED', this.props.plant)
     this.props.removeItemThunk(this.props.plant)
   }
   render() {

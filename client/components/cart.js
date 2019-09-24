@@ -13,7 +13,7 @@ class Cart extends Component {
     this.checkOut = this.checkOut.bind(this)
   }
 
-  componentDidMount() {
+  componentDidUpdate() {
     this.props.getCart()
   }
 
@@ -25,7 +25,6 @@ class Cart extends Component {
 
   render() {
     const cart = this.props.cart
-    console.log(cart)
     return (
       <div className="cart-container">
         <h1>Your Shopping Cart</h1>

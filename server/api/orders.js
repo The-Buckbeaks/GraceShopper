@@ -123,13 +123,12 @@ router.post('/add', async (req, res, next) => {
 })
 
 // REMOVE ITEM FROM CART
-router.put('/remove', async (req, res, next) => {
+router.post('/remove/', async (req, res, next) => {
   try {
-    console.log('--------FROM REMOVE ITEM', req.body)
-
-    //req.session.cart = req.session.cart.filter(plant => plant.id !== req.body)
+    const {id} = req.body
+    req.session.cart = req.session.cart.filter(plant => plant.id !== id)
     res.status(201)
-    res.json(req.session.cart)
+    res.json(id)
   } catch (err) {
     next(err)
   }
