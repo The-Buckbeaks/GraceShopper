@@ -105,6 +105,11 @@ form div {
   margin-right: 5%;
 }
 
+.login-form {
+  display: flex;
+  flex-direction: row;
+}
+
 .splash {
   display: grid;
   grid-template-columns: 50% 50%;
