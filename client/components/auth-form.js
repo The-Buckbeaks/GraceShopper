@@ -30,13 +30,7 @@ const AuthForm = props => {
           </button>
         </div>
         <div>
-          <button
-            type="button"
-            className="add-to-cart-button"
-            href="/auth/google"
-          >
-            Google Login
-          </button>
+          <a href="/auth/google">{displayName} with Google</a>
         </div>
 
         {error && error.response && <div> {error.response.data} </div>}
