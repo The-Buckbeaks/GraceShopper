@@ -31,6 +31,7 @@ router.get('/cart', (req, res, next) => {
   }
 })
 
+
 // HELPER FUNCTION TO FIND DUPLICATES BEFORE ADDING TO CART
 const inCart = (id, cart) => {
   let alreadyInCart = false
@@ -82,9 +83,12 @@ router.post('/clear', (req, res, next) => {
   }
 })
 
+
 //EDIT ITEM IN CART
 // maybe this can be a PUT request instead?
 router.post('/edit', (req, res, next) => {
+
+
   try {
     const {id, name, price, imgUrl, orderQty} = req.body
     const returnCart = []
