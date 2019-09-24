@@ -1,6 +1,8 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {getSinglePlant, addItemThunk} from '../store'
+import {toast} from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 class SinglePlantView extends React.Component {
   constructor(props) {
@@ -11,10 +13,18 @@ class SinglePlantView extends React.Component {
     this.handleClick = this.handleClick.bind(this)
     this.onChange = this.onChange.bind(this)
   }
+
   handleClick(event) {
     event.preventDefault()
+    this.notify()
     const qty = Number(this.state.orderQty)
     this.props.addItem(this.props.plants.plant, qty)
+  }
+  notify = () => {
+    toast(`Item Added!`, {
+      position: 'top-right',
+      autoClose: 4000
+    })
   }
   onChange(event) {
     this.setState({
