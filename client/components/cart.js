@@ -37,31 +37,30 @@ class Cart extends Component {
         <h1>Your Shopping Cart</h1>
         {cart.plants.length && cart.plants.length > 0 ? (
           <div className="cart-inner-container">
-            <div className="cart-title" />
-
             {cart.plants.map(plant => (
               <SingleCartItem key={plant.id} plant={plant} />
             ))}
-            <div className="total-cost">
+            <h2 className="total-cost">
               Total Cost: ${this.totalCost().toFixed(2)}
+            </h2>
+            <div className="cart-footer">
+              <button
+                className="add-to-cart-button"
+                type="submit"
+                value="Submit"
+                onClick={() => this.checkOut()}
+              >
+                Checkout
+              </button>
+              <button
+                className="add-to-cart-button"
+                type="reset"
+                value="reset"
+                onClick={() => this.props.clearCart()}
+              >
+                Clear Cart
+              </button>
             </div>
-            <button
-              className="add-to-cart-button"
-              type="submit"
-              value="Submit"
-              onClick={() => this.checkOut()}
-            >
-              Checkout
-            </button>
-            <button
-              className="add-to-cart-button"
-              type="reset"
-              value="reset"
-              onClick={() => this.props.clearCart()}
-            >
-              Clear Cart
-            </button>
-
             {this.state.checkOut ? (
               <OrderForm totalCost={Math.floor(totalCost * 100)} />
             ) : null}
