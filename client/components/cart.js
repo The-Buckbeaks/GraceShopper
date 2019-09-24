@@ -42,7 +42,9 @@ class Cart extends Component {
             {cart.plants.map(plant => (
               <SingleCartItem key={plant.id} plant={plant} />
             ))}
-            <div className="total-cost">Total Cost: ${this.totalCost()}</div>
+            <div className="total-cost">
+              Total Cost: ${this.totalCost().toFixed(2)}
+            </div>
             <button
               className="add-to-cart-button"
               type="submit"
