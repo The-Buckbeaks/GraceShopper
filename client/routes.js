@@ -9,14 +9,12 @@ import {
   Cart,
   AllPlants,
   SinglePlantView,
-
   Splash,
   OrderForm,
   confirmationForm
-
-
 } from './components'
 import {me} from './store'
+import {ToastContainer} from 'react-toastify'
 
 /**
  * COMPONENT
@@ -31,6 +29,7 @@ class Routes extends Component {
     return (
       <Switch>
         {/* Routes placed here are available to all visitors */}
+
         <Route exact path="/plants/:id" component={SinglePlantView} />
         <Route exact path="/" component={Splash} />
         <Route path="/login" component={Login} />
@@ -41,7 +40,6 @@ class Routes extends Component {
 
         <Route path="/order-form" component={OrderForm} />
         <Route path="/confirmation" component={confirmationForm} />
-
 
         {isLoggedIn && (
           <Switch>

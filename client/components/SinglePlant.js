@@ -2,6 +2,8 @@ import React from 'react'
 import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {addItemThunk} from '../store'
+import {toast} from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 class SinglePlant extends React.Component {
   constructor(props) {
@@ -12,9 +14,15 @@ class SinglePlant extends React.Component {
     this.handleClick = this.handleClick.bind(this)
     this.onChange = this.onChange.bind(this)
   }
+  notify = (qty, name) => {
+    toast(`${qty} ${name} added to cart!`, {
+      position: 'top-right',
+      autoClose: 4000
+    })
+  }
   handleClick(event) {
     event.preventDefault()
-    console.log('THIS IS STATE.QTY', this.state.qty)
+    this.notify(this.state.qty, this.props.plant.name)
     this.props.addItem(this.props.plant, this.state.qty)
   }
   onChange(event) {
@@ -22,6 +30,8 @@ class SinglePlant extends React.Component {
       qty: event.target.value
     })
   }
+  // notify = () => toast("Item added!");
+
   render() {
     const {name, price, imgUrl, id} = this.props.plant
     return (
