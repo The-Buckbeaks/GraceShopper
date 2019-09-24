@@ -1,17 +1,30 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
+import {connect} from 'react-redux'
+import {removeItemThunk, editItem} from '../store'
 
 class SingleCartItem extends React.Component {
   constructor(props) {
     super(props)
-    // this.handleClick = this.handleClick.bind(this)
+    this.state = {
+      orderQty: this.props.orderQty
+    }
+    this.handleClick = this.handleClick.bind(this)
+    this.handleChange = this.handleChange.bind(this)
   }
-  // handleClick(id){
-  //   this.props.removeItem
-  // }
+  handleClick(event) {
+    event.preventDefault()
+    this.props.removeItemThunk(this.props.plant)
+  }
+  handleChange(event) {
+    const newQty = Number(event.target.value)
+    this.setState({
+      orderQty: newQty
+    })
+    this.props.editItem(this.props.plant, event.target.value)
+  }
   render() {
     const {plant} = this.props
-    console.log('THIS IS PROPS IN SINGLE CART ITEM', this.props)
     return (
       <div>
         <div className="cart-item" key={plant.id}>
@@ -26,7 +39,17 @@ class SingleCartItem extends React.Component {
               <div id="cart-info-wrap">
                 <div id="cart-item-quantity">
                   <h3>Quantity:</h3>
-                  {plant.orderQty}
+                  <select
+                    value={this.state.qty}
+                    onChange={this.handleChange}
+                    defaultValue={plant.orderQty}
+                  >
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                  </select>
                 </div>
                 <div id="cart-item-price">
                   <h3>Cost:</h3>
@@ -34,7 +57,9 @@ class SingleCartItem extends React.Component {
                   <sub>
                     <i>(${(plant.price / 100).toFixed(2)} each)</i>
                   </sub>
-                  <button type="button">Remove Item</button>
+                  <button type="button" onClick={this.handleClick}>
+                    Remove Item
+                  </button>
                 </div>
               </div>
             ) : (
@@ -46,4 +71,14 @@ class SingleCartItem extends React.Component {
     )
   }
 }
-export default SingleCartItem
+
+const mapStateToProps = state => ({
+  cart: state.cart,
+  plants: state.plants
+})
+const mapDispatchToProps = dispatch => ({
+  removeItemThunk: plant => dispatch(removeItemThunk(plant)),
+  editItem: (plant, qty) => dispatch(editItem(plant, qty))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(SingleCartItem)

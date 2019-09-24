@@ -13,7 +13,7 @@ class Cart extends Component {
     this.checkOut = this.checkOut.bind(this)
   }
 
-  componentDidMount() {
+  componentDidUpdate() {
     this.props.getCart()
   }
 
@@ -25,7 +25,6 @@ class Cart extends Component {
 
   render() {
     const cart = this.props.cart
-    console.log(cart)
     return (
       <div className="cart-container">
         <h1>Your Shopping Cart</h1>
@@ -46,7 +45,7 @@ class Cart extends Component {
             <button
               type="reset"
               value="reset"
-              onClick={() => this.props.clearCart(cart.orderId)}
+              onClick={() => this.props.clearCart()}
             >
               Clear Cart
             </button>
@@ -74,7 +73,7 @@ const mapStateToProps = state => ({
 })
 const mapDispatchToProps = dispatch => ({
   getCart: () => dispatch(getCart()),
-  clearCart: id => dispatch(clearCart(id))
+  clearCart: () => dispatch(clearCart())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Cart)

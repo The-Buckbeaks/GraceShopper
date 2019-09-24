@@ -1,4 +1,5 @@
 import axios from 'axios'
+import {runInNewContext} from 'vm'
 
 // ACTION TYPES
 const GET_CART_ITEMS = 'GET_CART_ITEMS'
@@ -6,6 +7,7 @@ const ADD_ITEM = 'ADD_ITEM'
 const REMOVE_ITEM = 'REMOVE_ITEM'
 const CLEAR_CART = 'CLEAR_CART'
 const CREATE_CART = 'CREATE_CART'
+const EDIT_ITEM = 'EDIT_ITEM'
 
 // INITIAL STATE
 const defaultCart = {
@@ -24,10 +26,9 @@ export const addItem = cartItem => ({
   cartItem
 })
 
-const removeItem = (plantId, price) => ({
+const removeItem = plantId => ({
   type: REMOVE_ITEM,
-  plantId,
-  price
+  plantId
 })
 
 export const clearMyCart = cart => ({
@@ -38,6 +39,11 @@ export const clearMyCart = cart => ({
 export const createCart = cart => ({
   type: CREATE_CART,
   cart
+})
+
+const editedItem = plants => ({
+  type: EDIT_ITEM,
+  plants
 })
 
 // THUNK CREATORS
@@ -63,25 +69,36 @@ export const addItemThunk = (plant, qty) => async dispatch => {
   }
 }
 
-//removeItem Thunk IN PROGRESS
-// export const removeItemThunk = plantId => async dispatch => {
-//   try {
-//     const res = await axios.put(`/api/orders/${}`, cart)
-//     dispatch(removeItem(res.data))
-//   } catch (err) {
-//     console.log('there was an error removing an item', err)
-//   }
-// }
+// removeItem Thunk
+export const removeItemThunk = plant => async dispatch => {
+  try {
+    plant.orderQty = 0
+    const res = await axios.post(`/api/orders/remove/`, plant)
+    dispatch(removeItem(res.data))
+  } catch (err) {
+    console.log('there was an error removing an item', err)
+  }
+}
 
 //clearCart Thunk
-export const clearCart = orderId => async dispatch => {
+export const clearCart = () => async dispatch => {
   try {
-    const res = await axios.put(`/api/orders/clear/${orderId}`, defaultCart)
+    const res = await axios.post(`/api/orders/clear/`)
     dispatch(clearMyCart(res.data))
-    const newCart = await axios.post('/api/orders/', defaultCart)
-    dispatch(createCart(newCart.data))
   } catch (err) {
     console.log('there was an error clearing the cart', err)
+  }
+}
+
+//editItem Thunk
+
+export const editItem = (plant, qty) => async dispatch => {
+  try {
+    plant.orderQty = Number(qty)
+    const res = await axios.post('/api/orders/edit/', plant)
+    dispatch(editedItem(res.data))
+  } catch (err) {
+    console.log('there was an error editing the item', err)
   }
 }
 
@@ -102,11 +119,19 @@ const cart = (state = defaultCart, action) => {
     case REMOVE_ITEM: {
       return {
         ...state,
-        items: state.plants.filter(plant => plant.id !== Number(action.plantId))
+        plants: state.plants.filter(
+          plant => plant.id !== Number(action.plantId)
+        )
       }
     }
     case CLEAR_CART: {
       return defaultCart
+    }
+    case EDIT_ITEM: {
+      return {
+        ...state,
+        plants: [...action.plants]
+      }
     }
     default: {
       return state

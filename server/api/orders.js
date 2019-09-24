@@ -67,15 +67,10 @@ router.post('/submit', async (req, res, next) => {
 })
 
 //CLEAR CART
-router.put('/clear/:id', async (req, res, next) => {
+router.post('/clear/', async (req, res, next) => {
   try {
-    const destroyed = PlantOrder.destroy({
-      where: {
-        orderId: req.params.id
-      }
-    })
-
-    res.json(destroyed)
+    req.session.cart = []
+    res.json(req.session.cart)
   } catch (err) {
     next(err)
   }
@@ -102,8 +97,12 @@ router.post('/', async (req, res, next) => {
 // ADD ITEM TO CART
 router.post('/add', async (req, res, next) => {
   try {
+    const {id, name, price, imgUrl, orderQty} = req.body
     if (!req.session.cart) req.session.cart = []
-    req.session.cart = [...req.session.cart, req.body]
+    req.session.cart = [
+      ...req.session.cart,
+      {id, name, price, imgUrl, orderQty}
+    ]
     res.status(201)
     res.json(req.session.cart[req.session.cart.length - 1])
   } catch (err) {
@@ -111,6 +110,37 @@ router.post('/add', async (req, res, next) => {
   }
 })
 
+// REMOVE ITEM FROM CART
+router.post('/remove/', async (req, res, next) => {
+  try {
+    const {id} = req.body
+    req.session.cart = req.session.cart.filter(plant => plant.id !== id)
+    res.status(201)
+    res.json(id)
+  } catch (err) {
+    next(err)
+  }
+})
+
+//EDIT ITEM IN CART
+router.post('/edit', async (req, res, next) => {
+  try {
+    const {id, name, price, imgUrl, orderQty} = req.body
+    const returnCart = []
+    for (let i = 0; i < req.session.cart.length; i++) {
+      let plant = req.session.cart[i]
+      if (plant.id !== id) {
+        returnCart.push(plant)
+      } else {
+        returnCart.push({id, name, price, imgUrl, orderQty})
+      }
+    }
+    res.status(201)
+    res.json(returnCart)
+  } catch (err) {
+    next(err)
+  }
+})
 // DELETE ORDER
 // ADMIN USE ONLY - deleting cart/order from database (not clearing the cart)
 router.delete('/:id', async (req, res, next) => {
