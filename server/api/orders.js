@@ -92,8 +92,11 @@ router.post('/edit', (req, res, next) => {
         returnCart.push({id, name, price, imgUrl, orderQty})
       }
     }
+
+    req.session.cart = returnCart
+
     res.status(201)
-    res.json(returnCart)
+    res.json(req.session.cart)
   } catch (err) {
     next(err)
   }

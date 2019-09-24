@@ -96,7 +96,7 @@ export const editItem = (plant, qty) => async dispatch => {
   try {
     plant.orderQty = Number(qty)
     const res = await axios.post('/api/orders/edit/', plant)
-    dispatch(editedItem(res.data))
+    dispatch(getCart(res.data))
   } catch (err) {
     console.log('there was an error editing the item', err)
   }
@@ -129,8 +129,7 @@ const cart = (state = defaultCart, action) => {
     }
     case EDIT_ITEM: {
       return {
-        ...state,
-        plants: [...action.plants]
+        plants: action.plants
       }
     }
     default: {
