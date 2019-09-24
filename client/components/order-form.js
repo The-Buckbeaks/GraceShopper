@@ -56,60 +56,77 @@ class OrderForm extends React.Component {
     console.log(this.state.totalCost)
     return (
       <div className="order">
-        <h2>Order Checkout</h2>
+        <h5>Order Checkout</h5>
         <form className="order-form" onSubmit={this.handleSubmit}>
-          <label htmlFor="address">Address:</label>
-          <input
-            type="text"
-            name="address"
-            value={this.state.address}
-            onChange={this.handleChange}
-          />
-          <label htmlFor="shippingMethod">Select Shipping Method:</label>
-          <label htmlFor="shipping">
-            Standard Ground
+          <div className="radio">
+            <label htmlFor="address" className="label-heading">
+              Address:
+            </label>
             <input
-              type="radio"
-              name="shippingMethod"
-              value="Standard Ground"
-              checked={this.state.shippingMethod === 'Standard Ground'}
-              onChange={this.handleSelect}
+              type="text"
+              name="address"
+              value={this.state.address}
+              onChange={this.handleChange}
+              className="text-input"
             />
-          </label>
-          <label htmlFor="shipping">
-            1-Day
-            <input
-              type="radio"
-              name="shippingMethod"
-              value="1-Day"
-              checked={this.state.shippingMethod === '1-Day'}
-              onChange={this.handleSelect}
-            />
-          </label>
-          <label htmlFor="gift">Is This a Gift?</label>
-          <label htmlFor="gift">
-            Yes
-            <input
-              type="radio"
-              name="gift"
-              value="yes"
-              checked={this.state.gift === 'yes'}
-              onChange={this.handleSelect}
-            />
-          </label>
-          <label htmlFor="gift">
-            No
-            <input
-              type="radio"
-              name="gift"
-              value="no"
-              checked={this.state.gift === 'no'}
-              onChange={this.handleSelect}
-            />
-          </label>
-          <button className="add-to-cart-button" type="submit">
-            Submit
-          </button>
+          </div>
+          <div className="radio">
+            <label htmlFor="shippingMethod" className="label-heading">
+              Select Shipping Method:
+            </label>
+
+            <label htmlFor="shipping">
+              Standard Ground
+              <input
+                type="radio"
+                name="shippingMethod"
+                value="Standard Ground"
+                checked={this.state.shippingMethod === 'Standard Ground'}
+                onChange={this.handleSelect}
+              />
+            </label>
+            <label htmlFor="shipping">
+              1-Day
+              <input
+                type="radio"
+                name="shippingMethod"
+                value="1-Day"
+                checked={this.state.shippingMethod === '1-Day'}
+                onChange={this.handleSelect}
+              />
+            </label>
+          </div>
+          <div className="radio">
+            <label htmlFor="gift" className="label-heading">
+              Is This a Gift?
+            </label>
+
+            <label htmlFor="gift">
+              Yes
+              <input
+                type="radio"
+                name="gift"
+                value="yes"
+                checked={this.state.gift === 'yes'}
+                onChange={this.handleSelect}
+              />
+            </label>
+            <label htmlFor="gift">
+              No
+              <input
+                type="radio"
+                name="gift"
+                value="no"
+                checked={this.state.gift === 'no'}
+                onChange={this.handleSelect}
+              />
+            </label>
+          </div>
+          <div className="cart-footer">
+            <button className="add-to-cart-button" type="submit">
+              Submit
+            </button>
+          </div>
         </form>
       </div>
     )

@@ -54,6 +54,10 @@ h4 {
   color: #331832;
   font-size: 20px;
 }
+h5 {
+  color: #a0ecd0;
+  font-size: 33px;
+}
 
 .title {
   font-family: 'Barriecito', cursive;
@@ -68,10 +72,6 @@ h4 {
 
 .title:visited {
   color: white;
-}
-
-label {
-  display: block;
 }
 
 nav a {
@@ -251,6 +251,38 @@ form div {
   height: 25px;
   text-align: center;
   width: 50px;
+}
+
+label {
+  padding: 1em;
+  font-size: 1.2 em;
+}
+
+.label-heading {
+  font-size: 1.4em;
+  color: #d81e5b;
+}
+
+.order {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: baseline;
+  background: #331832;
+  border-radius: 50px 10px 50px 10px;
+  padding: 3em;
+  margin: 3em;
+  color: white;
+}
+
+.order-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.text-input {
+  width: 70%;
 }
 
 .heart {
