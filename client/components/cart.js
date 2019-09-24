@@ -13,7 +13,7 @@ class Cart extends Component {
     this.checkOut = this.checkOut.bind(this)
   }
 
-  componentDidUpdate() {
+  componentDidMount() {
     this.props.getCart()
   }
 
