@@ -121,6 +121,7 @@ const mapDispatchToProps = dispatch => ({
 })
 const mapStateToProps = state => ({
   order: state.order,
-  user: state.user
+  user: state.user,
+  cart: state.cart
 })
 export default connect(mapStateToProps, mapDispatchToProps)(OrderForm)
