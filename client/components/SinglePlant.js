@@ -16,7 +16,7 @@ class SinglePlant extends React.Component {
   }
   notify = (qty, name) => {
     toast(`${qty} ${name} added to cart!`, {
-      position: 'top-right',
+      position: 'bottom-right',
       autoClose: 4000
     })
   }

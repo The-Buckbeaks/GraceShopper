@@ -17,7 +17,7 @@ class SinglePlantView extends React.Component {
   handleClick(event) {
     event.preventDefault()
     toast(`${this.props.plants.plant.name} added to cart`, {
-      position: 'top-right',
+      position: 'bottom-right',
       autoClose: 4000
     })
     const qty = Number(this.state.orderQty)

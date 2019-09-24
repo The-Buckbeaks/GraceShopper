@@ -4,7 +4,6 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {getAllPlants} from '../store'
 import SinglePlant from './SinglePlant'
-import {ToastContainer} from 'react-toastify'
 //also need to import thunk from reducer
 
 class AllPlants extends React.Component {
