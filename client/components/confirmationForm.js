@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 class confirmationForm extends React.Component {
   render() {
     return (
-      <div>
+      <div className="confirmation-container">
         <h1> Thank you for choosing The Octopus's Garden!</h1>
         {this.props.user.email ? (
           <h3>WE'VE GOT YOUR ORDER, {this.props.user.email}.</h3>

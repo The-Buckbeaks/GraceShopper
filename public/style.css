@@ -166,6 +166,10 @@ form div {
   height: 50px;
 }
 
+.profile-container {
+  padding: 3em;
+}
+
 .add-to-cart-button {
   background-color: #f0544f;
   border-radius: 5px;
@@ -194,6 +198,7 @@ form div {
 
 .cart-item {
   display: flex;
+  margin: 0.2em;
 }
 
 .cart-item img {
@@ -281,10 +286,24 @@ label {
   flex-direction: column;
 }
 
+.order-item {
+  margin: 1em;
+  padding: 2em;
+  border-style: solid;
+  border-width: 0.3em;
+  border-color: #a0ecd0;
+  border-radius: 50px 10px 50px 10px;
+  width: 70%;
+  align-self: center;
+}
+
 .text-input {
   width: 70%;
 }
 
+.confirmation-container {
+  margin: 3em;
+}
 .heart {
   position: relative;
   width: 100px;
