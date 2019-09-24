@@ -25,7 +25,6 @@ class SingleCartItem extends React.Component {
   }
   render() {
     const {plant} = this.props
-    console.log('RENDER', plant)
     return (
       <div>
         <div className="cart-item" key={plant.id}>

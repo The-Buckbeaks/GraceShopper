@@ -138,12 +138,17 @@ router.post('/remove/', async (req, res, next) => {
 router.post('/edit', async (req, res, next) => {
   try {
     const {id, name, price, imgUrl, orderQty} = req.body
-    req.session.cart = [
-      ...req.session.cart.filter(plant => plant.id !== id),
-      {id, name, price, imgUrl, orderQty}
-    ]
+    const returnCart = []
+    for (let i = 0; i < req.session.cart.length; i++) {
+      let plant = req.session.cart[i]
+      if (plant.id !== id) {
+        returnCart.push(plant)
+      } else {
+        returnCart.push({id, name, price, imgUrl, orderQty})
+      }
+    }
     res.status(201)
-    res.json(req.session.cart[req.session.cart.length - 1])
+    res.json(returnCart)
   } catch (err) {
     next(err)
   }

@@ -42,9 +42,9 @@ export const createCart = cart => ({
   cart
 })
 
-const editedItem = plant => ({
+const editedItem = plants => ({
   type: EDIT_ITEM,
-  plant
+  plants
 })
 
 // THUNK CREATORS
@@ -75,7 +75,6 @@ export const removeItemThunk = plant => async dispatch => {
   try {
     plant.orderQty = 0
     const res = await axios.post(`/api/orders/remove/`, plant)
-
     dispatch(removeItem(res.data))
   } catch (err) {
     console.log('there was an error removing an item', err)
@@ -154,10 +153,7 @@ const cart = (state = defaultCart, action) => {
     case EDIT_ITEM: {
       return {
         ...state,
-        plants: [
-          ...state.plants.filter(plant => plant.id !== action.plant.id),
-          action.plant
-        ]
+        plants: [...action.plants]
       }
     }
     default: {
