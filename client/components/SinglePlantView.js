@@ -13,19 +13,19 @@ class SinglePlantView extends React.Component {
     this.handleClick = this.handleClick.bind(this)
     this.onChange = this.onChange.bind(this)
   }
-
+  notify = () => {
+    toast(`Item added to cart!`, {
+      position: 'top-right',
+      autoClose: 4000
+    })
+  }
   handleClick(event) {
     event.preventDefault()
     this.notify()
     const qty = Number(this.state.orderQty)
     this.props.addItem(this.props.plants.plant, qty)
   }
-  notify = () => {
-    toast(`Item Added!`, {
-      position: 'top-right',
-      autoClose: 4000
-    })
-  }
+
   onChange(event) {
     this.setState({
       orderQty: event.target.value
