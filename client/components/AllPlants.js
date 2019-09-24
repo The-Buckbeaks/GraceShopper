@@ -14,7 +14,6 @@ class AllPlants extends React.Component {
   render() {
     return (
       <div>
-        <ToastContainer />
         <h1 id="all-plants">All the Plants</h1>
         <div className="plant-container">
           {this.props.plants && this.props.plants.length ? (
