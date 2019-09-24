@@ -55,6 +55,21 @@ h4 {
   font-size: 20px;
 }
 
+.title {
+  font-family: 'Barriecito', cursive;
+  font-size: 48px;
+  text-align: center;
+}
+
+.title:hover {
+  transition: color 0.5s ease;
+  color: #94ddbc !important;
+}
+
+.title:visited {
+  color: white;
+}
+
 label {
   display: block;
 }
@@ -168,6 +183,15 @@ form div {
   transform: scale(1.2);
 }
 
+.cart-container {
+  margin: 4em;
+  align-self: center;
+}
+.cart-inner-container {
+  display: flex;
+  flex-direction: column;
+}
+
 .cart-item {
   display: flex;
 }
@@ -180,6 +204,21 @@ form div {
 
 #cart-item-info {
   padding-left: 10px;
+  width: 80%;
+}
+
+#cart-info-wrap {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: baseline;
+}
+
+.cart-footer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  width: 40%;
+  align-self: center;
 }
 
 #single-plant-title {
@@ -196,6 +235,10 @@ form div {
 
 .single-plant-container img {
   border-radius: 50px 10px 50px 10px;
+}
+
+.total-cost {
+  text-align: center;
 }
 
 #dropdown-menu {
