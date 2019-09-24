@@ -1,5 +1,4 @@
 import axios from 'axios'
-import {runInNewContext} from 'vm'
 
 // ACTION TYPES
 const GET_CART_ITEMS = 'GET_CART_ITEMS'
@@ -62,8 +61,9 @@ export const getCart = () => async dispatch => {
 export const addItemThunk = (plant, qty) => async dispatch => {
   try {
     plant.orderQty = Number(qty)
-    const res = await axios.post(`/api/orders/add/`, plant)
-    dispatch(addItem(res.data))
+    const res = await axios.post(`/api/orders/add`, plant)
+    // dispatch(addItem(res.data))
+    dispatch(getCart(res.data))
   } catch (err) {
     console.log('there was an error adding an item', err)
   }
@@ -73,7 +73,7 @@ export const addItemThunk = (plant, qty) => async dispatch => {
 export const removeItemThunk = plant => async dispatch => {
   try {
     plant.orderQty = 0
-    const res = await axios.post(`/api/orders/remove/`, plant)
+    const res = await axios.post(`/api/orders/remove`, plant)
     dispatch(removeItem(res.data))
   } catch (err) {
     console.log('there was an error removing an item', err)
@@ -83,7 +83,7 @@ export const removeItemThunk = plant => async dispatch => {
 //clearCart Thunk
 export const clearCart = () => async dispatch => {
   try {
-    const res = await axios.post(`/api/orders/clear/`)
+    const res = await axios.post(`/api/orders/clear`)
     dispatch(clearMyCart(res.data))
   } catch (err) {
     console.log('there was an error clearing the cart', err)
