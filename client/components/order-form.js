@@ -11,6 +11,7 @@ class OrderForm extends React.Component {
       address: '',
       shippingMethod: '',
       gift: 'no',
+      totalCost: this.props.totalCost,
       userId: this.props.user.id || null,
       submitted: false
     }
@@ -36,6 +37,7 @@ class OrderForm extends React.Component {
       address: '',
       shippingMethod: '',
       gift: 'no',
+      totalCost: this.props.totalCost,
       userId: this.props.user.id || null,
       submitted: true
     })
@@ -46,17 +48,12 @@ class OrderForm extends React.Component {
       return (
         <Redirect
           to={{
-            pathname: '/confirmation',
-            state: {
-              shippingMethod: this.state.shippingMethod,
-              userId: this.state.userId,
-              address: this.state.address
-            }
+            pathname: '/confirmation'
           }}
         />
       )
     }
-
+    console.log(this.state.totalCost)
     return (
       <div className="order">
         <h2>Order Checkout</h2>
@@ -121,7 +118,6 @@ const mapDispatchToProps = dispatch => ({
 })
 const mapStateToProps = state => ({
   order: state.order,
-  user: state.user,
-  cart: state.cart
+  user: state.user
 })
 export default connect(mapStateToProps, mapDispatchToProps)(OrderForm)

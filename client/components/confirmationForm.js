@@ -12,9 +12,10 @@ class confirmationForm extends React.Component {
         )}
 
         <br />
+
         <h2>Shopping Summary</h2>
         <h3>Order Confirmation Number: {this.props.order.id}</h3>
-        <h3>Total Cost: {this.props.order.totalCost}</h3>
+        <h3>Total Cost: ${(this.props.order.totalCost / 100).toFixed(2)}</h3>
         <h3>Shipping Method: {this.props.order.shippingMethod}</h3>
         <h3>Shipping to: {this.props.order.address}</h3>
       </div>

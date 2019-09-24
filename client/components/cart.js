@@ -11,6 +11,7 @@ class Cart extends Component {
       checkOut: false
     }
     this.checkOut = this.checkOut.bind(this)
+    this.totalCost = this.totalCost.bind(this)
   }
 
   componentDidMount() {
@@ -22,9 +23,15 @@ class Cart extends Component {
       checkOut: !this.state.checkOut
     })
   }
-
+  totalCost() {
+    return this.props.cart.plants.reduce((acc, curr) => {
+      acc += curr.orderQty * (curr.price / 100).toFixed(2)
+      return acc
+    }, 0)
+  }
   render() {
     const cart = this.props.cart
+    const totalCost = this.totalCost()
     return (
       <div className="cart-container">
         <h1>Your Shopping Cart</h1>
@@ -35,7 +42,11 @@ class Cart extends Component {
             {cart.plants.map(plant => (
               <SingleCartItem key={plant.id} plant={plant} />
             ))}
+            <div className="total-cost">
+              Total Cost: ${this.totalCost().toFixed(2)}
+            </div>
             <button
+              className="add-to-cart-button"
               type="submit"
               value="Submit"
               onClick={() => this.checkOut()}
@@ -43,13 +54,17 @@ class Cart extends Component {
               Checkout
             </button>
             <button
+              className="add-to-cart-button"
               type="reset"
               value="reset"
               onClick={() => this.props.clearCart()}
             >
               Clear Cart
             </button>
-            {this.state.checkOut ? <OrderForm /> : null}
+
+            {this.state.checkOut ? (
+              <OrderForm totalCost={totalCost * 100} />
+            ) : null}
           </div>
         ) : (
           <div className="cart-container">
