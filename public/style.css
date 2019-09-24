@@ -301,6 +301,9 @@ label {
   width: 70%;
 }
 
+.confirmation-container {
+  margin: 3em;
+}
 .heart {
   position: relative;
   width: 100px;
