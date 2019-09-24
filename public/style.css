@@ -26,6 +26,7 @@ a:visited {
 
 a:hover {
   color: #94ddbc;
+  cursor: pointer;
 }
 
 h1 {
@@ -39,18 +40,18 @@ h2 {
   font-size: 33px;
 }
 
-h2:hover {
-  transition: color 1s ease;
-  color: #fd3e81;
-  text-decoration-color: #5eba11;
+h3 {
+  color: #d81e5b;
+  font-size: 24px;
 }
 
-h3 {
-  color: black;
+h3:hover {
+  transition: color 0.5s ease;
+  color: #94ddbc;
 }
 
 h4 {
-  color: #fd3e81;
+  color: #331832;
   font-size: 20px;
 }
 
@@ -74,6 +75,7 @@ form div {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin: 0px;
 }
 
 .nav #nav-title {
@@ -113,13 +115,14 @@ form div {
   background: #d81e5b;
   box-shadow: 8px 10px #331832;
   width: 300px;
-  line-height: 50px;
+  line-height: 40px;
   padding: 5px;
-  margin: 10%;
+  margin: 15%;
 }
 
 .splash-right > div:hover {
   background: #f0544f;
+  cursor: pointer;
 }
 
 .grow {
@@ -144,18 +147,25 @@ form div {
   height: 250px;
 }
 
+#single-plant-title {
+  height: 50px;
+}
+
 .add-to-cart-button {
-  background-color: #5eba11;
+  background-color: #f0544f;
   border-radius: 5px;
   color: #fff;
   font-size: 20px;
   height: 40px;
   width: 150px;
+  transition: all 0.4s ease-in-out;
 }
-
 .add-to-cart-button:hover {
-  background-color: #fd3e81;
-  transition: color 1s ease;
+  background-color: #d81e5b;
+  border: none;
+  box-shadow: 2px 3px #331832;
+  cursor: pointer;
+  transform: scale(1.2);
 }
 
 .cart-item {
@@ -176,7 +186,7 @@ form div {
 }
 
 #dropdown-menu {
-  color: #5eba11;
+  color: #d81e5b;
   padding-bottom: 15px;
 }
 
