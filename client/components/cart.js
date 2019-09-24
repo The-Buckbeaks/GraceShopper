@@ -13,7 +13,7 @@ class Cart extends Component {
     this.checkOut = this.checkOut.bind(this)
   }
 
-  componentDidUpdate() {
+  componentDidMount() {
     this.props.getCart()
   }
 
@@ -49,12 +49,7 @@ class Cart extends Component {
             >
               Clear Cart
             </button>
-            {this.state.checkOut ? (
-              <OrderForm
-                orderId={cart.orderId}
-                userId={this.props.order.userId}
-              />
-            ) : null}
+            {this.state.checkOut ? <OrderForm /> : null}
           </div>
         ) : (
           <div className="cart-container">
@@ -68,8 +63,7 @@ class Cart extends Component {
 }
 
 const mapStateToProps = state => ({
-  cart: state.cart,
-  order: state.order
+  cart: state.cart
 })
 const mapDispatchToProps = dispatch => ({
   getCart: () => dispatch(getCart()),
