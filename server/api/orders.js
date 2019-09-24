@@ -53,7 +53,11 @@ router.post('/add', (req, res, next) => {
       inCart(id, req.session.cart)
     )
     if (inCart(id, cart)) {
-      req.session.orderQty += orderQty
+      req.session.cart.forEach(cartItem => {
+        if (cartItem.id === id) {
+          cartItem.orderQty = orderQty + cartItem.orderQty
+        }
+      })
     } else {
       req.session.cart = [
         ...req.session.cart,
@@ -61,7 +65,7 @@ router.post('/add', (req, res, next) => {
       ]
     }
     res.status(201)
-    res.json(req.session.cart[req.session.cart.length - 1])
+    res.json(req.session.cart)
   } catch (err) {
     next(err)
   }
