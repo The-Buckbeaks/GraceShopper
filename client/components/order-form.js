@@ -9,7 +9,7 @@ class OrderForm extends React.Component {
     super(props)
     this.state = {
       address: '',
-      shippingMethod: '',
+      shippingMethod: 'Standard Ground',
       gift: 'no',
       totalCost: Math.floor(this.props.totalCost),
       userId: this.props.user.id || null,
@@ -107,7 +107,9 @@ class OrderForm extends React.Component {
               onChange={this.handleSelect}
             />
           </label>
-          <button type="submit">Submit</button>
+          <button className="add-to-cart-button" type="submit">
+            Submit
+          </button>
         </form>
       </div>
     )

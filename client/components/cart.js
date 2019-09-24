@@ -63,7 +63,7 @@ class Cart extends Component {
             </button>
 
             {this.state.checkOut ? (
-              <OrderForm totalCost={totalCost * 100} />
+              <OrderForm totalCost={Math.floor(totalCost * 100)} />
             ) : null}
           </div>
         ) : (
