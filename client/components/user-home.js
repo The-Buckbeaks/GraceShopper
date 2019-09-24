@@ -31,7 +31,7 @@ class UserHome extends React.Component {
                     <h2>{order.address}</h2>
                     <h2>gift? {order.gift}</h2>
                     {order.plants.map(plant => {
-                      return <h4>{plant.name}</h4>
+                      return <h4 key={plant.id}>{plant.name}</h4>
                     })}
                   </div>
                 )

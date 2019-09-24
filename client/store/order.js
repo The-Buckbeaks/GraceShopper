@@ -49,7 +49,7 @@ const initialState = {
 const order = (state = initialState, action) => {
   switch (action.type) {
     case CHECKOUT: {
-      return {...state, orderHistory: action.orderHistory}
+      return action.order
     }
     case ORDER_HISTORY: {
       return action.orderHistory

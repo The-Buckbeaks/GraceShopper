@@ -47,12 +47,8 @@ router.post('/add', (req, res, next) => {
   try {
     if (!req.session.cart) req.session.cart = []
     const {id, name, price, imgUrl, orderQty} = req.body
-    const cart = req.session.cart
-    console.log(
-      'THIS IS THE RESULT OF CALLING INCART',
-      inCart(id, req.session.cart)
-    )
-    if (inCart(id, cart)) {
+
+    if (inCart(id, req.session.cart)) {
       req.session.cart.forEach(cartItem => {
         if (cartItem.id === id) {
           cartItem.orderQty = orderQty + cartItem.orderQty
@@ -122,7 +118,7 @@ router.post('/remove', (req, res, next) => {
 // SUBMITTING AN ORDER
 router.post('/submit', async (req, res, next) => {
   try {
-    const {address, shippingMethod, gift, userId} = req.body
+    const {address, shippingMethod, gift, userId, totalCost} = req.body
     const {cart} = req.session
 
     const order = await Order.create({
@@ -130,14 +126,15 @@ router.post('/submit', async (req, res, next) => {
       shippingMethod,
       gift,
       checkedOut: true,
-      userId
+      userId,
+      totalCost
     })
 
     cart.forEach(plant => {
       PlantOrder.create({
         orderId: order.id,
         plantId: plant.id,
-        quantity: plant.quantity
+        quantity: plant.orderQty
       })
     })
     const updatedOrder = await order.update({
