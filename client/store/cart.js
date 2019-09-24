@@ -1,4 +1,5 @@
 import axios from 'axios'
+import {runInNewContext} from 'vm'
 
 // ACTION TYPES
 const GET_CART_ITEMS = 'GET_CART_ITEMS'
@@ -6,6 +7,7 @@ const ADD_ITEM = 'ADD_ITEM'
 const REMOVE_ITEM = 'REMOVE_ITEM'
 const CLEAR_CART = 'CLEAR_CART'
 const CREATE_CART = 'CREATE_CART'
+const EDIT_ITEM = 'EDIT_ITEM'
 
 // INITIAL STATE
 const defaultCart = {
@@ -38,6 +40,11 @@ export const clearMyCart = cart => ({
 export const createCart = cart => ({
   type: CREATE_CART,
   cart
+})
+
+const editedItem = plant => ({
+  type: EDIT_ITEM,
+  plant
 })
 
 // THUNK CREATORS
@@ -96,6 +103,18 @@ export const clearCart = () => async dispatch => {
   }
 }
 
+//editItem Thunk
+
+export const editItem = (plant, qty) => async dispatch => {
+  try {
+    plant.orderQty = Number(qty)
+    const res = await axios.post('/api/orders/edit/', plant)
+    dispatch(editedItem(res.data))
+  } catch (err) {
+    console.log('there was an error editing the item', err)
+  }
+}
+
 // REDUCER
 
 const cart = (state = defaultCart, action) => {
@@ -130,6 +149,15 @@ const cart = (state = defaultCart, action) => {
       return {
         ...state,
         orderId: action.cart.id
+      }
+    }
+    case EDIT_ITEM: {
+      return {
+        ...state,
+        plants: [
+          ...state.plants.filter(plant => plant.id !== action.plant.id),
+          action.plant
+        ]
       }
     }
     default: {

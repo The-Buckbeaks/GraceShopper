@@ -133,6 +133,21 @@ router.post('/remove/', async (req, res, next) => {
     next(err)
   }
 })
+
+//EDIT ITEM IN CART
+router.post('/edit', async (req, res, next) => {
+  try {
+    const {id, name, price, imgUrl, orderQty} = req.body
+    req.session.cart = [
+      ...req.session.cart.filter(plant => plant.id !== id),
+      {id, name, price, imgUrl, orderQty}
+    ]
+    res.status(201)
+    res.json(req.session.cart[req.session.cart.length - 1])
+  } catch (err) {
+    next(err)
+  }
+})
 // DELETE ORDER
 // ADMIN USE ONLY - deleting cart/order from database (not clearing the cart)
 router.delete('/:id', async (req, res, next) => {
