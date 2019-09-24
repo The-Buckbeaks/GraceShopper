@@ -11,6 +11,7 @@ class OrderForm extends React.Component {
       address: '',
       shippingMethod: '',
       gift: 'no',
+      totalCost: this.props.totalCost,
       userId: this.props.user.id || null,
       submitted: false
     }
@@ -36,6 +37,7 @@ class OrderForm extends React.Component {
       address: '',
       shippingMethod: '',
       gift: 'no',
+      totalCost: this.props.totalCost,
       userId: this.props.user.id || null,
       submitted: true
     })
@@ -51,7 +53,7 @@ class OrderForm extends React.Component {
         />
       )
     }
-
+    console.log(this.state.totalCost)
     return (
       <div className="order">
         <h2>Order Checkout</h2>

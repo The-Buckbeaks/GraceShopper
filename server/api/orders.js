@@ -115,7 +115,7 @@ router.post('/remove', (req, res, next) => {
 // SUBMITTING AN ORDER
 router.post('/submit', async (req, res, next) => {
   try {
-    const {address, shippingMethod, gift, userId} = req.body
+    const {address, shippingMethod, gift, userId, totalCost} = req.body
     const {cart} = req.session
 
     const order = await Order.create({
@@ -123,7 +123,8 @@ router.post('/submit', async (req, res, next) => {
       shippingMethod,
       gift,
       checkedOut: true,
-      userId
+      userId,
+      totalCost
     })
 
     cart.forEach(plant => {

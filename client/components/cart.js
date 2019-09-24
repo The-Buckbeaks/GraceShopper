@@ -31,6 +31,7 @@ class Cart extends Component {
   }
   render() {
     const cart = this.props.cart
+    const totalCost = this.totalCost()
     return (
       <div className="cart-container">
         <h1>Your Shopping Cart</h1>
@@ -59,7 +60,9 @@ class Cart extends Component {
               Clear Cart
             </button>
 
-            {this.state.checkOut ? <OrderForm /> : null}
+            {this.state.checkOut ? (
+              <OrderForm totalCost={totalCost * 100} />
+            ) : null}
           </div>
         ) : (
           <div className="cart-container">
