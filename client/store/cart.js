@@ -11,15 +11,14 @@ const EDIT_ITEM = 'EDIT_ITEM'
 
 // INITIAL STATE
 const defaultCart = {
-  orderId: null,
   plants: []
 }
 
 // ACTION CREATORS
 
-const getCartItems = cart => ({
+const getCartItems = cartItems => ({
   type: GET_CART_ITEMS,
-  cart
+  cartItems
 })
 
 export const addItem = cartItem => ({
@@ -81,17 +80,6 @@ export const removeItemThunk = plant => async dispatch => {
   }
 }
 
-//createCart Thunk
-export const createCartThunk = () => async dispatch => {
-  //guest
-  try {
-    const res = await axios.post('/api/orders/', defaultCart)
-    dispatch(createCart(res.data))
-  } catch (err) {
-    console.log('there was an error creating a cart', err)
-  }
-}
-
 //clearCart Thunk
 export const clearCart = () => async dispatch => {
   try {
@@ -120,13 +108,11 @@ const cart = (state = defaultCart, action) => {
   switch (action.type) {
     case GET_CART_ITEMS: {
       return {
-        ...state,
-        plants: [...action.cart.plants]
+        plants: action.cartItems
       }
     }
     case ADD_ITEM: {
       return {
-        ...state,
         plants: [...state.plants, action.cartItem]
       }
     }
@@ -139,16 +125,7 @@ const cart = (state = defaultCart, action) => {
       }
     }
     case CLEAR_CART: {
-      return {
-        ...defaultCart,
-        orderId: action.cart.id
-      }
-    }
-    case CREATE_CART: {
-      return {
-        ...state,
-        orderId: action.cart.id
-      }
+      return defaultCart
     }
     case EDIT_ITEM: {
       return {
