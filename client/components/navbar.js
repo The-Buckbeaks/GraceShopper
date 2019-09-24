@@ -10,40 +10,47 @@ const Navbar = ({handleClick, isLoggedIn}) => (
       {isLoggedIn ? (
         <div className="nav">
           {/* The navbar will show these links after you log in */}
-          <h1 id="title">The Octopus' Garden</h1>
-          <Link className="link" to="/home">
-            Home
-          </Link>
-          <Link className="link" to="/cart">
-            Cart
-          </Link>
-          <Link className="link" to="/shop">
-            Shop
-          </Link>
-          <a href="#" onClick={handleClick}>
-            Logout
-          </a>
+          <div id="nav-title">
+            <h1 id="title">The Octopus' Garden</h1>
+          </div>
+          <div id="nav-links">
+            <Link className="grow" to="/home">
+              Home
+            </Link>
+            <Link className="grow" to="/shop">
+              Shop
+            </Link>
+            <Link className="grow" to="/cart">
+              Cart
+            </Link>
+            <a href="#" onClick={handleClick}>
+              Logout
+            </a>
+          </div>
         </div>
       ) : (
         <div className="nav">
           {/* The navbar will show these links before you log in */}
-          <h1 id="title">The Octopus's Garden</h1>
-          <Link className="link" to="/login">
-            Login
-          </Link>
-          <Link className="link" to="/signup">
-            Sign Up
-          </Link>
-          <Link className="link" to="/cart">
-            Cart
-          </Link>
-          <Link className="link" to="/shop">
-            Shop
-          </Link>
+          <div id="nav-title">
+            <h1 id="title">The Octopus' Garden</h1>
+          </div>
+          <div id="nav-links">
+            <Link className="grow" to="/login">
+              Login
+            </Link>
+            <Link className="grow" to="/signup">
+              Sign Up
+            </Link>
+            <Link className="grow" to="/shop">
+              Shop
+            </Link>
+            <Link className="grow" to="/cart">
+              Cart
+            </Link>
+          </div>
         </div>
       )}
     </nav>
-    <hr />
   </div>
 )
 

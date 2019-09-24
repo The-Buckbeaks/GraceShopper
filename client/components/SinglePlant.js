@@ -26,13 +26,13 @@ class SinglePlant extends React.Component {
     const {name, price, imgUrl, id} = this.props.plant
     return (
       <div className="single-plant-container">
-        <div id="single-plant-title">
-          <Link to={`/plants/${id}`}>
-            <h2 className="link">{name}</h2>
-          </Link>
-        </div>
         <div id="single-plant-info">
           <img src={imgUrl} alt={name} />
+          <div id="single-plant-title">
+            <Link to={`/plants/${id}`}>
+              <h3 className="link">{name}</h3>
+            </Link>
+          </div>
           <h4>Price: $ {(price / 100).toFixed(2)}</h4>
           <div id="dropdown-menu">
             <b>Select Quantity: </b>

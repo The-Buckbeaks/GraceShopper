@@ -23,7 +23,7 @@ router.get('/', async (req, res, next) => {
 })
 
 //GET CART
-router.get('/cart', async (req, res, next) => {
+router.get('/cart', (req, res, next) => {
   try {
     //need to figure out how to retrieve a req.session.cart that is associated with a logged in user
     if (!req.session.cart) req.session.cart = []
@@ -44,7 +44,6 @@ router.post('/submit', async (req, res, next) => {
       shippingMethod,
       gift,
       checkedOut: true,
-      totalCost,
       userId
     })
 
@@ -76,26 +75,8 @@ router.post('/clear/', async (req, res, next) => {
   }
 })
 
-// CREATE NEW CART
-// Creating a new cart for an order
-router.post('/', async (req, res, next) => {
-  try {
-    const order = await Order.create()
-    if (req.session.userId) {
-      order.setUser(req.session.userId)
-    }
-    if (!req.session.cartId) {
-      req.session.cartId = order.id
-    }
-    res.status(201)
-    res.json(order)
-  } catch (err) {
-    next(err)
-  }
-})
-
 // ADD ITEM TO CART
-router.post('/add', async (req, res, next) => {
+router.post('/add', (req, res, next) => {
   try {
     const {id, name, price, imgUrl, orderQty} = req.body
     if (!req.session.cart) req.session.cart = []
