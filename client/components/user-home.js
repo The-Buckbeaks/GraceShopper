@@ -30,14 +30,19 @@ class UserHome extends React.Component {
               this.props.orders.orderHistory.map(order => {
                 return (
                   <div className="order-item" key={order.id}>
-                    <h5>Order ID: {order.id}</h5>
-                    <h3>Shipped To: {order.address}</h3>
-                    <h3>Delivery Method: {order.shippingMethod}</h3>
-                    <h3>Was it a gift? {order.gift}</h3>
+                    <h3>Order ID: </h3>
+                    <p>🐙 {order.id}</p>
+                    <h3>Shipped To: </h3>
+                    <p>🏡 {order.address}</p>
+                    <h3>Delivery Method: </h3>
+                    <p>📬 {order.shippingMethod}</p>
+                    <h3>Was it a gift? </h3>
+                    <p>🎁 {order.gift}</p>
+                    <h3>Your Plants:</h3>
                     {order.plants.map(plant => {
                       return (
                         <p key={plant.id}>
-                          🌱 {plant.name} Quantity: 
+                          🌱 {plant.name} <br /> Quantity:
                           {plant.plantOrder.quantity}
                         </p>
                       )
