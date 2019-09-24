@@ -175,6 +175,7 @@ form div {
 .cart-item img {
   width: 250px;
   height: 250px;
+  border-radius: 50px 10px 50px 10px;
 }
 
 #cart-item-info {
@@ -185,8 +186,20 @@ form div {
   min-height: 50px;
 }
 
+.single-plant-container > div {
+  padding: 5px;
+  margin: 5px;
+  margin-left: auto;
+  align-content: center;
+  justify-content: center;
+}
+
+.single-plant-container img {
+  border-radius: 50px 10px 50px 10px;
+}
+
 #dropdown-menu {
-  color: #d81e5b;
+  color: #94ddbc;
   padding-bottom: 15px;
 }
 
