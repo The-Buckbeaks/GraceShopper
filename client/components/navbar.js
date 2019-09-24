@@ -34,7 +34,9 @@ const Navbar = ({handleClick, isLoggedIn}) => (
         <div className="nav">
           {/* The navbar will show these links before you log in */}
           <div id="nav-title">
-            <h1 id="title">The Octopus' Garden</h1>
+            <Link className="title" id="title" to="/">
+              The Octopus's Garden
+            </Link>
           </div>
           <div id="nav-links">
             <Link className="grow" to="/login">

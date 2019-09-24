@@ -126,7 +126,7 @@ form div {
 .splash-left img {
   margin-bottom: 0px;
   max-height: 100vh;
-  max-width: auto;
+  max-width: 90vw;
   position: fixed;
   bottom: 0;
   z-index: -1;
