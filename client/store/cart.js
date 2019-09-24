@@ -88,12 +88,10 @@ export const createCartThunk = () => async dispatch => {
 }
 
 //clearCart Thunk
-export const clearCart = orderId => async dispatch => {
+export const clearCart = () => async dispatch => {
   try {
-    const res = await axios.put(`/api/orders/clear/${orderId}`, defaultCart)
+    const res = await axios.post(`/api/orders/clear/`)
     dispatch(clearMyCart(res.data))
-    const newCart = await axios.post('/api/orders/', defaultCart)
-    dispatch(createCart(newCart.data))
   } catch (err) {
     console.log('there was an error clearing the cart', err)
   }

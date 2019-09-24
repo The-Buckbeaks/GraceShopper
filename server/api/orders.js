@@ -79,15 +79,10 @@ router.put('/:id', async (req, res, next) => {
 })
 
 //CLEAR CART
-router.put('/clear/:id', async (req, res, next) => {
+router.post('/clear/', async (req, res, next) => {
   try {
-    const destroyed = PlantOrder.destroy({
-      where: {
-        orderId: req.params.id
-      }
-    })
-
-    res.json(destroyed)
+    req.session.cart = []
+    res.json(req.session.cart)
   } catch (err) {
     next(err)
   }

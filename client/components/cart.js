@@ -46,7 +46,7 @@ class Cart extends Component {
             <button
               type="reset"
               value="reset"
-              onClick={() => this.props.clearCart(cart.orderId)}
+              onClick={() => this.props.clearCart()}
             >
               Clear Cart
             </button>
@@ -74,7 +74,7 @@ const mapStateToProps = state => ({
 })
 const mapDispatchToProps = dispatch => ({
   getCart: () => dispatch(getCart()),
-  clearCart: id => dispatch(clearCart(id))
+  clearCart: () => dispatch(clearCart())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Cart)
