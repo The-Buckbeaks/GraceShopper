@@ -29,11 +29,18 @@ class UserHome extends React.Component {
             this.props.orders.orderHistory.length ? (
               this.props.orders.orderHistory.map(order => {
                 return (
-                  <div className="order-item" key={order.id}>
-                    <h2>{order.address}</h2>
-                    <h2>gift? {order.gift}</h2>
+                  <div className="single-order-container" key={order.id}>
+                    <h5>Order ID: {order.id}</h5>
+                    <p>Shipped To: {order.address}</p>
+                    <p>Delivery Method: {order.shippingMethod}</p>
+                    <p>Was it a gift? {order.gift}</p>
                     {order.plants.map(plant => {
-                      return <h4 key={plant.id}>{plant.name}</h4>
+                      return (
+                        <p key={plant.id}>
+                          Item: {plant.name} Quantity:{' '}
+                          {plant.plantOrder.quantity}
+                        </p>
+                      )
                     })}
                   </div>
                 )
