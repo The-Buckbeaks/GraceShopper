@@ -25,6 +25,7 @@ router.post('/login', async (req, res, next) => {
 router.post('/signup', async (req, res, next) => {
   try {
     const user = await User.create(req.body)
+    req.session.userId = user.id
     req.login(user, err => (err ? next(err) : res.json(user)))
     // DO WE WANT TO ADD MORE FIELDS TO THIS SIGN UP ROUTE? e.g. address, city, state, password, etc? admin privileges?
   } catch (err) {

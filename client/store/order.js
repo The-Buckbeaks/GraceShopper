@@ -52,7 +52,7 @@ const order = (state = initialState, action) => {
       return action.order
     }
     case ORDER_HISTORY: {
-      return action.orderHistory
+      return {...state, orderHistory: action.orderHistory}
     }
     default: {
       return state

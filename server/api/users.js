@@ -19,7 +19,7 @@ router.get('/', async (req, res, next) => {
 router.get('/orders', async (req, res, next) => {
   try {
     const orders = await Order.findAll({
-      where: {userId: req.session.userId},
+      where: {userId: req.user.id},
       include: [
         {
           model: Plant,
