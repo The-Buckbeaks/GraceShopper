@@ -57,9 +57,15 @@ class SingleCartItem extends React.Component {
                   <sub>
                     <i>(${(plant.price / 100).toFixed(2)} each)</i>
                   </sub>
-                  <button type="button" onClick={this.handleClick}>
-                    Remove Item
-                  </button>
+                  <div>
+                    <button
+                      className="add-to-cart-button"
+                      type="button"
+                      onClick={this.handleClick}
+                    >
+                      Remove Item
+                    </button>
+                  </div>
                 </div>
               </div>
             ) : (
