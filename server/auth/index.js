@@ -5,12 +5,13 @@ module.exports = router
 //Log in
 router.post('/login', async (req, res, next) => {
   try {
-    const user = await User.findOne({where: {email: req.body.email}})
+    const {email, password} = req.body
+    const user = await User.findOne({where: {email: email}})
     if (!user) {
-      console.log('No such user found:', req.body.email)
+      console.log('No such user found:', email)
       res.status(401).send('Wrong username and/or password')
-    } else if (!user.correctPassword(req.body.password)) {
-      console.log('Incorrect password for user:', req.body.email)
+    } else if (!user.correctPassword(password)) {
+      console.log('Incorrect password for user:', email)
       res.status(401).send('Wrong username and/or password')
     } else {
       req.session.userId = user.id
@@ -24,7 +25,11 @@ router.post('/login', async (req, res, next) => {
 //Creates a new user
 router.post('/signup', async (req, res, next) => {
   try {
-    const user = await User.create(req.body)
+    const {email, password} = req.body
+    const user = await User.create({
+      email: email,
+      password: password
+    })
     req.session.userId = user.id
     req.login(user, err => (err ? next(err) : res.json(user)))
     // DO WE WANT TO ADD MORE FIELDS TO THIS SIGN UP ROUTE? e.g. address, city, state, password, etc? admin privileges?
