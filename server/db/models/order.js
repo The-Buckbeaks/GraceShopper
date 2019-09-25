@@ -24,7 +24,6 @@ const Order = db.define('order', {
     type: Sequelize.BOOLEAN,
     defaultValue: false
   }
-  //Siwin: We can add a shipped date, payment method, etc later
 })
 
 module.exports = Order
