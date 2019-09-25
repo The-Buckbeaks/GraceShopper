@@ -2,7 +2,7 @@
 
 An e-commerce platform to connect you and your fellow octopodes with fun, pun-tastic aquatic plants.
 
-<a href="https://octopuss-garden.myherokuapp.com">🔗 Visit Us! 🌿</a>
+<a href="https://octopuss-garden.herokuapp.com">🔗 Visit Us! 🌿</a>
 
 ## 🐙About
 
