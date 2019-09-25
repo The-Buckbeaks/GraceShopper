@@ -6,7 +6,6 @@ const ADD_ITEM = 'ADD_ITEM'
 const REMOVE_ITEM = 'REMOVE_ITEM'
 const CLEAR_CART = 'CLEAR_CART'
 const CREATE_CART = 'CREATE_CART'
-const EDIT_ITEM = 'EDIT_ITEM'
 
 // INITIAL STATE
 const defaultCart = {
@@ -38,11 +37,6 @@ export const clearMyCart = cart => ({
 export const createCart = cart => ({
   type: CREATE_CART,
   cart
-})
-
-const editedItem = plants => ({
-  type: EDIT_ITEM,
-  plants
 })
 
 // THUNK CREATORS
@@ -126,11 +120,6 @@ const cart = (state = defaultCart, action) => {
     }
     case CLEAR_CART: {
       return defaultCart
-    }
-    case EDIT_ITEM: {
-      return {
-        plants: action.plants
-      }
     }
     default: {
       return state

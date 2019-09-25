@@ -2,7 +2,6 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {checkoutThunk} from '../store'
 import {Redirect} from 'react-router-dom'
-import ConfirmationForm from './confirmationForm'
 
 class OrderForm extends React.Component {
   constructor(props) {
