@@ -68,7 +68,6 @@ router.post('/add', (req, res, next) => {
 })
 
 //CLEAR CART
-// maybe this can be a DELETE request instead?
 router.post('/clear', (req, res, next) => {
   try {
     req.session.cart = []
@@ -79,7 +78,6 @@ router.post('/clear', (req, res, next) => {
 })
 
 //EDIT ITEM IN CART
-// maybe this can be a PUT request instead?
 router.post('/edit', (req, res, next) => {
   try {
     const {id, name, price, imgUrl, orderQty} = req.body
@@ -103,7 +101,6 @@ router.post('/edit', (req, res, next) => {
 })
 
 // REMOVE ITEM FROM CART
-// maybe this can be a PUT request instead?
 router.post('/remove', (req, res, next) => {
   try {
     const {id} = req.body

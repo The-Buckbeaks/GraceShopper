@@ -1,5 +1,4 @@
 import axios from 'axios'
-import {runInNewContext} from 'vm'
 
 const CHECKOUT = 'CHECKOUT'
 const ORDER_HISTORY = 'ORDER_HISTORY'
@@ -21,9 +20,6 @@ export const checkoutThunk = orderInfo => async dispatch => {
   } catch (err) {
     console.log('There was an error checking out.', err)
   }
-  // try {   we need to write a thunk that updates the inventory quantity of each plant in the order....
-  //   const res = await axios.put('/api/plants/${plant.id}')
-  // }
 }
 export const getOrderHistory = () => async dispatch => {
   try {
@@ -33,7 +29,6 @@ export const getOrderHistory = () => async dispatch => {
     console.log(err)
   }
 }
-// Need a name to ship to even if the user is a guest
 
 const initialState = {
   id: '',
