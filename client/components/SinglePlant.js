@@ -30,7 +30,6 @@ class SinglePlant extends React.Component {
       qty: event.target.value
     })
   }
-  // notify = () => toast("Item added!");
 
   render() {
     const {name, price, imgUrl, id} = this.props.plant
