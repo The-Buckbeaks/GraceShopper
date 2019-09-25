@@ -32,7 +32,6 @@ router.post('/signup', async (req, res, next) => {
     })
     req.session.userId = user.id
     req.login(user, err => (err ? next(err) : res.json(user)))
-    // DO WE WANT TO ADD MORE FIELDS TO THIS SIGN UP ROUTE? e.g. address, city, state, password, etc? admin privileges?
   } catch (err) {
     if (err.name === 'SequelizeUniqueConstraintError') {
       res.status(401).send('User already exists')

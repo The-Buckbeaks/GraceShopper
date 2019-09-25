@@ -2,11 +2,18 @@
 
 An e-commerce platform to connect you and your fellow octopodes with fun, pun-tastic aquatic plants.
 
-[octopus's garden]: https://octopuss-garden.myherokuapp.com
+<a href="https://octopuss-garden.myherokuapp.com">🔗 Visit Us! 🌿</a>
 
 ## 🐙About
 
 Octopus's Garden was built by <a href="https://github.com/The-Buckbeaks">the Buckbeaks</a>, a team of 4 senior phase software engineering immersive students as part of the Grace Hopper Program at Fullstack Academy of Code, New York.
+
+We are:
+
+* <a href="https://github.com/bicipeng">Casey Peng</a>
+* <a href="https://github.com/martha-ivana">Martha Syryca</a>
+* <a href="https://github.com/petradish">Petra Laohakul</a>
+* <a href="https://github.com/siwinlo">Siwin Lo</a>
 
 ## 💻 Technologies Used
 
